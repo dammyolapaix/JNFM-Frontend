@@ -23,6 +23,14 @@ export default function DrawerLinks() {
               <ListItemText primary="Dashboard" />
             </a>
           </Link>
+          <Link href="/members" legacyBehavior>
+            <a className="flex items-center">
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary="Members" />
+            </a>
+          </Link>
         </ListItem>
       </List>
       <Divider />
