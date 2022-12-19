@@ -53,12 +53,12 @@ export default function Layout({
           <div className="bg-primary p-5">
             <div className="flex flex-row-reverse">
               <HiMenu
-                className="text-3xl cursor-pointer text-white"
+                className="text-xl cursor-pointer text-white"
                 onClick={toggleSidenav}
               />
             </div>
           </div>
-          <section className="p-10">{children}</section>
+          <section className="p-5 lg:p-10">{children}</section>
         </main>
       </section>
     </>
