@@ -35,18 +35,6 @@ const Members: FC<{ membersRes: IMembersRes }> = ({ membersRes }) => {
               {membersRes.members.map((member) => (
                 <MemberItem key={member._id} member={member} />
               ))}
-              {membersRes.members.map((member) => (
-                <MemberItem key={member._id} member={member} />
-              ))}
-              {membersRes.members.map((member) => (
-                <MemberItem key={member._id} member={member} />
-              ))}
-              {membersRes.members.map((member) => (
-                <MemberItem key={member._id} member={member} />
-              ))}
-              {membersRes.members.map((member) => (
-                <MemberItem key={member._id} member={member} />
-              ))}
             </tbody>
           </table>
         </div>

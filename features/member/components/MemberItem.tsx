@@ -15,7 +15,7 @@ const MemberItem: FC<{ member: IMember }> = ({
         {/* <td>
       {!dateOfBirth ? 'Not Given' : age(dateOfBirth)}
     </td> */}
-        <td className="flex items-center">
+        <td className="flex items-center mt-2">
           <Link
             href={`/members/${_id}`}
             className="bg-secondary hover:bg-tertiary text-white rounded-md py-2 px-4 mr-3"
