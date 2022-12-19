@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import { IMember } from '../index'
+import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
 
 const MemberItem: FC<{ member: IMember }> = ({
   member: { _id, fullName, gender, dateOfBirth },
@@ -10,19 +11,22 @@ const MemberItem: FC<{ member: IMember }> = ({
       <tr className="border">
         <td className="p-3">{`${!fullName ? '' : fullName}`}</td>
         <td>{!gender ? 'Not Given' : gender?.at(0)}</td>
+        <td>32</td>
         {/* <td>
       {!dateOfBirth ? 'Not Given' : age(dateOfBirth)}
     </td> */}
-        <td>
-          <Link legacyBehavior href={`/members/${_id}`}>
-            <a className="bg-blue-900 text-white rounded-md py-2 px-4">
-              View Member
-            </a>
+        <td className="flex items-center">
+          <Link
+            href={`/members/${_id}`}
+            className="bg-secondary hover:bg-tertiary text-white rounded-md py-2 px-4 mr-3"
+          >
+            <MdRemoveRedEye />
           </Link>
-          <Link legacyBehavior href={`/members/${_id}/edit`}>
-            <a className="bg-blue-900 text-white rounded-md py-2 px-4">
-              Edit Member
-            </a>
+          <Link
+            href={`/members/${_id}/edit`}
+            className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4"
+          >
+            <MdEdit />
           </Link>
         </td>
       </tr>
