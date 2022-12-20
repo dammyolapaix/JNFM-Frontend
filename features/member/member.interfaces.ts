@@ -28,7 +28,7 @@ export interface IMembersRes {
 
 export interface IMemberRes {
   success: boolean
-  member: IMember
+  member: null | IMember
 }
 
 export interface IMemberRequestQuery {
@@ -51,4 +51,12 @@ export interface IMemberRequestQuery {
   email?: string | undefined
   'phoneNumbers.countryCode'?: string | undefined
   'phoneNumbers.number'?: string | undefined
+}
+
+export interface IMemberInitialState {
+  isLoading: boolean
+  isSuccess: boolean
+  isError: boolean
+  error: null
+  memberResCRUD: IMemberRes
 }

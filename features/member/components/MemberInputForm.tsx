@@ -4,9 +4,12 @@ import {
   CustomDropDown,
   CustomTextField,
 } from '../../../components'
-import { IMemberRequestQuery } from '../member.interfaces'
+import { useAppDispatch } from '../../../hooks'
+import { addMemberAction, IMemberRequestQuery } from '../index'
 
 const MemberInputForm = () => {
+  const dispatch = useAppDispatch()
+
   const [values, setValues] = useState<IMemberRequestQuery>({
     lastName: '',
     firstName: '',
@@ -81,6 +84,7 @@ const MemberInputForm = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    dispatch(addMemberAction(values))
   }
 
   return (
@@ -94,7 +98,7 @@ const MemberInputForm = () => {
           <CustomTextField
             label={'Surname/Family Name'}
             type={'text'}
-            name={'surname'}
+            name={'lastName'}
             value={lastName ? lastName : ''}
             isRequired={true}
             changeHandler={handleChange}
@@ -167,7 +171,11 @@ const MemberInputForm = () => {
                 label={'Phone Number'}
                 type={'tel'}
                 name={'phoneNumbers.number'}
-                value={occupation ? occupation : ''}
+                value={
+                  values['phoneNumbers.number']
+                    ? values['phoneNumbers.number']
+                    : ''
+                }
                 isRequired={false}
                 changeHandler={handleChange}
               />

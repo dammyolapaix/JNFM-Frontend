@@ -4,6 +4,7 @@ import IMember, {
   IMemberRes,
   IMembersRes,
   IMemberRequestQuery,
+  IMemberInitialState,
 } from './member.interfaces'
 
 // Importing Components
@@ -13,7 +14,13 @@ import MemberItem from './components/MemberItem'
 import Members from './components/Members'
 
 // Importing Services
-import { getMembers, getSingleMemberById } from './member.services'
+import { getMembers, getSingleMemberById, addMember } from './member.services'
+
+// Importing Services
+import { addMemberAction } from './member.actions'
+
+// Importing Slice
+import memberReducers, { resetMember } from './member.slices'
 
 // Exporting Interfaces
 export type {
@@ -22,10 +29,17 @@ export type {
   IMemberRes,
   IMembersRes,
   IMemberRequestQuery,
+  IMemberInitialState,
 }
 
 // Exporting components
 export { Members, MemberDetails, MemberItem, MemberInputForm }
 
 // Exporting Services
-export { getMembers, getSingleMemberById }
+export { getMembers, getSingleMemberById, addMember }
+
+// Exporting Actions
+export { addMemberAction }
+
+// Exporting Slice
+export { memberReducers, resetMember }
