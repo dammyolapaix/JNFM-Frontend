@@ -1,18 +1,18 @@
 import { InferGetStaticPropsType, NextPage } from 'next'
-import { Layout } from '../../components'
+import { Layout } from '../../../components'
 import {
   getMembers,
   getSingleMemberById,
   IMember,
-  MemberDetails,
-} from '../../features/member'
+  MemberInputForm,
+} from '../../../features/member'
 
-const SingleMemberPage: NextPage<
+const EditMemberPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ member }) => {
   return (
     <Layout>
-      <MemberDetails member={member} />
+      {member && member !== null && <MemberInputForm member={member} />}
     </Layout>
   )
 }
@@ -46,4 +46,4 @@ export async function getStaticProps({ params: { id } }: IContext) {
   }
 }
 
-export default SingleMemberPage
+export default EditMemberPage

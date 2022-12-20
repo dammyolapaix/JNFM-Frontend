@@ -1,13 +1,13 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import {
   CustomButton,
   CustomDropDown,
   CustomTextField,
 } from '../../../components'
 import { useAppDispatch } from '../../../hooks'
-import { addMemberAction, IMemberRequestQuery } from '../index'
+import { addMemberAction, IMember, IMemberRequestQuery } from '../index'
 
-const MemberInputForm = () => {
+const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
   const dispatch = useAppDispatch()
 
   const [values, setValues] = useState<IMemberRequestQuery>({
@@ -75,6 +75,12 @@ const MemberInputForm = () => {
     },
   ]
 
+  useEffect(() => {
+    if (member) {
+      setValues(member)
+    }
+  }, [member])
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -90,7 +96,7 @@ const MemberInputForm = () => {
   return (
     <section className="shadow-md p-3 rounded-md mt-5">
       <div className="text-2xl text-secondary font-extrabold mb-10">
-        Add A New Member
+        {!member ? 'Add A New Member' : 'Edit Member'}
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -198,7 +204,7 @@ const MemberInputForm = () => {
             changeHandler={handleChange}
           />
         </div>
-        <CustomButton value={'Add Member'} />
+        <CustomButton value={!member ? 'Add Member' : 'Update Member'} />
       </form>
     </section>
   )
