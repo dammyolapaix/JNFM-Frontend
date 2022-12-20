@@ -4,7 +4,7 @@ export interface IBaseMember {
   otherNames?: string | undefined
   fullName: string
   gender: 'Male' | 'Female'
-  dateOfBirth?: Date
+  dateOfBirth?: string
   maritalStatus?: 'Single' | 'Married' | 'Divorced' | 'Widowed'
   occupation?: string | undefined
   postalAddress?: string | undefined
