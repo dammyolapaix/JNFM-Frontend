@@ -24,7 +24,7 @@ const MemberDetails: FC<{ member: IMember }> = ({
           Members Details
         </h1>
         <Link
-          href={`/patients/${_id}/edit`}
+          href={`/members/${_id}/edit`}
           className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
         >
           <MdEdit />

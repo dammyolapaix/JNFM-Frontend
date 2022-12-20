@@ -30,3 +30,25 @@ export interface IMemberRes {
   success: boolean
   member: IMember
 }
+
+export interface IMemberRequestQuery {
+  firstName?: string
+  lastName?: string
+  otherNames?: string | undefined
+  fullName?: string
+  gender: string | 'Male' | 'Female'
+  dateOfBirth?: string
+  maritalStatus?:
+    | string
+    | undefined
+    | 'Single'
+    | 'Married'
+    | 'Divorced'
+    | 'Widowed'
+  occupation?: string | undefined
+  postalAddress?: string | undefined
+  homeAddress?: string | undefined
+  email?: string | undefined
+  'phoneNumbers.countryCode'?: string | undefined
+  'phoneNumbers.number'?: string | undefined
+}

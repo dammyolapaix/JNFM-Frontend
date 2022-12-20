@@ -13,7 +13,7 @@ const Members: FC<{ membersRes: IMembersRes }> = ({ membersRes }) => {
             Members ({membersRes.count})
           </h1>
           <Link
-            href={`/patients/new`}
+            href={`/members/new`}
             className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
           >
             <MdAdd />
