@@ -60,3 +60,8 @@ export interface IMemberInitialState {
   error: null
   memberResCRUD: IMemberRes
 }
+
+export interface IMemberEditReq {
+  id: IMember['_id']
+  member: IMemberRequestQuery
+}

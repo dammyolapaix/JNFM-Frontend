@@ -1,15 +1,34 @@
+import { useEffect } from 'react'
 import { InferGetStaticPropsType, NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { Layout } from '../../../components'
 import {
   getMembers,
   getSingleMemberById,
   IMember,
   MemberInputForm,
+  resetMember,
 } from '../../../features/member'
+import { useAppDispatch, useAppSelector } from '../../../hooks'
 
 const EditMemberPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ member }) => {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+
+  const {
+    isSuccess,
+    memberResCRUD: { member: updatedMember },
+  } = useAppSelector((state) => state.member)
+
+  useEffect(() => {
+    if (isSuccess && updatedMember !== null) {
+      dispatch(resetMember())
+      router.push(`/members/${member?._id}`)
+    }
+  }, [router, dispatch, isSuccess, updatedMember])
+
   return (
     <Layout>
       {member && member !== null && <MemberInputForm member={member} />}

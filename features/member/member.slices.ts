@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { addMemberAction, IMemberInitialState, IMemberRes } from './index'
+import {
+  addMemberAction,
+  editMemberAction,
+  IMemberInitialState,
+  IMemberRes,
+} from './index'
 
 const initialState = {
   isLoading: false,
@@ -37,6 +42,27 @@ export const memberSlices = createSlice({
     )
     builder.addCase(
       addMemberAction.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false
+        state.isError = true
+        state.error = action.payload
+      }
+    )
+
+    // Edit Member
+    builder.addCase(editMemberAction.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(
+      editMemberAction.fulfilled,
+      (state, action: PayloadAction<IMemberRes>) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.memberResCRUD = action.payload
+      }
+    )
+    builder.addCase(
+      editMemberAction.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false
         state.isError = true

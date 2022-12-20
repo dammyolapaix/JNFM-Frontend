@@ -13,3 +13,11 @@ export const addMember = async (member: IMemberRequestQuery) => {
   const { data } = await makeRequest.post<IMemberRes>(`/members`, member)
   return data
 }
+
+export const editMember = async (
+  id: IMember['_id'],
+  member: IMemberRequestQuery
+) => {
+  const { data } = await makeRequest.patch<IMemberRes>(`/members/${id}`, member)
+  return data
+}

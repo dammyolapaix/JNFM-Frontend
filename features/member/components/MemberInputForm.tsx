@@ -5,7 +5,12 @@ import {
   CustomTextField,
 } from '../../../components'
 import { useAppDispatch } from '../../../hooks'
-import { addMemberAction, IMember, IMemberRequestQuery } from '../index'
+import {
+  addMemberAction,
+  editMemberAction,
+  IMember,
+  IMemberRequestQuery,
+} from '../index'
 
 const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
   const dispatch = useAppDispatch()
@@ -90,7 +95,11 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(addMemberAction(values))
+    if (member) {
+      dispatch(editMemberAction({ id: member._id, member: values }))
+    } else {
+      dispatch(addMemberAction(values))
+    }
   }
 
   return (
