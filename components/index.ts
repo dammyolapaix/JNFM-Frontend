@@ -1,4 +1,3 @@
-
 import CustomButton from './form/CustomButton'
 import CustomDropDown from './form/CustomDropDown'
 import CustomTextField from './form/CustomTextField'
@@ -7,4 +6,12 @@ import SideNav from './layout/SideNav'
 import QueryResult from './QueryResult'
 import Spinner from './Spinner'
 
-export { CustomButton, CustomDropDown, CustomTextField, Layout, SideNav, QueryResult, Spinner }
+export {
+  CustomButton,
+  CustomDropDown,
+  CustomTextField,
+  Layout,
+  SideNav,
+  QueryResult,
+  Spinner,
+}

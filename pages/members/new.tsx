@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Layout } from '../../components'
+import { Layout, QueryResult } from '../../components'
 import { MemberInputForm, resetMember } from '../../features/member'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { toast, ToastContainer } from 'react-toastify'
@@ -11,6 +11,9 @@ const AddNewMemberPage = () => {
   const dispatch = useAppDispatch()
 
   const {
+    isLoading,
+    isError,
+    error,
     isSuccess,
     memberResCRUD: { member },
   } = useAppSelector((state) => state.member)
@@ -21,11 +24,19 @@ const AddNewMemberPage = () => {
       dispatch(resetMember())
       router.push('/members')
     }
-  }, [router, dispatch, isSuccess, member])
+  }, [router, dispatch, isLoading, isError, error, isSuccess, member])
 
   return (
     <Layout>
       <ToastContainer />
+
+      <QueryResult
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        error={error}
+      ></QueryResult>
+
       <MemberInputForm />
     </Layout>
   )
