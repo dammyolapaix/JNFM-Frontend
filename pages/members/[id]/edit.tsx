@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { InferGetStaticPropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { Layout } from '../../../components'
+import { Layout, QueryResult } from '../../../components'
 import {
   getMembers,
   getSingleMemberById,
@@ -20,6 +20,9 @@ const EditMemberPage: NextPage<
   const dispatch = useAppDispatch()
 
   const {
+    isLoading,
+    isError,
+    error,
     isSuccess,
     memberResCRUD: { member: updatedMember },
   } = useAppSelector((state) => state.member)
@@ -30,11 +33,19 @@ const EditMemberPage: NextPage<
       dispatch(resetMember())
       router.push(`/members/${member?._id}`)
     }
-  }, [router, dispatch, isSuccess, updatedMember])
+  }, [router, dispatch, isLoading, isError, error, isSuccess, updatedMember])
 
   return (
     <Layout>
       <ToastContainer />
+
+      <QueryResult
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        error={error}
+      ></QueryResult>
+
       {member && member !== null && <MemberInputForm member={member} />}
     </Layout>
   )
