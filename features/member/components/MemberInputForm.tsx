@@ -26,8 +26,8 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
     postalAddress: '',
     homeAddress: '',
     email: '',
-    'phoneNumbers.countryCode': '',
-    'phoneNumbers.number': '',
+    // 'phoneNumbers.countryCode': '',
+    // 'phoneNumbers.number': '',
   })
 
   const {
@@ -54,12 +54,12 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
     },
   ]
 
-  const countriesCode = [
-    {
-      value: '233',
-      label: 'Ghana (233)',
-    },
-  ]
+  // const countriesCode = [
+  //   {
+  //     value: '233',
+  //     label: 'Ghana (233)',
+  //   },
+  // ]
 
   const maritalStatuses = [
     {
@@ -166,7 +166,15 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
             isRequired={false}
             changeHandler={handleChange}
           />
-          <div className="flex">
+          <CustomTextField
+            label={'Email'}
+            type={'email'}
+            name={'email'}
+            value={email ? email : ''}
+            isRequired={false}
+            changeHandler={handleChange}
+          />
+          {/* <div className="flex">
             <div className="mr-1 w-4/12">
               <CustomDropDown
                 label={'Country Code'}
@@ -195,7 +203,7 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
                 changeHandler={handleChange}
               />
             </div>
-          </div>
+          </div> */}
           <CustomTextField
             label={'Postal Address'}
             type={'text'}
