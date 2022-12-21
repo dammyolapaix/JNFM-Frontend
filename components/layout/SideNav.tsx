@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { FC } from 'react'
-import { MdDashboard } from 'react-icons/md'
-import { MdGroup } from 'react-icons/md'
+import { MdDashboard, MdGroup } from 'react-icons/md'
+import { FaChurch } from 'react-icons/fa'
 
 const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
   return (
@@ -24,6 +24,13 @@ const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
         >
           <MdGroup className="mr-3" />
           <div className="font-semibold">Members</div>
+        </Link>
+        <Link
+          href={'/services'}
+          className="flex items-center border-b py-5 hover:text-secondary"
+        >
+          <FaChurch className="mr-3" />
+          <div className="font-semibold">Church Services</div>
         </Link>
       </div>
     </aside>
