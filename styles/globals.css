@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -45,3 +44,4 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
