@@ -10,6 +10,8 @@ import {
   resetMember,
 } from '../../../features/member'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const EditMemberPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
@@ -24,6 +26,7 @@ const EditMemberPage: NextPage<
 
   useEffect(() => {
     if (isSuccess && updatedMember !== null) {
+      toast.success('Member updated successfully')
       dispatch(resetMember())
       router.push(`/members/${member?._id}`)
     }
@@ -31,6 +34,7 @@ const EditMemberPage: NextPage<
 
   return (
     <Layout>
+      <ToastContainer />
       {member && member !== null && <MemberInputForm member={member} />}
     </Layout>
   )
