@@ -7,12 +7,17 @@ import {
   getChurchServices,
   getSingleChurchServiceById,
 } from './churchService.services'
+import ChurchSeriveInputForm from './components/ChurchSeriveInputForm'
 import ChurchServices from './components/ChurchSerives'
 import ChurchServiceDetails from './components/ChurchServiceDetails'
 import ChurchServiceItem from './components/ChurchServiceItem'
-ChurchServiceItem
 
-export { ChurchServices, ChurchServiceItem, ChurchServiceDetails }
+export {
+  ChurchSeriveInputForm,
+  ChurchServices,
+  ChurchServiceDetails,
+  ChurchServiceItem,
+}
 
 export type {
   IChurchService,
