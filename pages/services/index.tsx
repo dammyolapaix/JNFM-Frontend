@@ -16,8 +16,6 @@ const ChurchServicesPage: NextPage<
   )
 }
 
-export default ChurchServicesPage
-
 export const getServerSideProps: GetServerSideProps<{
   churchServicesRes: IChurchServicesRes
 }> = async () => {
@@ -35,3 +33,5 @@ export const getServerSideProps: GetServerSideProps<{
     },
   }
 }
+
+export default ChurchServicesPage
