@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import { Layout } from '../../../components'
 import {
+  ChurchServiceDetails,
   getChurchServices,
   getSingleChurchServiceById,
   IChurchService,
@@ -13,7 +14,11 @@ const SingleChurchServicePage: NextPage<{ churchService: IChurchService }> = ({
   churchService,
 }) => {
   console.log()
-  return <Layout>lll</Layout>
+  return (
+    <Layout>
+      <ChurchServiceDetails churchService={churchService} />
+    </Layout>
+  )
 }
 
 interface IParams extends ParsedUrlQuery {
@@ -48,8 +53,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       notFound: true,
     }
   }
-
-  console.log(churchService)
 
   return {
     props: { churchService },

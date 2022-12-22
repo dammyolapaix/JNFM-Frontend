@@ -8,10 +8,11 @@ import {
   getSingleChurchServiceById,
 } from './churchService.services'
 import ChurchServices from './components/ChurchSerives'
+import ChurchServiceDetails from './components/ChurchServiceDetails'
 import ChurchServiceItem from './components/ChurchServiceItem'
 ChurchServiceItem
 
-export { ChurchServices, ChurchServiceItem }
+export { ChurchServices, ChurchServiceItem, ChurchServiceDetails }
 
 export type {
   IChurchService,
