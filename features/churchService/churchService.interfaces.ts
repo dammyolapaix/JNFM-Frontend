@@ -18,3 +18,11 @@ export interface IChurchServiceRes {
   success: boolean
   churchService: null | IChurchService
 }
+
+export interface IChurchServiceInitialState {
+  isLoading: boolean
+  isSuccess: boolean
+  isError: boolean
+  error: null
+  churchServiceResCRUD: IChurchServiceRes
+}

@@ -14,7 +14,7 @@ const ChurchServices: FC<{ churchServicesRes: IChurchServicesRes }> = ({
             ChurchService ({churchServicesRes.count})
           </h1>
           <Link
-            href={`/members/new`}
+            href={`/services/new`}
             className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
           >
             <MdAdd />
