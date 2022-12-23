@@ -1,7 +1,10 @@
+import { IAttendance } from '../attendance'
+
 export interface IBaseChurchService {
   date?: string | undefined
   startsAt?: string | undefined
   endsAt?: string | undefined
+  attendances?: IAttendance[]
 }
 
 export default interface IChurchService extends IBaseChurchService {
