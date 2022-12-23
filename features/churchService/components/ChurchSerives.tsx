@@ -29,6 +29,7 @@ const ChurchServices: FC<{ churchServicesRes: IChurchServicesRes }> = ({
                 <th className="p-3">Date</th>
                 <th>Starts At</th>
                 <th>Ends At</th>
+                <th>Attendances</th>
               </tr>
             </thead>
             <tbody>

@@ -4,7 +4,7 @@ import { IChurchService } from '../index'
 import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
 
 const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
-  churchService: { _id, date, endsAt, startsAt },
+  churchService: { _id, date, endsAt, startsAt, attendances },
 }) => {
   return (
     <>
@@ -12,6 +12,18 @@ const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
         <td className="p-3">{!date ? 'Not Given' : date}</td>
         <td>{!startsAt ? 'Not Given' : startsAt}</td>
         <td>{!endsAt ? 'Not Given' : endsAt}</td>
+        <td className="text-center">
+          {!attendances ? (
+            '0'
+          ) : (
+            <Link
+              href={`/services/${_id}/attendances`}
+              className="hover:text-tertiary underline"
+            >
+              {attendances.length}
+            </Link>
+          )}
+        </td>
         <td className="flex items-center mt-2">
           <Link
             href={`/services/${_id}`}
