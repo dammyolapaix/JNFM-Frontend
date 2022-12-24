@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import { IMember } from '../index'
-import { MdEdit, MdCall } from 'react-icons/md'
+import { MdEdit } from 'react-icons/md'
 
 const MemberDetails: FC<{ member: IMember }> = ({
   member: {
@@ -14,7 +14,7 @@ const MemberDetails: FC<{ member: IMember }> = ({
     maritalStatus,
     occupation,
     postalAddress,
-    phoneNumbers,
+    // phoneNumbers,
   },
 }) => {
   return (
@@ -60,7 +60,7 @@ const MemberDetails: FC<{ member: IMember }> = ({
           <h3 className="font-semibold">Occupation</h3>
           <h4>{occupation ? occupation : 'Not Given'}</h4>
         </div>
-        <div className="mb-5">
+        {/* <div className="mb-5">
           <h3 className="font-semibold">Phone Numbers</h3>
           {!phoneNumbers
             ? 'Not Given'
@@ -79,7 +79,7 @@ const MemberDetails: FC<{ member: IMember }> = ({
                   </a>
                 </div>
               ))}
-        </div>
+        </div> */}
         <div className="mb-5">
           <h3 className="font-semibold">Home Address</h3>
           <h4>{homeAddress ? homeAddress : 'Not Given'}</h4>
