@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
-import { InferGetStaticPropsType, NextPage } from 'next'
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Layout, QueryResult } from '../../../components'
 import {
   getMembers,
   getSingleMemberById,
   IMember,
+  IMembersRes,
   MemberInputForm,
   resetMember,
 } from '../../../features/member'
@@ -13,9 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const EditMemberPage: NextPage<
-  InferGetStaticPropsType<typeof getStaticProps>
-> = ({ member }) => {
+const EditMemberPage: NextPage<{ member: IMember }> = ({ member }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
@@ -52,9 +51,7 @@ const EditMemberPage: NextPage<
 }
 
 export async function getStaticPaths() {
-  const {
-    data: { members },
-  } = await getMembers()
+  const { members }: IMembersRes = await getMembers()
 
   const paths = members.map((member) => ({
     params: { id: member?._id },
@@ -70,9 +67,7 @@ interface IContext {
 }
 
 export async function getStaticProps({ params: { id } }: IContext) {
-  const {
-    data: { member },
-  } = await getSingleMemberById(id)
+  const { member } = await getSingleMemberById(id)
 
   return {
     props: { member },

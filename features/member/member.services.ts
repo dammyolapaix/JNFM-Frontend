@@ -2,11 +2,13 @@ import { makeRequest } from '../../lib'
 import { IMember, IMemberRequestQuery, IMemberRes, IMembersRes } from './index'
 
 export const getMembers = async () => {
-  return await makeRequest.get<IMembersRes>('/members')
+  const { data } = await makeRequest.get<IMembersRes>('/members')
+  return data
 }
 
 export const getSingleMemberById = async (id: IMember['_id']) => {
-  return await makeRequest.get<IMemberRes>(`/members/${id}`)
+  const { data } = await makeRequest.get<IMemberRes>(`/members/${id}`)
+  return data
 }
 
 export const addMember = async (member: IMemberRequestQuery) => {
