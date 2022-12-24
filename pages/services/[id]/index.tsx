@@ -13,7 +13,6 @@ import {
 const SingleChurchServicePage: NextPage<{ churchService: IChurchService }> = ({
   churchService,
 }) => {
-  console.log()
   return (
     <Layout>
       <ChurchServiceDetails churchService={churchService} />

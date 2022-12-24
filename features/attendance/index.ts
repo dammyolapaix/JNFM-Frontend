@@ -7,9 +7,12 @@ import IAttendance, {
 
 // Importing Components
 import Attendances from './components/Attendances'
+import AttendanceItem from './components/MarkAttendanceItem'
+import MarkAttendance from './components/MarkAttendance'
 
 // Importing Services
 import { getAttendances } from './attendance.services'
+import MarkAttendanceItem from './components/MarkAttendanceItem'
 
 // Importing Actions
 
@@ -19,7 +22,7 @@ import { getAttendances } from './attendance.services'
 export type { IAttendance, IBaseAttendance, IAttendanceRes, IAttendancesRes }
 
 // Exporting components
-export { Attendances }
+export { Attendances, AttendanceItem, MarkAttendance, MarkAttendanceItem }
 
 // Exporting Services
 export { getAttendances }

@@ -3,7 +3,7 @@ import { IMember } from '../member'
 
 export interface IBaseAttendance {
   member: IMember
-  churchService: IChurchService
+  churchService: IChurchService['_id'] | IChurchService
 }
 
 export default interface IAttendance extends IBaseAttendance {
