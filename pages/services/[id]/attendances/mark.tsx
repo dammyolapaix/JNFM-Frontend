@@ -1,19 +1,23 @@
 import { useEffect } from 'react'
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import { NextPage } from 'next'
 import { Layout, QueryResult } from '../../../../components'
 import {
   MarkAttendance,
   resetAttendance,
 } from '../../../../features/attendance'
-import { getMembers, IMembersRes } from '../../../../features/member'
+import { getMembersAction } from '../../../../features/member'
 import { useAppDispatch, useAppSelector } from '../../../../hooks'
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
-const MarkChurchServiceAttendancePage: NextPage<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ members }) => {
+const MarkChurchServiceAttendancePage: NextPage = () => {
   const dispatch = useAppDispatch()
+
+  const {
+    isLoading: memberIsLoading,
+    isError: memberIsError,
+    error: memberError,
+    isSuccess: memberIsSucces,
+    membersRes: { members },
+  } = useAppSelector((state) => state.member)
 
   const {
     isLoading,
@@ -24,15 +28,13 @@ const MarkChurchServiceAttendancePage: NextPage<
   } = useAppSelector((state) => state.attendance)
 
   useEffect(() => {
+    dispatch(getMembersAction())
     if (isSuccess && attendance !== null) {
-      toast.success('Member marked as present')
       dispatch(resetAttendance())
     }
   }, [dispatch, isLoading, isError, error, isSuccess, attendance])
   return (
     <Layout>
-      <ToastContainer />
-
       <QueryResult
         isLoading={isLoading}
         isSuccess={isSuccess}
@@ -40,25 +42,16 @@ const MarkChurchServiceAttendancePage: NextPage<
         error={error}
       ></QueryResult>
 
-      <MarkAttendance members={members} />
+      <QueryResult
+        isLoading={memberIsLoading}
+        isSuccess={memberIsSucces}
+        isError={memberIsError}
+        error={memberError}
+      >
+        <MarkAttendance members={members} />
+      </QueryResult>
     </Layout>
   )
 }
 
 export default MarkChurchServiceAttendancePage
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { members }: IMembersRes = await getMembers()
-
-  if (!members) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      members,
-    },
-  }
-}

@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { getMembers } from '../member'
 import { IBaseAttendance, takeAttendance } from './index'
 
 export const takeAttendanceAction = createAsyncThunk(
