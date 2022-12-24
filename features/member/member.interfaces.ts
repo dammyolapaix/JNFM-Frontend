@@ -61,7 +61,7 @@ export interface IMemberInitialState {
   isSuccess: boolean
   isError: boolean
   error: null
-  members: IMembersRes
+  membersRes: IMembersRes
   memberResCRUD: IMemberRes
 }
 
