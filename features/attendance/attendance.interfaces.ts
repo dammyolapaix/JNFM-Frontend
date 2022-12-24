@@ -2,8 +2,8 @@ import { IChurchService } from '../churchService'
 import { IMember } from '../member'
 
 export interface IBaseAttendance {
-  member: IMember
-  churchService: IChurchService
+  member: IMember['_id'] | IMember
+  churchService: IChurchService['_id'] | IChurchService
 }
 
 export default interface IAttendance extends IBaseAttendance {
@@ -19,4 +19,12 @@ export interface IAttendancesRes {
 export interface IAttendanceRes {
   success: boolean
   attendance: null | IAttendance
+}
+
+export interface IAttendanceInitialState {
+  isLoading: boolean
+  isSuccess: boolean
+  isError: boolean
+  error: null
+  attendanceResCRUD: IAttendanceRes
 }
