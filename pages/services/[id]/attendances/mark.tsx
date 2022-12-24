@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
-import { InferGetServerSidePropsType, NextPage } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Layout, QueryResult } from '../../../../components'
 import {
   MarkAttendance,
   resetAttendance,
 } from '../../../../features/attendance'
-import { getMembers } from '../../../../features/member'
+import { getMembers, IMembersRes } from '../../../../features/member'
 import { useAppDispatch, useAppSelector } from '../../../../hooks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -47,10 +47,8 @@ const MarkChurchServiceAttendancePage: NextPage<
 
 export default MarkChurchServiceAttendancePage
 
-export const getServerSideProps = async () => {
-  const {
-    data: { members },
-  } = await getMembers()
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { members }: IMembersRes = await getMembers()
 
   if (!members) {
     return {
