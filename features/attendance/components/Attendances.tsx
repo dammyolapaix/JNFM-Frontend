@@ -46,9 +46,15 @@ const Attendances: FC<{ attendancesRes: IAttendancesRes }> = ({
               </tr>
             </thead>
             <tbody>
-              {attendancesRes.attendances.map((attendance) => (
-                <MemberItem key={attendance._id} member={attendance.member} />
-              ))}
+              {attendancesRes.attendances.map(
+                (attendance) =>
+                  typeof attendance.member === 'object' && (
+                    <MemberItem
+                      key={attendance._id}
+                      member={attendance.member}
+                    />
+                  )
+              )}
             </tbody>
           </table>
         </div>

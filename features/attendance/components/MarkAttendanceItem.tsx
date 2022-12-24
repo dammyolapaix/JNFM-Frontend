@@ -1,13 +1,17 @@
-import { FC } from 'react'
+import { FC, FormEvent } from 'react'
 import Link from 'next/link'
 import { MdEdit } from 'react-icons/md'
 import { IChurchService } from '../../churchService'
 import { IMember } from '../../member'
+import { useAppDispatch } from '../../../hooks'
+import { takeAttendanceAction } from '../attendance.actions'
 
 const MarkAttendanceItem: FC<{
   member: IMember
   churchServiceId: IChurchService['_id']
 }> = ({ member: { _id, fullName, gender, attendances }, churchServiceId }) => {
+  const dispatch = useAppDispatch()
+
   const memberIsPresent =
     attendances &&
     attendances.some(
@@ -30,13 +34,20 @@ const MarkAttendanceItem: FC<{
         </td>
         <td className="flex items-center my-2">
           {typeof memberIsPresent !== 'undefined' && !memberIsPresent ? (
-            <Link
-              href={`/members/${_id}/edit`}
+            <button
+              onClick={() =>
+                dispatch(
+                  takeAttendanceAction({
+                    churchService: churchServiceId,
+                    member: _id,
+                  })
+                )
+              }
               className="flex items-center justify-center bg-green-600 hover:bg-green-700 text-white rounded-md py-2 px-4"
             >
               <MdEdit className="mr-1" />{' '}
               <span className="ml-1">Mark Present</span>
-            </Link>
+            </button>
           ) : (
             <Link
               href={`/members/${_id}/edit`}
