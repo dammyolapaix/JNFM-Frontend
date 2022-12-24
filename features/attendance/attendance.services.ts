@@ -1,6 +1,11 @@
 import { makeRequest } from '../../lib'
 import { IChurchService } from '../churchService'
-import { IAttendanceRes, IAttendancesRes, IBaseAttendance } from '../attendance'
+import {
+  IAttendance,
+  IAttendanceRes,
+  IAttendancesRes,
+  IBaseAttendance,
+} from '../attendance'
 
 export const getAttendances = async (
   churchServiceId: IChurchService['_id']
@@ -16,6 +21,13 @@ export const takeAttendance = async (attendance: IBaseAttendance) => {
   const { data } = await makeRequest.post<IAttendanceRes>(
     `/churchServices/${churchService}/attendances`,
     { member }
+  )
+  return data
+}
+
+export const markAsAbsent = async (attendanceId: IAttendance['_id']) => {
+  const { data } = await makeRequest.delete<IAttendanceRes>(
+    `/attendances/${attendanceId}`
   )
   return data
 }
