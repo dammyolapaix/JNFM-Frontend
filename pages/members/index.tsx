@@ -1,7 +1,7 @@
-import { InferGetServerSidePropsType, NextPage } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import React from 'react'
 import { Layout } from '../../components'
-import { getMembers, Members } from '../../features/member'
+import { getMembers, IMembersRes, Members } from '../../features/member'
 
 const MembersPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -15,8 +15,10 @@ const MembersPage: NextPage<
 
 export default MembersPage
 
-export const getServerSideProps = async () => {
-  const { data: membersRes } = await getMembers()
+export const getServerSideProps: GetServerSideProps<{
+  membersRes: IMembersRes
+}> = async () => {
+  const membersRes: IMembersRes = await getMembers()
 
   return {
     props: {
