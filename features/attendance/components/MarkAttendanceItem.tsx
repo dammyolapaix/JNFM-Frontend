@@ -1,6 +1,7 @@
 import { FC, FormEvent } from 'react'
 import Link from 'next/link'
-import { MdEdit } from 'react-icons/md'
+import { ImCross } from 'react-icons/im'
+import { TiTick } from 'react-icons/ti'
 import { IChurchService } from '../../churchService'
 import { IMember } from '../../member'
 import { useAppDispatch } from '../../../hooks'
@@ -45,7 +46,7 @@ const MarkAttendanceItem: FC<{
               }
               className="flex items-center justify-center bg-green-600 hover:bg-green-700 text-white rounded-md py-2 px-4"
             >
-              <MdEdit className="mr-1" />{' '}
+              <TiTick className="mr-1 text-lg" />
               <span className="ml-1">Mark Present</span>
             </button>
           ) : (
@@ -53,7 +54,7 @@ const MarkAttendanceItem: FC<{
               href={`/members/${_id}/edit`}
               className="flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-md py-2 px-4"
             >
-              <MdEdit className="mr-1" />{' '}
+              <ImCross className="mr-1 text-xs" />{' '}
               <span className="ml-1">Mark Absent</span>
             </Link>
           )}
