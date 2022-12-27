@@ -1,10 +1,11 @@
-import { FC, FormEvent } from 'react'
+import { FC } from 'react'
 import Link from 'next/link'
-import { MdEdit } from 'react-icons/md'
+import { ImCross } from 'react-icons/im'
+import { TiTick } from 'react-icons/ti'
 import { IChurchService } from '../../churchService'
 import { IMember } from '../../member'
 import { useAppDispatch } from '../../../hooks'
-import { takeAttendanceAction } from '../attendance.actions'
+import { markAsAbsentAction, takeAttendanceAction } from '../attendance.actions'
 
 const MarkAttendanceItem: FC<{
   member: IMember
@@ -15,6 +16,14 @@ const MarkAttendanceItem: FC<{
   const memberIsPresent =
     attendances &&
     attendances.some(
+      (attendance) =>
+        typeof attendance.churchService === 'string' &&
+        attendance.churchService === churchServiceId
+    )
+
+  const churchServiceAttendance =
+    attendances &&
+    attendances.filter(
       (attendance) =>
         typeof attendance.churchService === 'string' &&
         attendance.churchService === churchServiceId
@@ -32,8 +41,8 @@ const MarkAttendanceItem: FC<{
             <span className="text-red-500">Absent</span>
           )}
         </td>
-        <td className="flex items-center my-2">
-          {typeof memberIsPresent !== 'undefined' && !memberIsPresent ? (
+        {typeof memberIsPresent !== 'undefined' && !memberIsPresent && (
+          <td className="flex items-center my-2">
             <button
               onClick={() =>
                 dispatch(
@@ -45,19 +54,24 @@ const MarkAttendanceItem: FC<{
               }
               className="flex items-center justify-center bg-green-600 hover:bg-green-700 text-white rounded-md py-2 px-4"
             >
-              <MdEdit className="mr-1" />{' '}
-              <span className="ml-1">Mark Present</span>
+              <TiTick className="text-xs" />
             </button>
-          ) : (
-            <Link
-              href={`/members/${_id}/edit`}
-              className="flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-md py-2 px-4"
-            >
-              <MdEdit className="mr-1" />{' '}
-              <span className="ml-1">Mark Absent</span>
-            </Link>
+          </td>
+        )}
+        {typeof memberIsPresent !== 'undefined' &&
+          memberIsPresent &&
+          typeof churchServiceAttendance !== 'undefined' && (
+            <td>
+              <button
+                onClick={() =>
+                  dispatch(markAsAbsentAction(churchServiceAttendance[0]._id))
+                }
+                className="flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-md py-2 px-4"
+              >
+                <ImCross className="text-xs" />
+              </button>
+            </td>
           )}
-        </td>
       </tr>
     </>
   )
