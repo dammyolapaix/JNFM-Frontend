@@ -32,6 +32,13 @@ const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
           <FaChurch className="mr-3" />
           <div className="font-semibold">Church Services</div>
         </Link>
+        <Link
+          href={'/departments'}
+          className="flex items-center border-b py-5 hover:text-secondary"
+        >
+          <FaChurch className="mr-3" />
+          <div className="font-semibold">Departments</div>
+        </Link>
       </div>
     </aside>
   )
