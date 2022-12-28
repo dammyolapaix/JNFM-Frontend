@@ -4,6 +4,7 @@ import IDepartment, {
   IDepartmentRes,
   IDepartmentsRes,
   IDepartmentInitialState,
+  IDepartmentEditReq,
 } from './department.interfaces'
 
 // Importing Components
@@ -17,13 +18,13 @@ import {
   getDepartments,
   getSingleDepartmentById,
   addDepartment,
-  //   editDepartment,
+  editDepartment,
 } from './department.services'
 
 // Importing Actions
 import {
   addDepartmentAction,
-  // editDepartmentAction,
+  editDepartmentAction,
   // getDepartmentsAction,
 } from './department.actions'
 
@@ -37,6 +38,7 @@ export type {
   IDepartmentRes,
   IDepartmentsRes,
   IDepartmentInitialState,
+  IDepartmentEditReq,
 }
 
 // Exporting components
@@ -47,13 +49,14 @@ export {
   getDepartments,
   getSingleDepartmentById,
   addDepartment,
-  //   editDepartment,
+  editDepartment,
 }
 
 // Exporting Actions
 export {
   addDepartmentAction,
-  // editDepartmentAction, getDepartmentsAction
+  editDepartmentAction,
+  // getDepartmentsAction
 }
 
 // Exporting Slice

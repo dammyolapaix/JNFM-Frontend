@@ -30,3 +30,8 @@ export interface IDepartmentInitialState {
   departmentsRes: IDepartmentsRes
   departmentResCRUD: IDepartmentRes
 }
+
+export interface IDepartmentEditReq {
+  id: IDepartment['_id']
+  department: IBaseDepartment
+}

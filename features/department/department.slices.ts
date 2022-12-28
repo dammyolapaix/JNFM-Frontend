@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {
   addDepartmentAction,
+  editDepartmentAction,
   IDepartmentInitialState,
   IDepartmentRes,
 } from './index'
@@ -29,7 +30,7 @@ export const departmentSlices = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Add Member
+    // Add Department
     builder.addCase(addDepartmentAction.pending, (state) => {
       state.isLoading = true
     })
@@ -43,6 +44,27 @@ export const departmentSlices = createSlice({
     )
     builder.addCase(
       addDepartmentAction.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false
+        state.isError = true
+        state.error = action.payload
+      }
+    )
+
+    // Add Department
+    builder.addCase(editDepartmentAction.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(
+      editDepartmentAction.fulfilled,
+      (state, action: PayloadAction<IDepartmentRes>) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.departmentResCRUD = action.payload
+      }
+    )
+    builder.addCase(
+      editDepartmentAction.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false
         state.isError = true

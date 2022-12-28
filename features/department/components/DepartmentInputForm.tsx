@@ -1,7 +1,12 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { CustomButton, CustomTextField } from '../../../components'
 import { useAppDispatch } from '../../../hooks'
-import { addDepartmentAction, IBaseDepartment, IDepartment } from '../index'
+import {
+  addDepartmentAction,
+  editDepartmentAction,
+  IBaseDepartment,
+  IDepartment,
+} from '../index'
 
 const DepartmentInputForm: FC<{ department?: IDepartment }> = ({
   department,
@@ -30,7 +35,9 @@ const DepartmentInputForm: FC<{ department?: IDepartment }> = ({
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (department) {
-      //   Dispatch editDepartmentAction goes here
+      const { _id: id } = department
+      console.log(department)
+      dispatch(editDepartmentAction({ id, department: values }))
     } else {
       dispatch(addDepartmentAction(values))
     }

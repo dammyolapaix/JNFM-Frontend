@@ -23,3 +23,14 @@ export const addDepartment = async (department: IBaseDepartment) => {
   )
   return data
 }
+
+export const editDepartment = async (
+  id: IDepartment['_id'],
+  department: IBaseDepartment
+) => {
+  const { data } = await makeRequest.patch<IDepartmentRes>(
+    `/departments/${id}`,
+    department
+  )
+  return data
+}
