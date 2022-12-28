@@ -13,6 +13,8 @@ import MemberDetails from './components/MemberDetails'
 import MemberInputForm from './components/MemberInputForm'
 import MemberItem from './components/MemberItem'
 import Members from './components/Members'
+import MembersTable from './components/MembersTable'
+import MembersTableLayout from './components/MembersTableLayout'
 
 // Importing Services
 import {
@@ -44,7 +46,14 @@ export type {
 }
 
 // Exporting components
-export { Members, MemberDetails, MemberItem, MemberInputForm }
+export {
+  Members,
+  MemberDetails,
+  MemberItem,
+  MemberInputForm,
+  MembersTable,
+  MembersTableLayout,
+}
 
 // Exporting Services
 export { getMembers, getSingleMemberById, addMember, editMember }
