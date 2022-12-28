@@ -6,7 +6,7 @@ import IDepartment, {
 } from './department.interfaces'
 
 // Importing Components
-// import DepartmentDetails from './components/DepartmentDetails'
+import DepartmentDetails from './components/DepartmentDetails'
 // import DepartmentInputForm from './components/DepartmentInputForm'
 import DepartmentItem from './components/DepartmentItem'
 import Departments from './components/Departments'
@@ -14,7 +14,7 @@ import Departments from './components/Departments'
 // Importing Services
 import {
   getDepartments,
-  //   getSingleDepartmentById,
+  getSingleDepartmentById,
   //   addDepartment,
   //   editDepartment,
 } from './department.services'
@@ -36,13 +36,14 @@ export type { IDepartment, IBaseDepartment, IDepartmentRes, IDepartmentsRes }
 export {
   Departments,
   DepartmentItem,
-  // DepartmentDetails,  DepartmentInputForm
+  DepartmentDetails,
+  //   DepartmentInputForm
 }
 
 // Exporting Services
 export {
   getDepartments,
-  //   getSingleDepartmentById,
+  getSingleDepartmentById,
   //   addDepartment,
   //   editDepartment,
 }
