@@ -3,6 +3,7 @@ import IDepartment, {
   IBaseDepartment,
   IDepartmentRes,
   IDepartmentsRes,
+  IDepartmentInitialState,
 } from './department.interfaces'
 
 // Importing Components
@@ -15,22 +16,28 @@ import Departments from './components/Departments'
 import {
   getDepartments,
   getSingleDepartmentById,
-  //   addDepartment,
+  addDepartment,
   //   editDepartment,
 } from './department.services'
 
-// // Importing Actions
-// import {
-//   addDepartmentAction,
-//   editDepartmentAction,
-//   getDepartmentsAction,
-// } from './Department.actions'
+// Importing Actions
+import {
+  addDepartmentAction,
+  // editDepartmentAction,
+  // getDepartmentsAction,
+} from './department.actions'
 
-// // Importing Slice
-// import DepartmentReducers, { resetDepartment } from './Department.slices'
+// Importing Slice
+import departmentReducers, { resetDepartment } from './department.slices'
 
 // Exporting Interfaces
-export type { IDepartment, IBaseDepartment, IDepartmentRes, IDepartmentsRes }
+export type {
+  IDepartment,
+  IBaseDepartment,
+  IDepartmentRes,
+  IDepartmentsRes,
+  IDepartmentInitialState,
+}
 
 // Exporting components
 export { Departments, DepartmentItem, DepartmentDetails, DepartmentInputForm }
@@ -39,12 +46,15 @@ export { Departments, DepartmentItem, DepartmentDetails, DepartmentInputForm }
 export {
   getDepartments,
   getSingleDepartmentById,
-  //   addDepartment,
+  addDepartment,
   //   editDepartment,
 }
 
 // Exporting Actions
-// export { addDepartmentAction, editDepartmentAction, getDepartmentsAction }
+export {
+  addDepartmentAction,
+  // editDepartmentAction, getDepartmentsAction
+}
 
-// // Exporting Slice
-// export { DepartmentReducers, resetDepartment }
+// Exporting Slice
+export { departmentReducers, resetDepartment }

@@ -1,5 +1,10 @@
 import { makeRequest } from '../../lib'
-import { IDepartment, IDepartmentRes, IDepartmentsRes } from './index'
+import {
+  IBaseDepartment,
+  IDepartment,
+  IDepartmentRes,
+  IDepartmentsRes,
+} from './index'
 
 export const getDepartments = async () => {
   const { data } = await makeRequest.get<IDepartmentsRes>('/departments')
@@ -8,5 +13,13 @@ export const getDepartments = async () => {
 
 export const getSingleDepartmentById = async (id: IDepartment['_id']) => {
   const { data } = await makeRequest.get<IDepartmentRes>(`/departments/${id}`)
+  return data
+}
+
+export const addDepartment = async (department: IBaseDepartment) => {
+  const { data } = await makeRequest.post<IDepartmentRes>(
+    `/departments`,
+    department
+  )
   return data
 }

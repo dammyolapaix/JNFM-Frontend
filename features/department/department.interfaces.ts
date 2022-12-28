@@ -21,3 +21,12 @@ export interface IDepartmentRes {
   success: boolean
   department: null | IMember
 }
+
+export interface IDepartmentInitialState {
+  isLoading: boolean
+  isSuccess: boolean
+  isError: boolean
+  error: null
+  departmentsRes: IDepartmentsRes
+  departmentResCRUD: IDepartmentRes
+}

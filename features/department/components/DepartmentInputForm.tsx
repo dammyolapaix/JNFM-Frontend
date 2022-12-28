@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { CustomButton, CustomTextField } from '../../../components'
 import { useAppDispatch } from '../../../hooks'
-import { IBaseDepartment, IDepartment } from '../index'
+import { addDepartmentAction, IBaseDepartment, IDepartment } from '../index'
 
 const DepartmentInputForm: FC<{ department?: IDepartment }> = ({
   department,
@@ -32,7 +32,7 @@ const DepartmentInputForm: FC<{ department?: IDepartment }> = ({
     if (department) {
       //   Dispatch editDepartmentAction goes here
     } else {
-      //   Dispatch addDepartmentAction goes here
+      dispatch(addDepartmentAction(values))
     }
   }
 
@@ -47,7 +47,7 @@ const DepartmentInputForm: FC<{ department?: IDepartment }> = ({
           <CustomTextField
             label={'Department Name'}
             type={'text'}
-            name={'Department Name'}
+            name={'name'}
             value={name ? name : ''}
             isRequired={true}
             changeHandler={handleChange}
