@@ -34,7 +34,10 @@ const DepartmentDetails: FC<{ department: IDepartment }> = ({
 
       <div className="mt-10">
         {members && members.length > 0 ? (
-          <MembersTableLayout membersData={members} />
+          <MembersTableLayout
+            membersData={members}
+            href={'/departments/members/new'}
+          />
         ) : (
           <div className="text-center text-2xl text-bold">No Member</div>
         )}
