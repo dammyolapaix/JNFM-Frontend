@@ -1,7 +1,8 @@
 import { FC } from 'react'
 import Link from 'next/link'
 import { IDepartment } from '../index'
-import { MdAdd, MdEdit } from 'react-icons/md'
+import { MdEdit } from 'react-icons/md'
+import { MembersTableLayout } from '../../member'
 
 const DepartmentDetails: FC<{ department: IDepartment }> = ({
   department: { _id, name, members },
@@ -31,25 +32,13 @@ const DepartmentDetails: FC<{ department: IDepartment }> = ({
         </div>
       </div>
 
-      {members && members.length > 0 ? (
-        <div className="mt-10">
-          <div className="flex justify-between items-center">
-            <h1 className="font-bold text-xl mb-5 text-secondary">
-              Members ({members.length})
-            </h1>
-            <Link
-              href={`/departments/members/new`}
-              className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
-            >
-              <MdAdd />
-              <div className="">Add New Member</div>
-            </Link>
-          </div>
-          {/* Department Members  go here*/}
-        </div>
-      ) : (
-        <div className="text-center text-2xl">No Member</div>
-      )}
+      <div className="mt-10">
+        {members && members.length > 0 ? (
+          <MembersTableLayout membersData={members} />
+        ) : (
+          <div className="text-center text-2xl text-bold">No Member</div>
+        )}
+      </div>
     </section>
   )
 }
