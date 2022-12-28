@@ -48,3 +48,15 @@ export const addMemberToDepartment = async (
   )
   return data
 }
+
+export const removeMemberFromDepartment = async (
+  departmentMemberReq: IDepartmentMemberReq
+) => {
+  const { departmentId: id, member } = departmentMemberReq
+
+  const { data } = await makeRequest.patch<IDepartmentRes>(
+    `/departments/${id}/members/remove`,
+    { member }
+  )
+  return data
+}

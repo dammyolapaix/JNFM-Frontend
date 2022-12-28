@@ -23,6 +23,7 @@ import {
   addDepartment,
   editDepartment,
   addMemberToDepartment,
+  removeMemberFromDepartment,
 } from './department.services'
 
 // Importing Actions
@@ -30,6 +31,7 @@ import {
   addDepartmentAction,
   editDepartmentAction,
   addMemberToDepartmentAction,
+  removeMemberFromDepartmentAction,
   // getDepartmentsAction,
 } from './department.actions'
 
@@ -64,6 +66,7 @@ export {
   addDepartment,
   editDepartment,
   addMemberToDepartment,
+  removeMemberFromDepartment,
 }
 
 // Exporting Actions
@@ -71,6 +74,7 @@ export {
   addDepartmentAction,
   editDepartmentAction,
   addMemberToDepartmentAction,
+  removeMemberFromDepartmentAction,
   // getDepartmentsAction
 }
 

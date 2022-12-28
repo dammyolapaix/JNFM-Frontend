@@ -6,6 +6,7 @@ import {
   IDepartmentInitialState,
   IDepartmentRes,
   addMemberToDepartmentAction,
+  removeMemberFromDepartmentAction,
 } from './index'
 
 const initialState = {
@@ -87,6 +88,27 @@ export const departmentSlices = createSlice({
     )
     builder.addCase(
       addMemberToDepartmentAction.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false
+        state.isError = true
+        state.error = action.payload
+      }
+    )
+
+    // Remove Member From Department
+    builder.addCase(removeMemberFromDepartmentAction.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(
+      removeMemberFromDepartmentAction.fulfilled,
+      (state, action: PayloadAction<IDepartmentRes>) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.departmentResCRUD = action.payload
+      }
+    )
+    builder.addCase(
+      removeMemberFromDepartmentAction.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false
         state.isError = true

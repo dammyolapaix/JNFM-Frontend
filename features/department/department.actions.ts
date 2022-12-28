@@ -6,6 +6,7 @@ import {
   IBaseDepartment,
   IDepartmentEditReq,
   IDepartmentMemberReq,
+  removeMemberFromDepartment,
 } from './index'
 
 export const addDepartmentAction = createAsyncThunk(
@@ -36,6 +37,17 @@ export const addMemberToDepartmentAction = createAsyncThunk(
   async (departmentMemberReq: IDepartmentMemberReq, thunkAPI) => {
     try {
       return await addMemberToDepartment(departmentMemberReq)
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data.error)
+    }
+  }
+)
+
+export const removeMemberFromDepartmentAction = createAsyncThunk(
+  'department/removeMemberFromDepartmentAction',
+  async (departmentMemberReq: IDepartmentMemberReq, thunkAPI) => {
+    try {
+      return await removeMemberFromDepartment(departmentMemberReq)
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data.error)
     }

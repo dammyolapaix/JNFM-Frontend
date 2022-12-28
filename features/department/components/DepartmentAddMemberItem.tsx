@@ -2,7 +2,11 @@ import React, { FC } from 'react'
 import { MdAdd, MdRemove } from 'react-icons/md'
 import { useAppDispatch } from '../../../hooks'
 import { IMember } from '../../member'
-import { addMemberToDepartmentAction, IDepartment } from '../index'
+import {
+  addMemberToDepartmentAction,
+  IDepartment,
+  removeMemberFromDepartmentAction,
+} from '../index'
 
 const DepartmentAddMemberItem: FC<{
   member: IMember
@@ -51,11 +55,14 @@ const DepartmentAddMemberItem: FC<{
         {isMember && departmentMember && (
           <td>
             <button
-              //   onClick={() =>
-              //     dispatch(
-              //       removeMemberFromDepartmentAction(departmentMember[0]._id)
-              //     )
-              //   }
+              onClick={() =>
+                dispatch(
+                  removeMemberFromDepartmentAction({
+                    departmentId,
+                    member: _id,
+                  })
+                )
+              }
               className="flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-md py-2 px-4"
             >
               <MdRemove className="text-xs" />
