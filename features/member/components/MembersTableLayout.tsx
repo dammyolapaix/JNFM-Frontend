@@ -9,7 +9,8 @@ const MembersTableLayout: FC<{
   membersData?: {
     member: IMember
   }[]
-}> = ({ membersRes, membersData }) => {
+  href?: string
+}> = ({ membersRes, membersData, href }) => {
   return (
     <section>
       <div className="shadow-md">
@@ -24,7 +25,7 @@ const MembersTableLayout: FC<{
             )
           </h1>
           <Link
-            href={`/members/new`}
+            href={href ? href : `/members/new`}
             className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
           >
             <MdAdd />
