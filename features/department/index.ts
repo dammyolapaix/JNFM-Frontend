@@ -7,7 +7,7 @@ import IDepartment, {
 
 // Importing Components
 import DepartmentDetails from './components/DepartmentDetails'
-// import DepartmentInputForm from './components/DepartmentInputForm'
+import DepartmentInputForm from './components/DepartmentInputForm'
 import DepartmentItem from './components/DepartmentItem'
 import Departments from './components/Departments'
 
@@ -33,12 +33,7 @@ import {
 export type { IDepartment, IBaseDepartment, IDepartmentRes, IDepartmentsRes }
 
 // Exporting components
-export {
-  Departments,
-  DepartmentItem,
-  DepartmentDetails,
-  //   DepartmentInputForm
-}
+export { Departments, DepartmentItem, DepartmentDetails, DepartmentInputForm }
 
 // Exporting Services
 export {
