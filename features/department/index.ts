@@ -5,6 +5,7 @@ import IDepartment, {
   IDepartmentsRes,
   IDepartmentInitialState,
   IDepartmentEditReq,
+  IDepartmentMemberReq,
 } from './department.interfaces'
 
 // Importing Components
@@ -12,6 +13,8 @@ import DepartmentDetails from './components/DepartmentDetails'
 import DepartmentInputForm from './components/DepartmentInputForm'
 import DepartmentItem from './components/DepartmentItem'
 import Departments from './components/Departments'
+import DepartmentAddMemberItem from './components/DepartmentAddMemberItem'
+import DepartmentAddMember from './components/DepartmentAddMember'
 
 // Importing Services
 import {
@@ -19,12 +22,14 @@ import {
   getSingleDepartmentById,
   addDepartment,
   editDepartment,
+  addMemberToDepartment,
 } from './department.services'
 
 // Importing Actions
 import {
   addDepartmentAction,
   editDepartmentAction,
+  addMemberToDepartmentAction,
   // getDepartmentsAction,
 } from './department.actions'
 
@@ -39,10 +44,18 @@ export type {
   IDepartmentsRes,
   IDepartmentInitialState,
   IDepartmentEditReq,
+  IDepartmentMemberReq,
 }
 
 // Exporting components
-export { Departments, DepartmentItem, DepartmentDetails, DepartmentInputForm }
+export {
+  Departments,
+  DepartmentItem,
+  DepartmentDetails,
+  DepartmentInputForm,
+  DepartmentAddMember,
+  DepartmentAddMemberItem,
+}
 
 // Exporting Services
 export {
@@ -50,12 +63,14 @@ export {
   getSingleDepartmentById,
   addDepartment,
   editDepartment,
+  addMemberToDepartment,
 }
 
 // Exporting Actions
 export {
   addDepartmentAction,
   editDepartmentAction,
+  addMemberToDepartmentAction,
   // getDepartmentsAction
 }
 

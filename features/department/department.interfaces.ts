@@ -35,3 +35,8 @@ export interface IDepartmentEditReq {
   id: IDepartment['_id']
   department: IBaseDepartment
 }
+
+export interface IDepartmentMemberReq {
+  departmentId: IDepartment['_id']
+  member: IMember['_id']
+}

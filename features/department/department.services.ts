@@ -1,7 +1,9 @@
 import { makeRequest } from '../../lib'
+import { IMember } from '../member'
 import {
   IBaseDepartment,
   IDepartment,
+  IDepartmentMemberReq,
   IDepartmentRes,
   IDepartmentsRes,
 } from './index'
@@ -31,6 +33,18 @@ export const editDepartment = async (
   const { data } = await makeRequest.patch<IDepartmentRes>(
     `/departments/${id}`,
     department
+  )
+  return data
+}
+
+export const addMemberToDepartment = async (
+  departmentMemberReq: IDepartmentMemberReq
+) => {
+  const { departmentId: id, member } = departmentMemberReq
+
+  const { data } = await makeRequest.patch<IDepartmentRes>(
+    `/departments/${id}/members/add`,
+    { member }
   )
   return data
 }
