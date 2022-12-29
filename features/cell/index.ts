@@ -10,7 +10,7 @@ import ICell, {
 
 // Importing Components
 import CellDetails from './components/CellDetails'
-// import CellInputForm from './components/CellInputForm'
+import CellInputForm from './components/CellInputForm'
 import CellItem from './components/CellItem'
 import Cells from './components/Cells'
 // import CellAddMemberItem from './components/CellAddMemberItem'
@@ -20,23 +20,23 @@ import Cells from './components/Cells'
 import {
   getCells,
   // getSingleCellById,
-  // addCell,
+  addCell,
   // editCell,
   // addMemberToCell,
   // removeMemberFromCell,
 } from './cell.services'
 
 // Importing Actions
-// import {
-//   addCellAction,
-//   editCellAction,
-//   addMemberToCellAction,
-//   removeMemberFromCellAction,
-//   getCellsAction,
-// } from './cell.actions'
+import {
+  addCellAction,
+  // editCellAction,
+  // addMemberToCellAction,
+  // removeMemberFromCellAction,
+  // getCellsAction,
+} from './cell.actions'
 
 // Importing Slice
-// import cellReducers, { resetCell } from './cell.slices'
+import cellReducers, { resetCell } from './cell.slices'
 
 // Exporting Interfaces
 export type {
@@ -54,7 +54,7 @@ export {
   Cells,
   CellItem,
   CellDetails,
-  // CellInputForm,
+  CellInputForm,
   // CellAddMember,
   // CellAddMemberItem,
 }
@@ -63,20 +63,20 @@ export {
 export {
   getCells,
   // getSingleCellById,
-  // addCell,
+  addCell,
   // editCell,
   // addMemberToCell,
   // removeMemberFromCell,
 }
 
 // Exporting Actions
-// export {
-//   addCellAction,
-//   editCellAction,
-//   addMemberToCellAction,
-//   removeMemberFromCellAction,
-//   // getCellsAction
-// }
+export {
+  addCellAction,
+  // editCellAction,
+  // addMemberToCellAction,
+  // removeMemberFromCellAction,
+  // getCellsAction
+}
 
 // Exporting Slice
-// export { cellReducers, resetCell }
+export { cellReducers, resetCell }

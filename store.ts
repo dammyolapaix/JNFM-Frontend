@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { attendanceReducers } from './features/attendance'
+import { cellReducers } from './features/cell'
 import { churchServiceReducers } from './features/churchService'
 import { departmentReducers } from './features/department'
 import { memberReducers } from './features/member'
@@ -7,6 +8,7 @@ import { memberReducers } from './features/member'
 export const store = configureStore({
   reducer: {
     attendance: attendanceReducers,
+    cell: cellReducers,
     department: departmentReducers,
     member: memberReducers,
     churchService: churchServiceReducers,
