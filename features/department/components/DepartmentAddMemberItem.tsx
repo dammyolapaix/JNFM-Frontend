@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { MdAdd, MdRemove } from 'react-icons/md'
+import { FaUserMinus, FaUserPlus } from 'react-icons/fa'
 import { useAppDispatch } from '../../../hooks'
 import { IMember } from '../../member'
 import {
@@ -48,7 +48,7 @@ const DepartmentAddMemberItem: FC<{
               }
               className="flex items-center justify-center bg-green-600 hover:bg-green-700 text-white rounded-md py-2 px-4"
             >
-              <MdAdd className="text-xs" />
+              <FaUserPlus />
             </button>
           </td>
         )}
@@ -65,7 +65,7 @@ const DepartmentAddMemberItem: FC<{
               }
               className="flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-md py-2 px-4"
             >
-              <MdRemove className="text-xs" />
+              <FaUserMinus />
             </button>
           </td>
         )}

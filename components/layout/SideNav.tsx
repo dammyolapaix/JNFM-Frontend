@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { FC } from 'react'
-import { MdDashboard, MdGroup } from 'react-icons/md'
+import { MdDashboard, MdGroup, MdGroups } from 'react-icons/md'
 import { FaChurch } from 'react-icons/fa'
 
 const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
@@ -36,7 +36,7 @@ const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
           href={'/departments'}
           className="flex items-center border-b py-5 hover:text-secondary"
         >
-          <FaChurch className="mr-3" />
+          <MdGroups className="mr-3" />
           <div className="font-semibold">Departments</div>
         </Link>
       </div>
