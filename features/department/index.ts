@@ -3,53 +3,80 @@ import IDepartment, {
   IBaseDepartment,
   IDepartmentRes,
   IDepartmentsRes,
+  IDepartmentInitialState,
+  IDepartmentEditReq,
+  IDepartmentMemberReq,
 } from './department.interfaces'
 
 // Importing Components
 import DepartmentDetails from './components/DepartmentDetails'
-// import DepartmentInputForm from './components/DepartmentInputForm'
+import DepartmentInputForm from './components/DepartmentInputForm'
 import DepartmentItem from './components/DepartmentItem'
 import Departments from './components/Departments'
+import DepartmentAddMemberItem from './components/DepartmentAddMemberItem'
+import DepartmentAddMember from './components/DepartmentAddMember'
 
 // Importing Services
 import {
   getDepartments,
   getSingleDepartmentById,
-  //   addDepartment,
-  //   editDepartment,
+  addDepartment,
+  editDepartment,
+  addMemberToDepartment,
+  removeMemberFromDepartment,
 } from './department.services'
 
-// // Importing Actions
-// import {
-//   addDepartmentAction,
-//   editDepartmentAction,
-//   getDepartmentsAction,
-// } from './Department.actions'
+// Importing Actions
+import {
+  addDepartmentAction,
+  editDepartmentAction,
+  addMemberToDepartmentAction,
+  removeMemberFromDepartmentAction,
+  // getDepartmentsAction,
+} from './department.actions'
 
-// // Importing Slice
-// import DepartmentReducers, { resetDepartment } from './Department.slices'
+// Importing Slice
+import departmentReducers, { resetDepartment } from './department.slices'
 
 // Exporting Interfaces
-export type { IDepartment, IBaseDepartment, IDepartmentRes, IDepartmentsRes }
+export type {
+  IDepartment,
+  IBaseDepartment,
+  IDepartmentRes,
+  IDepartmentsRes,
+  IDepartmentInitialState,
+  IDepartmentEditReq,
+  IDepartmentMemberReq,
+}
 
 // Exporting components
 export {
   Departments,
   DepartmentItem,
   DepartmentDetails,
-  //   DepartmentInputForm
+  DepartmentInputForm,
+  DepartmentAddMember,
+  DepartmentAddMemberItem,
 }
 
 // Exporting Services
 export {
   getDepartments,
   getSingleDepartmentById,
-  //   addDepartment,
-  //   editDepartment,
+  addDepartment,
+  editDepartment,
+  addMemberToDepartment,
+  removeMemberFromDepartment,
 }
 
 // Exporting Actions
-// export { addDepartmentAction, editDepartmentAction, getDepartmentsAction }
+export {
+  addDepartmentAction,
+  editDepartmentAction,
+  addMemberToDepartmentAction,
+  removeMemberFromDepartmentAction,
+  // getDepartmentsAction
+}
 
-// // Exporting Slice
-// export { DepartmentReducers, resetDepartment }
+// Exporting Slice
+export { departmentReducers, resetDepartment }
