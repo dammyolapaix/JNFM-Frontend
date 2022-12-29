@@ -1,15 +1,14 @@
-import { InferGetStaticPropsType, NextPage } from 'next'
+import { GetStaticPaths, NextPage } from 'next'
 import { Layout } from '../../../components'
 import {
   getMembers,
   getSingleMemberById,
   IMember,
+  IMembersRes,
   MemberDetails,
 } from '../../../features/member'
 
-const SingleMemberPage: NextPage<
-  InferGetStaticPropsType<typeof getStaticProps>
-> = ({ member }) => {
+const SingleMemberPage: NextPage<{ member: IMember }> = ({ member }) => {
   return (
     <Layout>
       {member && member !== null && <MemberDetails member={member} />}
@@ -17,10 +16,8 @@ const SingleMemberPage: NextPage<
   )
 }
 
-export async function getStaticPaths() {
-  const {
-    data: { members },
-  } = await getMembers()
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { members }: IMembersRes = await getMembers()
 
   const paths = members.map((member) => ({
     params: { id: member?._id },
@@ -36,9 +33,7 @@ interface IContext {
 }
 
 export async function getStaticProps({ params: { id } }: IContext) {
-  const {
-    data: { member },
-  } = await getSingleMemberById(id)
+  const { member } = await getSingleMemberById(id)
 
   return {
     props: { member },

@@ -1,3 +1,6 @@
+import { IAttendance } from '../attendance'
+import { IDepartment } from '../department'
+
 export interface IBaseMember {
   firstName: string
   lastName: string
@@ -14,6 +17,8 @@ export interface IBaseMember {
     countryCode: number
     number: number
   }[]
+  attendances?: IAttendance[]
+  departments?: IDepartment[]
 }
 
 export default interface IMember extends IBaseMember {
@@ -58,6 +63,7 @@ export interface IMemberInitialState {
   isSuccess: boolean
   isError: boolean
   error: null
+  membersRes: IMembersRes
   memberResCRUD: IMemberRes
 }
 
