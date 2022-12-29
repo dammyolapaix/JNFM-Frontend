@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { IDepartment } from '../index'
 import { MdEdit } from 'react-icons/md'
 import { MembersTableLayout } from '../../member'
+import { NoRecordFound } from '../../../components'
 
 const DepartmentDetails: FC<{ department: IDepartment }> = ({
   department: { _id, name, members },
@@ -39,7 +40,11 @@ const DepartmentDetails: FC<{ department: IDepartment }> = ({
             href={`/departments/${_id}/members/new`}
           />
         ) : (
-          <div className="text-center text-2xl text-bold">No Member</div>
+          <NoRecordFound
+            message="Oops, no member found in this department"
+            href={`/departments/${_id}/members/new`}
+            cta="Add A New Member"
+          />
         )}
       </div>
     </section>
