@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { ICellInitialState, addCellAction, ICellRes } from './index'
+import {
+  ICellInitialState,
+  addCellAction,
+  ICellRes,
+  editCellAction,
+} from './index'
 
 const initialState = {
   isLoading: false,
@@ -39,6 +44,27 @@ export const cellSlices = createSlice({
     )
     builder.addCase(
       addCellAction.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false
+        state.isError = true
+        state.error = action.payload
+      }
+    )
+
+    // Edit Department
+    builder.addCase(editCellAction.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(
+      editCellAction.fulfilled,
+      (state, action: PayloadAction<ICellRes>) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.cellResCRUD = action.payload
+      }
+    )
+    builder.addCase(
+      editCellAction.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false
         state.isError = true

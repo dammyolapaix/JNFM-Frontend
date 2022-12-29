@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { CustomButton, CustomTextField } from '../../../components'
 import { useAppDispatch } from '../../../hooks'
-import { addCellAction, IBaseCell, ICell } from '../index'
+import { addCellAction, editCellAction, IBaseCell, ICell } from '../index'
 
 const CellInputForm: FC<{ cell?: ICell }> = ({ cell }) => {
   const dispatch = useAppDispatch()
@@ -28,8 +28,8 @@ const CellInputForm: FC<{ cell?: ICell }> = ({ cell }) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (cell) {
-      // const { _id: id } = cell
-      // dispatch(editDepartmentAction({ id, department: values }))
+      const { _id: id } = cell
+      dispatch(editCellAction({ id, cell: values }))
     } else {
       dispatch(addCellAction(values))
     }

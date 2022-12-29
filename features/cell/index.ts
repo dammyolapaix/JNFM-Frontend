@@ -19,9 +19,9 @@ import Cells from './components/Cells'
 // Importing Services
 import {
   getCells,
-  // getSingleCellById,
+  getSingleCellById,
   addCell,
-  // editCell,
+  editCell,
   // addMemberToCell,
   // removeMemberFromCell,
 } from './cell.services'
@@ -29,7 +29,7 @@ import {
 // Importing Actions
 import {
   addCellAction,
-  // editCellAction,
+  editCellAction,
   // addMemberToCellAction,
   // removeMemberFromCellAction,
   // getCellsAction,
@@ -62,9 +62,9 @@ export {
 // Exporting Services
 export {
   getCells,
-  // getSingleCellById,
+  getSingleCellById,
   addCell,
-  // editCell,
+  editCell,
   // addMemberToCell,
   // removeMemberFromCell,
 }
@@ -72,7 +72,7 @@ export {
 // Exporting Actions
 export {
   addCellAction,
-  // editCellAction,
+  editCellAction,
   // addMemberToCellAction,
   // removeMemberFromCellAction,
   // getCellsAction
