@@ -9,7 +9,7 @@ import ICell, {
 } from './cell.interfaces'
 
 // Importing Components
-// import CellDetails from './components/CellDetails'
+import CellDetails from './components/CellDetails'
 // import CellInputForm from './components/CellInputForm'
 import CellItem from './components/CellItem'
 import Cells from './components/Cells'
@@ -53,7 +53,7 @@ export type {
 export {
   Cells,
   CellItem,
-  // CellDetails,
+  CellDetails,
   // CellInputForm,
   // CellAddMember,
   // CellAddMemberItem,
