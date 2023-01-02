@@ -13,8 +13,8 @@ import CellDetails from './components/CellDetails'
 import CellInputForm from './components/CellInputForm'
 import CellItem from './components/CellItem'
 import Cells from './components/Cells'
-// import CellAddMemberItem from './components/CellAddMemberItem'
-// import CellAddMember from './components/CellAddMember'
+import CellAddMemberItem from './components/CellAddMemberItem'
+import CellAddMember from './components/CellAddMember'
 
 // Importing Services
 import {
@@ -22,7 +22,7 @@ import {
   getSingleCellById,
   addCell,
   editCell,
-  // addMemberToCell,
+  addMemberToCell,
   // removeMemberFromCell,
 } from './cell.services'
 
@@ -30,7 +30,7 @@ import {
 import {
   addCellAction,
   editCellAction,
-  // addMemberToCellAction,
+  addMemberToCellAction,
   // removeMemberFromCellAction,
   // getCellsAction,
 } from './cell.actions'
@@ -55,8 +55,8 @@ export {
   CellItem,
   CellDetails,
   CellInputForm,
-  // CellAddMember,
-  // CellAddMemberItem,
+  CellAddMember,
+  CellAddMemberItem,
 }
 
 // Exporting Services
@@ -65,7 +65,7 @@ export {
   getSingleCellById,
   addCell,
   editCell,
-  // addMemberToCell,
+  addMemberToCell,
   // removeMemberFromCell,
 }
 
@@ -73,7 +73,7 @@ export {
 export {
   addCellAction,
   editCellAction,
-  // addMemberToCellAction,
+  addMemberToCellAction,
   // removeMemberFromCellAction,
   // getCellsAction
 }

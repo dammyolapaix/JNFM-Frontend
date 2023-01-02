@@ -5,6 +5,7 @@ import {
   addCellAction,
   ICellRes,
   editCellAction,
+  addMemberToCellAction,
 } from './index'
 
 const initialState = {
@@ -65,6 +66,27 @@ export const cellSlices = createSlice({
     )
     builder.addCase(
       editCellAction.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false
+        state.isError = true
+        state.error = action.payload
+      }
+    )
+
+    // Edit Department
+    builder.addCase(addMemberToCellAction.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(
+      addMemberToCellAction.fulfilled,
+      (state, action: PayloadAction<ICellRes>) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.cellResCRUD = action.payload
+      }
+    )
+    builder.addCase(
+      addMemberToCellAction.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false
         state.isError = true
