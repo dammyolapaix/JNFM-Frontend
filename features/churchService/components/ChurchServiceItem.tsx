@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { IChurchService } from '../index'
 import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
+import { formatDateToddmYYY } from '../../../utils'
 
 const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
   churchService: { _id, date, endsAt, startsAt, attendances },
@@ -9,9 +10,11 @@ const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
   return (
     <>
       <tr className="border">
-        <td className="p-3">{!date ? 'Not Given' : date}</td>
-        <td>{!startsAt ? 'Not Given' : startsAt}</td>
-        <td>{!endsAt ? 'Not Given' : endsAt}</td>
+        <td className="p-3">
+          {!date ? 'Not Given' : formatDateToddmYYY(date)}
+        </td>
+        <td>{!startsAt ? 'Not Given' : formatDateToddmYYY(startsAt)}</td>
+        <td>{!endsAt ? 'Not Given' : formatDateToddmYYY(endsAt)}</td>
         <td className="text-center">
           {!attendances ? (
             '0'
