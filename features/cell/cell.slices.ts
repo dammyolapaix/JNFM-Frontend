@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {
-  addMemberAction,
-  editMemberAction,
-  getMembersAction,
-  IMemberInitialState,
-  IMemberRes,
-  IMembersRes,
+  ICellInitialState,
+  addCellAction,
+  ICellRes,
+  editCellAction,
+  addMemberToCellAction,
 } from './index'
 
 const initialState = {
@@ -14,38 +13,38 @@ const initialState = {
   isSuccess: false,
   isError: false,
   error: null,
-  membersRes: { success: false, count: 0, members: [] },
-  memberResCRUD: { success: false, member: null },
-} as IMemberInitialState
+  cellsRes: { success: false, count: 0, cells: [] },
+  cellResCRUD: { success: false, cell: null },
+} as ICellInitialState
 
-export const memberSlices = createSlice({
-  name: 'member',
+export const cellSlices = createSlice({
+  name: 'cell',
   initialState,
   reducers: {
-    resetMember: (state) => {
+    resetCell: (state) => {
       state.isLoading = false
       state.isSuccess = false
       state.isError = false
       state.error = null
-      state.membersRes = { success: false, count: 0, members: [] }
-      state.memberResCRUD = { success: false, member: null }
+      state.cellsRes = { success: false, count: 0, cells: [] }
+      state.cellResCRUD = { success: false, cell: null }
     },
   },
   extraReducers: (builder) => {
-    // Get Members
-    builder.addCase(getMembersAction.pending, (state) => {
+    // Add Department
+    builder.addCase(addCellAction.pending, (state) => {
       state.isLoading = true
     })
     builder.addCase(
-      getMembersAction.fulfilled,
-      (state, action: PayloadAction<IMembersRes>) => {
+      addCellAction.fulfilled,
+      (state, action: PayloadAction<ICellRes>) => {
         state.isLoading = false
         state.isSuccess = true
-        state.membersRes = action.payload
+        state.cellResCRUD = action.payload
       }
     )
     builder.addCase(
-      getMembersAction.rejected,
+      addCellAction.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false
         state.isError = true
@@ -53,20 +52,20 @@ export const memberSlices = createSlice({
       }
     )
 
-    // Add Member
-    builder.addCase(addMemberAction.pending, (state) => {
+    // Edit Department
+    builder.addCase(editCellAction.pending, (state) => {
       state.isLoading = true
     })
     builder.addCase(
-      addMemberAction.fulfilled,
-      (state, action: PayloadAction<IMemberRes>) => {
+      editCellAction.fulfilled,
+      (state, action: PayloadAction<ICellRes>) => {
         state.isLoading = false
         state.isSuccess = true
-        state.memberResCRUD = action.payload
+        state.cellResCRUD = action.payload
       }
     )
     builder.addCase(
-      addMemberAction.rejected,
+      editCellAction.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false
         state.isError = true
@@ -74,20 +73,20 @@ export const memberSlices = createSlice({
       }
     )
 
-    // Edit Member
-    builder.addCase(editMemberAction.pending, (state) => {
+    // Edit Department
+    builder.addCase(addMemberToCellAction.pending, (state) => {
       state.isLoading = true
     })
     builder.addCase(
-      editMemberAction.fulfilled,
-      (state, action: PayloadAction<IMemberRes>) => {
+      addMemberToCellAction.fulfilled,
+      (state, action: PayloadAction<ICellRes>) => {
         state.isLoading = false
         state.isSuccess = true
-        state.memberResCRUD = action.payload
+        state.cellResCRUD = action.payload
       }
     )
     builder.addCase(
-      editMemberAction.rejected,
+      addMemberToCellAction.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false
         state.isError = true
@@ -98,6 +97,6 @@ export const memberSlices = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { resetMember } = memberSlices.actions
+export const { resetCell } = cellSlices.actions
 
-export default memberSlices.reducer
+export default cellSlices.reducer
