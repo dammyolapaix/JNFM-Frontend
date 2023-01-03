@@ -43,6 +43,15 @@ const ChurchServices: FC<{ churchServicesRes: IChurchServicesRes }> = ({
           </table>
         </div>
       </div>
+      <div className="flex items-center justify-center mt-10">
+        <Link
+          href={`/services/ServiceTypes/new`}
+          className="bg-tertiary hover:bg-primary text-white rounded-md py-2 px-4 flex items-center"
+        >
+          <MdAdd />
+          <div>Add New Church Service Type</div>
+        </Link>
+      </div>
     </section>
   )
 }
