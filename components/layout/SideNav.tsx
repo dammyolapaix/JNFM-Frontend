@@ -39,6 +39,13 @@ const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
           <MdGroups className="mr-3" />
           <div className="font-semibold">Departments</div>
         </Link>
+        <Link
+          href={'/cells'}
+          className="flex items-center border-b py-5 hover:text-secondary"
+        >
+          <MdGroups className="mr-3" />
+          <div className="font-semibold">Cells</div>
+        </Link>
       </div>
     </aside>
   )
