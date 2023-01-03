@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
-import { InferGetStaticPropsType, NextPage } from 'next'
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { Layout } from '../../../components'
+import { Layout, QueryResult } from '../../../components'
 import {
   getMembers,
   getSingleMemberById,
   IMember,
+  IMembersRes,
   MemberInputForm,
   resetMember,
 } from '../../../features/member'
@@ -13,13 +14,14 @@ import { useAppDispatch, useAppSelector } from '../../../hooks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const EditMemberPage: NextPage<
-  InferGetStaticPropsType<typeof getStaticProps>
-> = ({ member }) => {
+const EditMemberPage: NextPage<{ member: IMember }> = ({ member }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
   const {
+    isLoading,
+    isError,
+    error,
     isSuccess,
     memberResCRUD: { member: updatedMember },
   } = useAppSelector((state) => state.member)
@@ -30,20 +32,26 @@ const EditMemberPage: NextPage<
       dispatch(resetMember())
       router.push(`/members/${member?._id}`)
     }
-  }, [router, dispatch, isSuccess, updatedMember])
+  }, [router, dispatch, isLoading, isError, error, isSuccess, updatedMember])
 
   return (
     <Layout>
       <ToastContainer />
+
+      <QueryResult
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        error={error}
+      ></QueryResult>
+
       {member && member !== null && <MemberInputForm member={member} />}
     </Layout>
   )
 }
 
 export async function getStaticPaths() {
-  const {
-    data: { members },
-  } = await getMembers()
+  const { members }: IMembersRes = await getMembers()
 
   const paths = members.map((member) => ({
     params: { id: member?._id },
@@ -59,9 +67,7 @@ interface IContext {
 }
 
 export async function getStaticProps({ params: { id } }: IContext) {
-  const {
-    data: { member },
-  } = await getSingleMemberById(id)
+  const { member } = await getSingleMemberById(id)
 
   return {
     props: { member },

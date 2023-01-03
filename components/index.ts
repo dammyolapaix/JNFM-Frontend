@@ -14,6 +14,6 @@ export {
   Layout,
   SideNav,
   QueryResult,
-  Spinner,
+  Spinner, 
   NoRecordFound,
 }

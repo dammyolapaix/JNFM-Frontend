@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Layout, QueryResult } from '../../components'
-import { MemberInputForm, resetMember } from '../../features/member'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { DepartmentInputForm, resetDepartment } from '../../features/department'
 
-const AddNewMemberPage = () => {
+const AddNewDepartmentPage = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
@@ -15,16 +15,16 @@ const AddNewMemberPage = () => {
     isError,
     error,
     isSuccess,
-    memberResCRUD: { member },
-  } = useAppSelector((state) => state.member)
+    departmentResCRUD: { department },
+  } = useAppSelector((state) => state.department)
 
   useEffect(() => {
-    if (isSuccess && member !== null) {
-      toast.success('Member added successfully')
-      dispatch(resetMember())
-      router.push('/members')
+    if (isSuccess && department !== null) {
+      toast.success('Department added successfully')
+      dispatch(resetDepartment())
+      router.push('/departments')
     }
-  }, [router, dispatch, isLoading, isError, error, isSuccess, member])
+  }, [router, dispatch, isSuccess, department])
 
   return (
     <Layout>
@@ -37,9 +37,9 @@ const AddNewMemberPage = () => {
         error={error}
       ></QueryResult>
 
-      <MemberInputForm />
+      <DepartmentInputForm />
     </Layout>
   )
 }
 
-export default AddNewMemberPage
+export default AddNewDepartmentPage

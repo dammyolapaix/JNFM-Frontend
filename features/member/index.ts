@@ -13,6 +13,8 @@ import MemberDetails from './components/MemberDetails'
 import MemberInputForm from './components/MemberInputForm'
 import MemberItem from './components/MemberItem'
 import Members from './components/Members'
+import MembersTable from './components/MembersTable'
+import MembersTableLayout from './components/MembersTableLayout'
 
 // Importing Services
 import {
@@ -23,7 +25,11 @@ import {
 } from './member.services'
 
 // Importing Actions
-import { addMemberAction, editMemberAction } from './member.actions'
+import {
+  addMemberAction,
+  editMemberAction,
+  getMembersAction,
+} from './member.actions'
 
 // Importing Slice
 import memberReducers, { resetMember } from './member.slices'
@@ -40,13 +46,20 @@ export type {
 }
 
 // Exporting components
-export { Members, MemberDetails, MemberItem, MemberInputForm }
+export {
+  Members,
+  MemberDetails,
+  MemberItem,
+  MemberInputForm,
+  MembersTable,
+  MembersTableLayout,
+}
 
 // Exporting Services
 export { getMembers, getSingleMemberById, addMember, editMember }
 
 // Exporting Actions
-export { addMemberAction, editMemberAction }
+export { addMemberAction, editMemberAction, getMembersAction }
 
 // Exporting Slice
 export { memberReducers, resetMember }
