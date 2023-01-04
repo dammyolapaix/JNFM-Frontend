@@ -5,13 +5,25 @@ import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
 import { formatDateToddmYYY } from '../../../utils'
 
 const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
-  churchService: { _id, date, endsAt, startsAt, attendances },
+  churchService: {
+    _id,
+    date,
+    endsAt,
+    startsAt,
+    attendances,
+    churchServiceType,
+  },
 }) => {
   return (
     <>
       <tr className="border">
         <td className="p-3">
           {!date ? 'Not Given' : formatDateToddmYYY(date)}
+        </td>
+        <td>
+          {churchServiceType && typeof churchServiceType === 'object'
+            ? churchServiceType.name
+            : 'Not Given'}
         </td>
         <td>{!startsAt ? 'Not Given' : formatDateToddmYYY(startsAt)}</td>
         <td>{!endsAt ? 'Not Given' : formatDateToddmYYY(endsAt)}</td>

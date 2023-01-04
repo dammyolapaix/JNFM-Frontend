@@ -5,7 +5,14 @@ import { MdEdit } from 'react-icons/md'
 import { formatDateToddmYYY } from '../../../utils'
 
 const ChurchServiceDetails: FC<{ churchService: IChurchService }> = ({
-  churchService: { _id, date, endsAt, startsAt },
+  churchService: {
+    _id,
+    date,
+    endsAt,
+    startsAt,
+    churchServiceType,
+    attendances,
+  },
 }) => {
   return (
     <section>
@@ -23,6 +30,15 @@ const ChurchServiceDetails: FC<{ churchService: IChurchService }> = ({
       </div>
       <div className="shadow-md p-3 rounded-md mt-5">
         <div className="mb-5">
+          <h3 className="font-semibold">Type</h3>
+          <h4>
+            {' '}
+            {churchServiceType && typeof churchServiceType === 'object'
+              ? churchServiceType.name
+              : 'Not Given'}
+          </h4>
+        </div>
+        <div className="mb-5">
           <h3 className="font-semibold">Date</h3>
           <h4>{date ? formatDateToddmYYY(date) : 'Not Given'}</h4>
         </div>
@@ -33,6 +49,10 @@ const ChurchServiceDetails: FC<{ churchService: IChurchService }> = ({
         <div className="mb-5">
           <h3 className="font-semibold">Ends At</h3>
           <h4>{endsAt ? formatDateToddmYYY(endsAt) : 'Not Given'}</h4>
+        </div>
+        <div className="mb-5">
+          <h3 className="font-semibold">Attendance</h3>
+          <h4>{attendances ? attendances.length : 'Not Given'}</h4>
         </div>
       </div>
     </section>
