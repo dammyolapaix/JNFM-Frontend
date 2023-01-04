@@ -1,4 +1,5 @@
 import { IAttendance } from '../attendance'
+import { IChurchServiceTypeRes } from './churchServiceType'
 
 export interface IBaseChurchService {
   date?: string | undefined
@@ -28,4 +29,5 @@ export interface IChurchServiceInitialState {
   isError: boolean
   error: null
   churchServiceResCRUD: IChurchServiceRes
+  churchServiceTypeResCRUD: IChurchServiceTypeRes
 }

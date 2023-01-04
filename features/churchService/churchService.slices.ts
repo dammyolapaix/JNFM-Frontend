@@ -5,6 +5,10 @@ import {
   IChurchServiceInitialState,
   IChurchServiceRes,
 } from './index'
+import {
+  addChurchServiceTypeAction,
+  IChurchServiceTypeRes,
+} from './churchServiceType'
 
 const initialState = {
   isLoading: false,
@@ -12,6 +16,7 @@ const initialState = {
   isError: false,
   error: null,
   churchServiceResCRUD: { success: false, churchService: null },
+  churchServiceTypeResCRUD: { success: false, churchServiceType: null },
 } as IChurchServiceInitialState
 
 export const churchServiceSlices = createSlice({
@@ -24,6 +29,10 @@ export const churchServiceSlices = createSlice({
       state.isError = false
       state.error = null
       state.churchServiceResCRUD = { success: false, churchService: null }
+      state.churchServiceTypeResCRUD = {
+        success: false,
+        churchServiceType: null,
+      }
     },
   },
   extraReducers: (builder) => {
@@ -41,6 +50,27 @@ export const churchServiceSlices = createSlice({
     )
     builder.addCase(
       addChurchServiceAction.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false
+        state.isError = true
+        state.error = action.payload
+      }
+    )
+
+    // Add Church Service Type
+    builder.addCase(addChurchServiceTypeAction.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(
+      addChurchServiceTypeAction.fulfilled,
+      (state, action: PayloadAction<IChurchServiceTypeRes>) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.churchServiceTypeResCRUD = action.payload
+      }
+    )
+    builder.addCase(
+      addChurchServiceTypeAction.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false
         state.isError = true

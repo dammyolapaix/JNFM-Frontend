@@ -1,10 +1,13 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { CustomButton, CustomTextField } from '../../../../components'
-import { IBaseChurchServiceType } from '../index'
+import { useAppDispatch } from '../../../../hooks'
+import { addChurchServiceTypeAction, IBaseChurchServiceType } from '../index'
 
 const ChurchSeriveTypeInputForm: FC<{
   churchServiceType?: IBaseChurchServiceType
 }> = ({ churchServiceType }) => {
+  const dispatch = useAppDispatch()
+
   const [values, setValues] = useState<IBaseChurchServiceType>({
     name: '',
   })
@@ -29,7 +32,7 @@ const ChurchSeriveTypeInputForm: FC<{
     if (churchServiceType) {
       // Action dispatch for edit goes here
     } else {
-      // Action dispatch for add goes here
+      dispatch(addChurchServiceTypeAction(values))
     }
   }
 
