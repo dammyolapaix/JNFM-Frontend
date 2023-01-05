@@ -26,10 +26,10 @@ const ChurchServices: FC<{ churchServicesRes: IChurchServicesRes }> = ({
           <table className="w-full">
             <thead className="text-secondary">
               <tr className="text-left border">
-                <th className="p-3">Date</th>
-                <th>Type</th>
-                <th>Starts At</th>
-                <th>Ends At</th>
+                <th className="p-3">Type</th>
+                <th>Date</th>
+                {/* <th>Starts At</th>
+                <th>Ends At</th> */}
                 <th>Attendances</th>
               </tr>
             </thead>

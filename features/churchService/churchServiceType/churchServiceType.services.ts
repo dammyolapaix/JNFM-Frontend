@@ -1,5 +1,16 @@
 import { makeRequest } from '../../../lib'
-import { IBaseChurchServiceType, IChurchServiceTypeRes } from './index'
+import {
+  IBaseChurchServiceType,
+  IChurchServiceTypeRes,
+  IChurchServiceTypesRes,
+} from './index'
+
+export const getChurchServiceTypes = async () => {
+  const { data } = await makeRequest.get<IChurchServiceTypesRes>(
+    `/churchServiceTypes`
+  )
+  return data
+}
 
 export const addChurchServiceType = async (
   churchServiceType: IBaseChurchServiceType

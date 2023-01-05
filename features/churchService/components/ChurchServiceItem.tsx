@@ -8,8 +8,8 @@ const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
   churchService: {
     _id,
     date,
-    endsAt,
-    startsAt,
+    // endsAt,
+    // startsAt,
     attendances,
     churchServiceType,
   },
@@ -18,15 +18,13 @@ const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
     <>
       <tr className="border">
         <td className="p-3">
-          {!date ? 'Not Given' : formatDateToddmYYY(date)}
-        </td>
-        <td>
           {churchServiceType && typeof churchServiceType === 'object'
             ? churchServiceType.name
             : 'Not Given'}
         </td>
-        <td>{!startsAt ? 'Not Given' : formatDateToddmYYY(startsAt)}</td>
-        <td>{!endsAt ? 'Not Given' : formatDateToddmYYY(endsAt)}</td>
+        <td>{!date ? 'Not Given' : formatDateToddmYYY(date)}</td>
+        {/* <td>{!startsAt ? 'Not Given' : formatDateToddmYYY(startsAt)}</td>
+        <td>{!endsAt ? 'Not Given' : formatDateToddmYYY(endsAt)}</td> */}
         <td className="text-center">
           {!attendances ? (
             '0'

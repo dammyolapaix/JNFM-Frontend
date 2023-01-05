@@ -1,19 +1,22 @@
 import { addChurchServiceTypeAction } from './churchServiceType.actions'
-import ChurchServiceType, {
+import IChurchServiceType, {
   IBaseChurchServiceType,
   IChurchServiceTypeRes,
   IChurchServiceTypesRes,
 } from './churchServiceType.interfaces'
-import { addChurchServiceType } from './churchServiceType.services'
+import {
+  addChurchServiceType,
+  getChurchServiceTypes,
+} from './churchServiceType.services'
 
 import ChurchSeriveTypeInputForm from './components/ChurchSeriveTypeInputForm'
 
 export { addChurchServiceTypeAction }
 
-export { addChurchServiceType }
+export { addChurchServiceType, getChurchServiceTypes }
 
 export type {
-  ChurchServiceType,
+  IChurchServiceType,
   IBaseChurchServiceType,
   IChurchServiceTypeRes,
   IChurchServiceTypesRes,
