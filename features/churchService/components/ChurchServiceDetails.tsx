@@ -10,22 +10,34 @@ const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
   return (
     <section>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-        <div className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-10 font-semibold">
-          Attendance
-          <span>
-            (
-            {churchService && churchService.attendances
-              ? churchService.attendances.length
-              : '0'}
-            )
-          </span>
-        </div>
-        <div className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-10 font-semibold">
-          Offerings
-          <span>
-            (Ghc {totalOfferings ? (totalOfferings / 100).toFixed(2) : '0'})
-          </span>
-        </div>
+        {churchService && (
+          <Link
+            className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-10 font-semibold"
+            href={`/services/${churchService._id}/attendances`}
+          >
+            Attendance
+            <span>
+              (
+              {churchService.attendances
+                ? churchService.attendances.length
+                : '0'}
+              )
+            </span>
+          </Link>
+        )}
+
+        {churchService && (
+          <Link
+            className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-10 font-semibold"
+            href={`/services/${churchService._id}/offerings`}
+          >
+            Offerings
+            <span>
+              (Ghc {totalOfferings ? (totalOfferings / 100).toFixed(2) : '0'})
+            </span>
+          </Link>
+        )}
+
         <div className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-10 font-semibold">
           1
         </div>
