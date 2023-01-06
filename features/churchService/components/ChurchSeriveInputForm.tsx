@@ -1,20 +1,27 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
-import { CustomButton, CustomTextField } from '../../../components'
+import {
+  CustomButton,
+  CustomDropDown,
+  CustomTextField,
+} from '../../../components'
 import { useAppDispatch } from '../../../hooks'
+import { IChurchServiceType } from '../churchServiceType'
 import { addChurchServiceAction, IBaseChurchService } from '../index'
 
-const ChurchSeriveInputForm: FC<{ churchService?: IBaseChurchService }> = ({
-  churchService,
-}) => {
+const ChurchSeriveInputForm: FC<{
+  churchService?: IBaseChurchService
+  churchServiceTypes: IChurchServiceType[]
+}> = ({ churchService, churchServiceTypes }) => {
   const dispatch = useAppDispatch()
 
   const [values, setValues] = useState<IBaseChurchService>({
     date: '',
     endsAt: '',
     startsAt: '',
+    churchServiceType: '',
   })
 
-  const { date, endsAt, startsAt } = values
+  const { date, endsAt, startsAt, churchServiceType } = values
 
   useEffect(() => {
     if (churchService) {
@@ -46,6 +53,21 @@ const ChurchSeriveInputForm: FC<{ churchService?: IBaseChurchService }> = ({
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+          <CustomDropDown
+            label={'Type of church service'}
+            name={'churchServiceType'}
+            isRequired={true}
+            changeHandler={handleChange}
+            values={churchServiceTypes.map((churchServiceType) => ({
+              value: churchServiceType._id,
+              label: churchServiceType.name,
+            }))}
+            currentValue={
+              churchServiceType && typeof churchServiceType === 'string'
+                ? churchServiceType
+                : ''
+            }
+          />
           <CustomTextField
             label={'Date'}
             type={'date'}
@@ -54,7 +76,7 @@ const ChurchSeriveInputForm: FC<{ churchService?: IBaseChurchService }> = ({
             isRequired={true}
             changeHandler={handleChange}
           />
-          <CustomTextField
+          {/* <CustomTextField
             label={'Starts At'}
             type={'date'}
             name={'startsAt'}
@@ -69,7 +91,7 @@ const ChurchSeriveInputForm: FC<{ churchService?: IBaseChurchService }> = ({
             value={endsAt ? endsAt : ''}
             isRequired={false}
             changeHandler={handleChange}
-          />
+          /> */}
         </div>
         <CustomButton
           value={
