@@ -21,6 +21,7 @@ export interface IChurchServicesRes {
 
 export interface IChurchServiceRes {
   success: boolean
+  totalOfferings: number
   churchService: null | IChurchService
 }
 

@@ -28,7 +28,11 @@ export const churchServiceSlices = createSlice({
       state.isSuccess = false
       state.isError = false
       state.error = null
-      state.churchServiceResCRUD = { success: false, churchService: null }
+      state.churchServiceResCRUD = {
+        success: false,
+        totalOfferings: 0,
+        churchService: null,
+      }
       state.churchServiceTypeResCRUD = {
         success: false,
         churchServiceType: null,
