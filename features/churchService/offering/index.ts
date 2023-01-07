@@ -1,3 +1,4 @@
+import OfferingInputForm from './components/OfferingInputForm'
 import OfferingItems from './components/OfferingItems'
 import Offerings from './components/Offerings'
 import IOffering, {
@@ -7,7 +8,7 @@ import IOffering, {
 } from './offering.interfaces'
 import { getOfferings } from './offering.services'
 
-export { Offerings, OfferingItems }
+export { Offerings, OfferingItems, OfferingInputForm }
 
 export type { IBaseOffering, IOffering, IOfferingRes, IOfferingsRes }
 
