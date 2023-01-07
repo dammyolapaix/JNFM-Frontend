@@ -3,9 +3,10 @@ import { FC } from 'react'
 import { MdAdd } from 'react-icons/md'
 import { IOfferingsRes, OfferingItems } from '../index'
 
-const Offerings: FC<{ offeringsRes: IOfferingsRes }> = ({
-  offeringsRes: { offerings, totalOfferings },
-}) => {
+const Offerings: FC<{
+  offeringsRes: IOfferingsRes
+  churchServiceId: string
+}> = ({ offeringsRes: { offerings, totalOfferings }, churchServiceId }) => {
   return (
     <section>
       <div className="shadow-md p-5">
@@ -14,7 +15,7 @@ const Offerings: FC<{ offeringsRes: IOfferingsRes }> = ({
             Total Offerings (Ghc {(totalOfferings / 100).toFixed(2)})
           </h1>
           <Link
-            href={`/`}
+            href={`/services/${churchServiceId}/offerings/new`}
             className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
           >
             <MdAdd />

@@ -9,16 +9,20 @@ import { IParams } from '../../../../interfaces'
 
 const ChurchServiceOfferingsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ offeringsRes }) => {
+> = ({ offeringsRes, churchServiceId }) => {
   return (
     <Layout>
-      <Offerings offeringsRes={offeringsRes} />
+      <Offerings
+        offeringsRes={offeringsRes}
+        churchServiceId={churchServiceId}
+      />
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<{
   offeringsRes: IOfferingsRes
+  churchServiceId: string
 }> = async ({ params }) => {
   const { id: churchServiceId } = params as IParams
 
@@ -33,6 +37,7 @@ export const getServerSideProps: GetServerSideProps<{
   return {
     props: {
       offeringsRes,
+      churchServiceId,
     },
   }
 }

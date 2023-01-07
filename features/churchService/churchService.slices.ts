@@ -9,6 +9,7 @@ import {
   addChurchServiceTypeAction,
   IChurchServiceTypeRes,
 } from './churchServiceType'
+import { addChurchServiceOfferingAction, IOfferingRes } from './offering'
 
 const initialState = {
   isLoading: false,
@@ -17,6 +18,7 @@ const initialState = {
   error: null,
   churchServiceResCRUD: { success: false, churchService: null },
   churchServiceTypeResCRUD: { success: false, churchServiceType: null },
+  offeringResCRUD: { success: false, offering: null },
 } as IChurchServiceInitialState
 
 export const churchServiceSlices = createSlice({
@@ -36,6 +38,20 @@ export const churchServiceSlices = createSlice({
       state.churchServiceTypeResCRUD = {
         success: false,
         churchServiceType: null,
+      }
+      state.offeringResCRUD = {
+        success: false,
+        offering: null,
+      }
+    },
+    resetOffering: (state) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.isError = false
+      state.error = null
+      state.offeringResCRUD = {
+        success: false,
+        offering: null,
       }
     },
   },
@@ -81,10 +97,31 @@ export const churchServiceSlices = createSlice({
         state.error = action.payload
       }
     )
+
+    // Add Church Service Offering
+    builder.addCase(addChurchServiceOfferingAction.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(
+      addChurchServiceOfferingAction.fulfilled,
+      (state, action: PayloadAction<IOfferingRes>) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.offeringResCRUD = action.payload
+      }
+    )
+    builder.addCase(
+      addChurchServiceOfferingAction.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false
+        state.isError = true
+        state.error = action.payload
+      }
+    )
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { resetChurchService } = churchServiceSlices.actions
+export const { resetChurchService, resetOffering } = churchServiceSlices.actions
 
 export default churchServiceSlices.reducer

@@ -1,12 +1,14 @@
 import { IAttendance } from '../attendance'
 import { IChurchServiceType, IChurchServiceTypeRes } from './churchServiceType'
+import { IOffering, IOfferingRes } from './offering'
 
 export interface IBaseChurchService {
   date?: string | undefined
   startsAt?: string | undefined
   endsAt?: string | undefined
-  attendances?: IAttendance[]
+  attendances?: IAttendance[] | undefined
   churchServiceType?: string | IChurchServiceType | undefined
+  offerings?: IOffering[] | undefined
 }
 
 export default interface IChurchService extends IBaseChurchService {
@@ -32,4 +34,5 @@ export interface IChurchServiceInitialState {
   error: null
   churchServiceResCRUD: IChurchServiceRes
   churchServiceTypeResCRUD: IChurchServiceTypeRes
+  offeringResCRUD: IOfferingRes
 }
