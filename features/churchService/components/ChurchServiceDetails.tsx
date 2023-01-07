@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import { IChurchServiceRes } from '../index'
-import { MdEdit } from 'react-icons/md'
+import { MdEdit, MdPeople } from 'react-icons/md'
+import { GiReceiveMoney } from 'react-icons/gi'
 import { formatDateToddmYYY } from '../../../utils'
 
 const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
@@ -12,29 +13,31 @@ const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
         {churchService && (
           <Link
-            className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-10 font-semibold"
+            className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
             href={`/services/${churchService._id}/attendances`}
           >
-            Attendance
-            <span>
+            <MdPeople className="text-5xl" />
+            <div className="my-3">Attendances</div>
+            <div className="text-xl font-bold">
               (
               {churchService.attendances
                 ? churchService.attendances.length
                 : '0'}
               )
-            </span>
+            </div>
           </Link>
         )}
 
         {churchService && (
           <Link
-            className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-10 font-semibold"
+            className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
             href={`/services/${churchService._id}/offerings`}
           >
-            Offerings
-            <span>
+            <GiReceiveMoney className="text-5xl" />
+            <div className="my-3">Offerings</div>
+            <div className="text-xl font-bold">
               (Ghc {totalOfferings ? (totalOfferings / 100).toFixed(2) : '0'})
-            </span>
+            </div>
           </Link>
         )}
 
