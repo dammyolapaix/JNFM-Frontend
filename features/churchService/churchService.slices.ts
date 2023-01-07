@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {
   addChurchServiceAction,
-  addChurchServiceOfferingAction,
   IChurchServiceInitialState,
   IChurchServiceRes,
 } from './index'
@@ -10,7 +9,7 @@ import {
   addChurchServiceTypeAction,
   IChurchServiceTypeRes,
 } from './churchServiceType'
-import { IOfferingRes } from './offering'
+import { addChurchServiceOfferingAction, IOfferingRes } from './offering'
 
 const initialState = {
   isLoading: false,
