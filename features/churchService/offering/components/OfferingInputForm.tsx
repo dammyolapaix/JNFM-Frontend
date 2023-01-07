@@ -5,23 +5,25 @@ import {
   CustomTextField,
 } from '../../../../components'
 import { useAppDispatch } from '../../../../hooks'
-import { IBaseOffering } from '../index'
+import { IChurchService } from '../../index'
+import { addChurchServiceOfferingAction, IBaseOffering } from '../index'
 import { IOfferingType } from '../offeringType'
 
 const OfferingInputForm: FC<{
   offering?: IBaseOffering
   offeringTypes: IOfferingType[]
-}> = ({ offering, offeringTypes }) => {
+  churchServiceId: IChurchService['_id']
+}> = ({ churchServiceId, offering, offeringTypes }) => {
   const dispatch = useAppDispatch()
 
   const [values, setValues] = useState<IBaseOffering>({
     date: '',
     amount: 0,
-    churchService: '',
+    churchService: churchServiceId,
     offeringType: '',
   })
 
-  const { amount, churchService, date, offeringType } = values
+  const { amount, date, offeringType } = values
 
   useEffect(() => {
     if (offering) {
@@ -38,10 +40,10 @@ const OfferingInputForm: FC<{
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (churchService) {
+    if (offering) {
       // Action dispatch for edit goes here
     } else {
-      //   dispatch(addChurchServiceAction(values))
+      dispatch(addChurchServiceOfferingAction(values))
     }
   }
 
@@ -85,9 +87,7 @@ const OfferingInputForm: FC<{
             changeHandler={handleChange}
           />
         </div>
-        <CustomButton
-          value={!churchService ? 'Add Offering' : 'Update Offering'}
-        />
+        <CustomButton value={!offering ? 'Add Offering' : 'Update Offering'} />
       </form>
     </section>
   )

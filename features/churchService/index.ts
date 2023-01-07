@@ -1,7 +1,9 @@
 import { addChurchServiceAction } from './churchService.actions'
+import { addChurchServiceOfferingAction } from './offering/offering.actions'
 
 import churchServiceReducers, {
   resetChurchService,
+  resetOffering,
 } from './churchService.slices'
 import IChurchService, {
   IBaseChurchService,
@@ -19,7 +21,7 @@ import ChurchServices from './components/ChurchSerives'
 import ChurchServiceDetails from './components/ChurchServiceDetails'
 import ChurchServiceItem from './components/ChurchServiceItem'
 
-export { addChurchServiceAction }
+export { addChurchServiceAction, addChurchServiceOfferingAction }
 
 export {
   ChurchSeriveInputForm,
@@ -38,4 +40,4 @@ export type {
 
 export { getChurchServices, getSingleChurchServiceById, addChurchService }
 
-export { churchServiceReducers, resetChurchService }
+export { churchServiceReducers, resetChurchService, resetOffering }
