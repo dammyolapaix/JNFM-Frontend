@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { changeToHigherDenomination } from '../../../../utils'
 import IOffering from '../offering.interfaces'
 
 const OfferingItems: FC<{ offering: IOffering }> = ({
@@ -14,7 +15,7 @@ const OfferingItems: FC<{ offering: IOffering }> = ({
             ? offeringType.name
             : 'Not Given'}
         </td>
-        <td>Ghc {amount ? (amount / 100).toFixed(2) : '0'}</td>
+        <td>Ghc {amount ? changeToHigherDenomination(amount) : '0'}</td>
       </tr>
     </>
   )

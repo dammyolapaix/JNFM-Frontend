@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { IChurchServiceRes } from '../index'
 import { MdEdit, MdPeople } from 'react-icons/md'
-import { GiReceiveMoney } from 'react-icons/gi'
-import { formatDateToddmYYY } from '../../../utils'
+import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi'
+import { changeToHigherDenomination, formatDateToddmYYY } from '../../../utils'
 
 const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
   churchServiceRes: { churchService, totalOfferings },
@@ -13,8 +13,8 @@ const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
         {churchService && (
           <Link
-            className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
             href={`/services/${churchService._id}/attendances`}
+            className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
           >
             <MdPeople className="text-5xl" />
             <div className="my-3">Attendances</div>
@@ -30,20 +30,33 @@ const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
 
         {churchService && (
           <Link
-            className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
             href={`/services/${churchService._id}/offerings`}
+            className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
           >
             <GiReceiveMoney className="text-5xl" />
             <div className="my-3">Offerings</div>
             <div className="text-xl font-bold">
-              (Ghc {totalOfferings ? (totalOfferings / 100).toFixed(2) : '0'})
+              (Ghc{' '}
+              {totalOfferings
+                ? changeToHigherDenomination(totalOfferings)
+                : '0'}
+              )
             </div>
           </Link>
         )}
 
-        <div className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-10 font-semibold">
-          1
-        </div>
+        {churchService && (
+          <Link
+            href={`/services/${churchService._id}/expenditures`}
+            className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
+          >
+            <GiPayMoney className="text-5xl" />
+            <div className="my-3">Expenditures</div>
+            <div className="text-xl font-bold">
+              Ghc {changeToHigherDenomination(50000)}
+            </div>
+          </Link>
+        )}
         <div className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-10 font-semibold">
           1
         </div>
