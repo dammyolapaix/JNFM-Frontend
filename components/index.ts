@@ -6,6 +6,7 @@ import SideNav from './layout/SideNav'
 import NoRecordFound from './NoRecordFound'
 import QueryResult from './QueryResult'
 import Spinner from './Spinner'
+import Table from './ui/Table'
 
 export {
   CustomButton,
@@ -14,6 +15,7 @@ export {
   Layout,
   SideNav,
   QueryResult,
-  Spinner, 
+  Spinner,
   NoRecordFound,
+  Table,
 }
