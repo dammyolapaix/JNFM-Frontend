@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { IChurchServiceRes } from '../index'
 import { MdEdit, MdPeople } from 'react-icons/md'
 import { GiReceiveMoney } from 'react-icons/gi'
-import { formatDateToddmYYY } from '../../../utils'
+import { changeToHigherDenomination, formatDateToddmYYY } from '../../../utils'
 
 const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
   churchServiceRes: { churchService, totalOfferings },
@@ -36,7 +36,11 @@ const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
             <GiReceiveMoney className="text-5xl" />
             <div className="my-3">Offerings</div>
             <div className="text-xl font-bold">
-              (Ghc {totalOfferings ? (totalOfferings / 100).toFixed(2) : '0'})
+              (Ghc{' '}
+              {totalOfferings
+                ? changeToHigherDenomination(totalOfferings)
+                : '0'}
+              )
             </div>
           </Link>
         )}

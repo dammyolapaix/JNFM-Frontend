@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import { MdAdd } from 'react-icons/md'
+import { changeToHigherDenomination } from '../../../../utils'
 import { IOfferingsRes, OfferingItems } from '../index'
 
 const Offerings: FC<{
@@ -12,7 +13,7 @@ const Offerings: FC<{
       <div className="shadow-md p-5">
         <div className="flex justify-between items-center">
           <h1 className="font-extrabold text-2xl mb-5 text-secondary">
-            Total Offerings (Ghc {(totalOfferings / 100).toFixed(2)})
+            Total Offerings (Ghc {changeToHigherDenomination(totalOfferings)})
           </h1>
           <Link
             href={`/services/${churchServiceId}/offerings/new`}
