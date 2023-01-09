@@ -1,3 +1,5 @@
+import ExpenditureItem from './components/ExpenditureItem'
+import Expenditures from './components/Expenditures'
 import IExpenditure, {
   IBaseExpenditure,
   IExpendituresRes,
@@ -6,3 +8,4 @@ import { getExpenditures } from './expenditure.services'
 
 export type { IExpenditure, IBaseExpenditure, IExpendituresRes }
 export { getExpenditures }
+export { Expenditures, ExpenditureItem }
