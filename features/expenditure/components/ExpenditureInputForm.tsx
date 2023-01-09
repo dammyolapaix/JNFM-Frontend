@@ -12,7 +12,7 @@ import { addExpenditureAction, IBaseExpenditure, IExpenditure } from '../index'
 
 const ExpenditureInputForm: FC<{
   expenditure?: IExpenditure
-  churchServices: IChurchService[]
+  churchServices?: IChurchService[]
   expenditureCategories: IExpenditureCategory[]
   churchServiceId?: IChurchService['_id']
 }> = ({
@@ -106,7 +106,7 @@ const ExpenditureInputForm: FC<{
             changeHandler={handleChange}
           />
 
-          {!churchServiceId && (
+          {!churchServiceId && churchServices && (
             <CustomDropDown
               label={'Church Service'}
               name={'churchService'}
