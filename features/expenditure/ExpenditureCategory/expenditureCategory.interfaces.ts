@@ -5,3 +5,9 @@ export interface IBaseExpenditureCategory {
 export default interface IExpenditureCategory extends IBaseExpenditureCategory {
   _id: string
 }
+
+export interface IExpenditureCategoriesRes {
+  success: boolean
+  count: number
+  expenditureCategories: IExpenditureCategory[]
+}
