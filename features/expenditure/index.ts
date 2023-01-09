@@ -1,12 +1,25 @@
 import ExpenditureInputForm from './components/ExpenditureInputForm'
 import ExpenditureItem from './components/ExpenditureItem'
 import Expenditures from './components/Expenditures'
+import { addExpenditureAction } from './expenditure.actions'
 import IExpenditure, {
   IBaseExpenditure,
   IExpendituresRes,
+  IExpenditureInitialState,
+  IExpenditureRes,
 } from './expenditure.interfaces'
-import { getExpenditures } from './expenditure.services'
+import { addExpenditure, getExpenditures } from './expenditure.services'
+import expenditureReducers, { resetExpenditure } from './expenditure.slices'
 
-export type { IExpenditure, IBaseExpenditure, IExpendituresRes }
-export { getExpenditures }
+export type {
+  IExpenditure,
+  IBaseExpenditure,
+  IExpendituresRes,
+  IExpenditureInitialState,
+  IExpenditureRes,
+}
+
+export { addExpenditureAction }
+export { addExpenditure, getExpenditures }
 export { Expenditures, ExpenditureItem, ExpenditureInputForm }
+export { expenditureReducers, resetExpenditure }
