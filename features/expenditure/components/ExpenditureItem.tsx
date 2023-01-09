@@ -11,7 +11,9 @@ const ExpenditureItem: FC<{ expenditure: IExpenditure }> = ({
         {date ? formatDateToddmYYY(date) : 'Not Given'}
       </td>
       <td className="px-4 py-2">
-        {expenditureCategory ? expenditureCategory.name : 'Not Given'}
+        {expenditureCategory && typeof expenditureCategory === 'object'
+          ? expenditureCategory.name
+          : 'Not Given'}
       </td>
       <td className="px-4 py-2">
         {churchService &&
