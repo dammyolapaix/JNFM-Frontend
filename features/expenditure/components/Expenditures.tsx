@@ -3,15 +3,27 @@ import { FC } from 'react'
 import { MdAdd } from 'react-icons/md'
 import { NoRecordFound } from '../../../components'
 import { changeToHigherDenomination } from '../../../utils'
+import { IChurchService } from '../../churchService'
 import { ExpenditureItem, IExpendituresRes } from '../index'
 
-const Expenditures: FC<{ expendituresRes: IExpendituresRes }> = ({
+const Expenditures: FC<{
+  expendituresRes: IExpendituresRes
+  churchServiceId?: IChurchService['_id']
+}> = ({
   expendituresRes: { totalExpenditures, expenditures, count },
+  churchServiceId,
 }) => {
   return (
     <section>
       {count === 0 ? (
-        <NoRecordFound cta="Add New Expenditure" href="/expenditures/new" />
+        <NoRecordFound
+          cta="Add New Expenditure"
+          href={
+            !churchServiceId
+              ? '/expenditures/new'
+              : `/services/${churchServiceId}/expenditures/new`
+          }
+        />
       ) : (
         <>
           <div className="shadow-md">
@@ -24,7 +36,11 @@ const Expenditures: FC<{ expendituresRes: IExpendituresRes }> = ({
                 )
               </h1>
               <Link
-                href={`/expenditures/new`}
+                href={
+                  !churchServiceId
+                    ? '/expenditures/new'
+                    : `/services/${churchServiceId}/expenditures/new`
+                }
                 className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
               >
                 <MdAdd />
