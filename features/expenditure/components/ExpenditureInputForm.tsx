@@ -4,10 +4,11 @@ import {
   CustomDropDown,
   CustomTextField,
 } from '../../../components'
+import { useAppDispatch } from '../../../hooks'
 import { formatDateToddmYYY } from '../../../utils'
 import { IChurchService } from '../../churchService'
 import { IExpenditureCategory } from '../ExpenditureCategory'
-import { IBaseExpenditure, IExpenditure } from '../index'
+import { addExpenditureAction, IBaseExpenditure, IExpenditure } from '../index'
 
 const ExpenditureInputForm: FC<{
   expenditure?: IExpenditure
@@ -20,6 +21,8 @@ const ExpenditureInputForm: FC<{
   expenditureCategories,
   expenditure,
 }) => {
+  const dispatch = useAppDispatch()
+
   const [values, setValues] = useState<IBaseExpenditure>({
     amount: 0,
     date: '',
@@ -49,6 +52,7 @@ const ExpenditureInputForm: FC<{
       // Action dispatch for edit goes here
     } else {
       // Action dispatch for add goes here
+      dispatch(addExpenditureAction(values))
     }
   }
 
