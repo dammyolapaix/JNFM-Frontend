@@ -19,3 +19,17 @@ export interface IExpendituresRes {
   totalExpenditures: number
   expenditures: IExpenditure[]
 }
+
+export interface IExpenditureRes {
+  success: boolean
+  totalOfferings: number
+  expenditure: null | IExpenditure
+}
+
+export interface IExpenditureInitialState {
+  isLoading: boolean
+  isSuccess: boolean
+  isError: boolean
+  error: null
+  expenditureResCRUD: IExpenditureRes
+}

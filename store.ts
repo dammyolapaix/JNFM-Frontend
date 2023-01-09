@@ -3,6 +3,7 @@ import { attendanceReducers } from './features/attendance'
 import { cellReducers } from './features/cell'
 import { churchServiceReducers } from './features/churchService'
 import { departmentReducers } from './features/department'
+import { expenditureReducers } from './features/expenditure'
 import { memberReducers } from './features/member'
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     attendance: attendanceReducers,
     cell: cellReducers,
     department: departmentReducers,
+    expenditure: expenditureReducers,
     member: memberReducers,
     churchService: churchServiceReducers,
   },
