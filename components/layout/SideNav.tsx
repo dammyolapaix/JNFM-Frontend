@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { MdDashboard, MdGroup, MdGroups } from 'react-icons/md'
 import { FaChurch } from 'react-icons/fa'
-import { GiPayMoney } from 'react-icons/gi'
+import { GiMoneyStack, GiPayMoney } from 'react-icons/gi'
 
 const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
   return (
@@ -53,6 +53,13 @@ const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
         >
           <GiPayMoney className="mr-3" />
           <div className="font-semibold">Expenditures</div>
+        </Link>
+        <Link
+          href={'/incomes'}
+          className="flex items-center border-b py-5 hover:text-secondary"
+        >
+          <GiMoneyStack className="text-primary mr-3" />
+          <div className="font-semibold">Income</div>
         </Link>
       </div>
     </aside>
