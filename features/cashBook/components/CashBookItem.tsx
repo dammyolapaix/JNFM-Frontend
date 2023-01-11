@@ -20,17 +20,20 @@ const CashBookItem: FC<{ cashBook: ICashBook }> = ({
         {date ? formatDateToddmYYY(date) : 'Not Given'}
       </td>
       <td className="px-4 py-2">{naration ? naration : 'Not Given'}</td>
+      <td className="px-4 py-2">{pvNumber ? pvNumber : 'Not Given'}</td>
+      <td className="px-4 py-2">{chequeNumber ? chequeNumber : 'Not Given'}</td>
       <td className="px-4 py-2">
         {account && account.offering && typeof account.offering === 'object' ? (
-          <Link href={`/services/${account.offering.churchService}/offerings`}>
+          <Link
+            href={`/services/${account.offering.churchService}/offerings`}
+            className="text-primary"
+          >
             Offering
           </Link>
         ) : (
           'Not Given'
         )}
       </td>
-      <td className="px-4 py-2">{pvNumber ? pvNumber : 'Not Given'}</td>
-      <td className="px-4 py-2">{chequeNumber ? chequeNumber : 'Not Given'}</td>
       <td
         className={`px-4 py-2 ${debitCredit === 'Debit' && 'text-green-600'} ${
           debitCredit === 'Credit' && 'text-red-600'
