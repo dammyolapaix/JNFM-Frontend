@@ -1,2 +1,7 @@
 export const changeToHigherDenomination = (amount: number): string =>
-  (amount / 100).toFixed(2)
+  new Intl.NumberFormat(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+    style: 'currency',
+    currency: 'GHS',
+  }).format(amount / 100)
