@@ -1,14 +1,18 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { CustomButton, CustomTextField } from '../../../../components'
+import { useAppDispatch } from '../../../../hooks'
 import { IBaseTithe } from '../index'
+import { addTitheAction } from '../tithe.actions'
 
 const TitheInputForm: FC<{
   tithe?: IBaseTithe
 }> = ({ tithe }) => {
+  const dispatch = useAppDispatch()
+
   const [values, setValues] = useState<IBaseTithe>({
     amount: 0,
     date: '',
-    member: '',
+    member: '6399eabbc4d02ad18bc3eae9', // Adding a static member, will changes this later to a dynamic member
   })
 
   const { amount, date, member } = values
@@ -31,6 +35,7 @@ const TitheInputForm: FC<{
     if (tithe) {
       // Action dispatch for edit goes here
     } else {
+      dispatch(addTitheAction(values))
       // Action dispatch for add goes here
     }
   }
