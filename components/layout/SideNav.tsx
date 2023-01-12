@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { MdDashboard, MdGroup, MdGroups } from 'react-icons/md'
 import { FaChurch } from 'react-icons/fa'
 import { GiMoneyStack, GiPayMoney } from 'react-icons/gi'
+import { IoIosJournal } from 'react-icons/io'
 
 const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
   return (
@@ -60,6 +61,13 @@ const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
         >
           <GiMoneyStack className="text-primary mr-3" />
           <div className="font-semibold">Income</div>
+        </Link>
+        <Link
+          href={'/cashBooks'}
+          className="flex items-center border-b py-5 hover:text-secondary"
+        >
+          <IoIosJournal className="mr-3" />
+          <div className="font-semibold">Cash Book</div>
         </Link>
       </div>
     </aside>
