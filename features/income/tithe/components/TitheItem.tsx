@@ -14,7 +14,7 @@ const TitheItem: FC<{ tithe: ITithe }> = ({
       <td className="px-4 py-2">
         {date ? formatDateToddmYYY(date) : 'Not Given'}
       </td>
-      <td className="px-4 py-2">
+      <td className="px-4 py-2 text-primary hover:text-tertiary">
         {member && typeof member === 'object' ? (
           <Link href={`/members/${member._id}`}>{member.fullName}</Link>
         ) : (

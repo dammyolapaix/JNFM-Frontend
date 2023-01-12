@@ -36,9 +36,8 @@ const Tithes: FC<{
                 <thead className="text-secondary">
                   <tr className="text-left border">
                     <th className="px-4 py-2">Date</th>
-                    <th className="px-4 py-2">Naration</th>
-                    <th className="px-4 py-2">Account/Source</th>
-                    <th className="px-4 py-2">(Ghc) Amount</th>
+                    <th className="px-4 py-2">Member</th>
+                    <th className="px-4 py-2">(GHS) Amount</th>
                   </tr>
                 </thead>
                 <tbody>
