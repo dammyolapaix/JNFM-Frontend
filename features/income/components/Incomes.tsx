@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import { FC } from 'react'
+import { GiTwoCoins } from 'react-icons/gi'
 import { MdAdd } from 'react-icons/md'
 import { NoRecordFound } from '../../../components'
 import { changeToHigherDenomination } from '../../../utils'
 import { IIncomesRes, IncomeItem } from '../index'
 
-const Expenditures: FC<{
+const Incomes: FC<{
   incomesRes: IIncomesRes
 }> = ({ incomesRes: { incomes, count } }) => {
   return (
@@ -18,10 +19,32 @@ const Expenditures: FC<{
         />
       ) : (
         <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            <Link
+              href={`/incomes/tithes`}
+              className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
+            >
+              <GiTwoCoins className="text-5xl" />
+              <div className="my-3">Tithes</div>
+              <div className="text-xl font-bold">
+                {changeToHigherDenomination(0)}
+              </div>
+            </Link>
+            <Link
+              href={`/incomes/welfares`}
+              className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
+            >
+              <GiTwoCoins className="text-5xl" />
+              <div className="my-3">Welfares</div>
+              <div className="text-xl font-bold">
+                {changeToHigherDenomination(0)}
+              </div>
+            </Link>
+          </div>
           <div className="shadow-md">
             <div className="flex justify-between items-center">
               <h1 className="font-extrabold text-2xl mb-5 text-secondary">
-                Income (Ghc {changeToHigherDenomination(37789)})
+                Income ({changeToHigherDenomination(37789)})
               </h1>
               <Link
                 href={`#`}
@@ -56,4 +79,4 @@ const Expenditures: FC<{
   )
 }
 
-export default Expenditures
+export default Incomes
