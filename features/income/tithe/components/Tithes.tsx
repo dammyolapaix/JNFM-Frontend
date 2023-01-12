@@ -14,7 +14,7 @@ const Tithes: FC<{
         <NoRecordFound
           message="Oops, No Tithe Found"
           cta="Add New Tithe"
-          href={`incomes/tithes/new`}
+          href={`/incomes/tithes/new`}
         />
       ) : (
         <>
