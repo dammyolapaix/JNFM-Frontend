@@ -1,3 +1,4 @@
+import TitheInputForm from './components/TitheInputForm'
 import TitheItem from './components/TitheItem'
 import Tithes from './components/Tithes'
 import ITithe, { IBaseTithe, ITitheRes, ITithesRes } from './tithe.interfaces'
@@ -7,4 +8,4 @@ export type { IBaseTithe, ITitheRes, ITithesRes, ITithe }
 
 export { getTithes }
 
-export { Tithes, TitheItem }
+export { Tithes, TitheItem, TitheInputForm }
