@@ -1,19 +1,20 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import { MdAdd } from 'react-icons/md'
-import { NoRecordFound } from '../../../../components'
-import { changeToHigherDenomination } from '../../../../utils'
-import { ITithesRes, TitheItem } from '../index'
+import { WelfareItem } from '..'
+import { NoRecordFound } from '../../../../../components'
+import { changeToHigherDenomination } from '../../../../../utils'
+import { IWelfaresRes } from '../welfare.interfaces'
 
-const Tithes: FC<{
-  tithesRes: ITithesRes
-}> = ({ tithesRes: { count, tithes } }) => {
+const Welfares: FC<{
+  welfaresRes: IWelfaresRes
+}> = ({ welfaresRes: { count, welfares } }) => {
   return (
     <section>
       {count === 0 ? (
         <NoRecordFound
-          message="Oops, No Tithe Found"
-          cta="Add New Tithe"
+          message="Oops, No Welfare Found"
+          cta="Add New Welfare"
           href={`/incomes/tithes/new`}
         />
       ) : (
@@ -21,7 +22,7 @@ const Tithes: FC<{
           <div className="shadow-md">
             <div className="flex justify-between items-center">
               <h1 className="font-extrabold text-2xl mb-5 text-secondary">
-                Tithes ({changeToHigherDenomination(0)})
+                Welfares ({changeToHigherDenomination(0)})
               </h1>
               <Link
                 href={`/incomes/tithes/new`}
@@ -41,9 +42,9 @@ const Tithes: FC<{
                   </tr>
                 </thead>
                 <tbody>
-                  {tithes &&
-                    tithes.map((tithe) => (
-                      <TitheItem key={tithe._id} tithe={tithe} />
+                  {welfares &&
+                    welfares.map((welfare) => (
+                      <WelfareItem key={welfare._id} welfare={welfare} />
                     ))}
                 </tbody>
               </table>
@@ -55,4 +56,4 @@ const Tithes: FC<{
   )
 }
 
-export default Tithes
+export default Welfares
