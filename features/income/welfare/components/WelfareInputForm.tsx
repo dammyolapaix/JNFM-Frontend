@@ -1,10 +1,13 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { CustomButton, CustomTextField } from '../../../../components'
-import { IBaseWelfare } from '../index'
+import { useAppDispatch } from '../../../../hooks'
+import { addWelfareAction, IBaseWelfare } from '../index'
 
 const WelfareInputForm: FC<{
   welfare?: IBaseWelfare
 }> = ({ welfare }) => {
+  const dispatch = useAppDispatch()
+
   const [values, setValues] = useState<IBaseWelfare>({
     amount: 0,
     date: '',
@@ -31,7 +34,7 @@ const WelfareInputForm: FC<{
     if (welfare) {
       // Action dispatch for edit goes here
     } else {
-      // Action dispatch for add goes here
+      dispatch(addWelfareAction(values))
     }
   }
 
