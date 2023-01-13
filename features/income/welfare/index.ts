@@ -1,15 +1,18 @@
 import WelfareInputForm from './components/WelfareInputForm'
 import WelfareItem from './components/WelfareItem'
 import Welfares from './components/Welfares'
+import { addWelfareAction } from './welfare.actions'
 import IWelfare, {
   IBaseWelfare,
   IWelfareRes,
   IWelfaresRes,
 } from './welfare.interfaces'
-import { getWelfares } from './welfare.services'
+import { addWelfare, getWelfares } from './welfare.services'
 
 export type { IBaseWelfare, IWelfareRes, IWelfaresRes, IWelfare }
 
-export { getWelfares }
+export { addWelfare, getWelfares }
 
 export { Welfares, WelfareItem, WelfareInputForm }
+
+export { addWelfareAction }

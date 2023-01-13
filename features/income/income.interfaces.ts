@@ -1,5 +1,6 @@
 import { IOffering } from '../churchService/offering'
 import { ITitheRes } from './tithe'
+import { IWelfareRes } from './welfare'
 
 export interface IBaseIncome {
   date: string
@@ -33,4 +34,5 @@ export interface ITitheInitialState {
   isError: boolean
   error: null
   titheResCRUD: ITitheRes
+  welfareResCRUD: IWelfareRes
 }
