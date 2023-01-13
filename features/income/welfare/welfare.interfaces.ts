@@ -1,4 +1,4 @@
-import { IMember } from '../../../member'
+import { IMember } from '../../member'
 
 export interface IBaseWelfare {
   date: string

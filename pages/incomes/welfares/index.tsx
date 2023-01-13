@@ -4,7 +4,7 @@ import {
   getWelfares,
   IWelfaresRes,
   Welfares,
-} from '../../../features/income/components/welfafre'
+} from '../../../features/income/welfare'
 
 const WelfaresPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>

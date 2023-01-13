@@ -9,7 +9,11 @@ import { getIncomes } from './income.services'
 import Incomes from './components/Incomes'
 import IncomeItem from './components/IncomeItem'
 
-import incomeReducers, { incomeSlices, resetTithe } from './income.slices'
+import incomeReducers, {
+  incomeSlices,
+  resetTithe,
+  resetWelfare,
+} from './income.slices'
 
 export type {
   IBaseIncome,
@@ -22,4 +26,4 @@ export { getIncomes }
 
 export { Incomes, IncomeItem }
 
-export { incomeReducers, incomeSlices, resetTithe }
+export { incomeReducers, incomeSlices, resetTithe, resetWelfare }
