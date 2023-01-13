@@ -15,7 +15,7 @@ const Welfares: FC<{
         <NoRecordFound
           message="Oops, No Welfare Found"
           cta="Add New Welfare"
-          href={`/incomes/tithes/new`}
+          href={`/incomes/welfares/new`}
         />
       ) : (
         <>
@@ -25,7 +25,7 @@ const Welfares: FC<{
                 Welfares ({changeToHigherDenomination(0)})
               </h1>
               <Link
-                href={`/incomes/tithes/new`}
+                href={`/incomes/welfares/new`}
                 className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
               >
                 <MdAdd />

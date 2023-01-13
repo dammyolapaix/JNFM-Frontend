@@ -1,3 +1,4 @@
+import WelfareInputForm from './components/WelfareInputForm'
 import WelfareItem from './components/WelfareItem'
 import Welfares from './components/Welfares'
 import IWelfare, {
@@ -11,4 +12,4 @@ export type { IBaseWelfare, IWelfareRes, IWelfaresRes, IWelfare }
 
 export { getWelfares }
 
-export { Welfares, WelfareItem }
+export { Welfares, WelfareItem, WelfareInputForm }
