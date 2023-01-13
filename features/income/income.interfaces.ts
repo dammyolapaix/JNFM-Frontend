@@ -1,6 +1,6 @@
 import { IOffering } from '../churchService/offering'
-import { ITitheRes } from './tithe'
-import { IWelfareRes } from './welfare'
+import { ITithe, ITitheRes } from './tithe'
+import { IWelfare, IWelfareRes } from './welfare'
 
 export interface IBaseIncome {
   date: string
@@ -8,6 +8,8 @@ export interface IBaseIncome {
   naration: string
   source: {
     offering?: IOffering | IOffering['_id'] | undefined
+    tithe?: ITithe | ITithe['_id'] | undefined
+    welfare?: IWelfare | IWelfare['_id'] | undefined
   }
 }
 
