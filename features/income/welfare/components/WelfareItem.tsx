@@ -3,7 +3,7 @@ import { FC } from 'react'
 import {
   changeToHigherDenomination,
   formatDateToddmYYY,
-} from '../../../../../utils'
+} from '../../../../utils'
 import { IWelfare } from '../index'
 
 const WelfareItem: FC<{ welfare: IWelfare }> = ({

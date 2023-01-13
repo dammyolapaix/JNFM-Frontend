@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { MdAdd } from 'react-icons/md'
 import { WelfareItem } from '..'
-import { NoRecordFound } from '../../../../../components'
-import { changeToHigherDenomination } from '../../../../../utils'
+import { NoRecordFound } from '../../../../components'
+import { changeToHigherDenomination } from '../../../../utils'
 import { IWelfaresRes } from '../welfare.interfaces'
 
 const Welfares: FC<{
