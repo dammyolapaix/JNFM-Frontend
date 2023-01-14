@@ -31,6 +31,8 @@ const ChurchServices: FC<{ churchServicesRes: IChurchServicesRes }> = ({
                 {/* <th>Starts At</th>
                 <th>Ends At</th> */}
                 <th>Attendances</th>
+                <th>Offerings</th>
+                <th>Expenditures</th>
               </tr>
             </thead>
             <tbody>
