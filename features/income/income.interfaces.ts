@@ -17,10 +17,33 @@ export default interface IIncome extends IBaseIncome {
   _id: string
 }
 
+export interface ITotalIncome {
+  totalIncome: {
+    _id: null
+    totalIncome: number
+  }[]
+  incomeByOffering: {
+    _id: null
+    totalIncome: number
+  }[]
+  incomeByWelfare: {
+    _id: null
+    totalIncome: number
+  }[]
+  incomeByTithe: {
+    _id: null
+    totalIncome: number
+  }[]
+  incomeBySpecialContribution: {
+    _id: null
+    totalIncome: number
+  }[]
+}
+
 export interface IIncomesRes {
   success: boolean
   count: number
-  // totalIncomes: number
+  totalIncome: ITotalIncome[]
   incomes: IIncome[]
 }
 
