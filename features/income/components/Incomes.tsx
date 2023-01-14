@@ -8,7 +8,7 @@ import { IIncomesRes, IncomeItem } from '../index'
 
 const Incomes: FC<{
   incomesRes: IIncomesRes
-}> = ({ incomesRes: { incomes, count } }) => {
+}> = ({ incomesRes: { incomes, count, totalIncome } }) => {
   return (
     <section>
       {count === 0 ? (
@@ -25,26 +25,78 @@ const Incomes: FC<{
               className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
             >
               <GiTwoCoins className="text-5xl" />
+              <div className="my-3">Offerings</div>
+              <div className="text-xl font-bold">
+                {changeToHigherDenomination(
+                  totalIncome &&
+                    totalIncome.length > 0 &&
+                    totalIncome[0].incomeByOffering.length > 0
+                    ? totalIncome[0].incomeByOffering[0].totalIncome
+                    : 0
+                )}
+              </div>
+            </Link>
+            <Link
+              href={`/incomes/tithes`}
+              className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
+            >
+              <GiTwoCoins className="text-5xl" />
               <div className="my-3">Tithes</div>
               <div className="text-xl font-bold">
-                {changeToHigherDenomination(0)}
+                {changeToHigherDenomination(
+                  totalIncome &&
+                    totalIncome.length > 0 &&
+                    totalIncome[0].incomeByTithe.length > 0
+                    ? totalIncome[0].incomeByTithe[0].totalIncome
+                    : 0
+                )}
               </div>
             </Link>
             <Link
               href={`/incomes/welfares`}
-              className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
+              className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
             >
               <GiTwoCoins className="text-5xl" />
               <div className="my-3">Welfares</div>
               <div className="text-xl font-bold">
-                {changeToHigherDenomination(0)}
+                {changeToHigherDenomination(
+                  totalIncome &&
+                    totalIncome.length > 0 &&
+                    totalIncome[0].incomeByWelfare.length > 0
+                    ? totalIncome[0].incomeByWelfare[0].totalIncome
+                    : 0
+                )}
+              </div>
+            </Link>
+            <Link
+              href={`/incomes/tithes`}
+              className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
+            >
+              <GiTwoCoins className="text-5xl" />
+              <div className="my-3">Special Contributions</div>
+              <div className="text-xl font-bold">
+                {changeToHigherDenomination(
+                  totalIncome &&
+                    totalIncome.length > 0 &&
+                    totalIncome[0].incomeBySpecialContribution.length > 0
+                    ? totalIncome[0].incomeBySpecialContribution[0].totalIncome
+                    : 0
+                )}
               </div>
             </Link>
           </div>
           <div className="shadow-md">
             <div className="flex justify-between items-center">
               <h1 className="font-extrabold text-2xl mb-5 text-secondary">
-                Income ({changeToHigherDenomination(37789)})
+                Income (
+                {changeToHigherDenomination(
+                  totalIncome &&
+                    totalIncome.length > 0 &&
+                    totalIncome[0].totalIncome.length > 0
+                    ? totalIncome[0].totalIncome[0].totalIncome
+                    : 0
+                )}
+                )
               </h1>
               <Link
                 href={`#`}
