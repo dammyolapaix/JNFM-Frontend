@@ -16,9 +16,25 @@ export default interface ICashBook extends IBaseCashBook {
   _id: string
 }
 
+export interface ITotalCashBook {
+  balance: {
+    _id: null
+    balance: number
+  }[]
+  totalIncome: {
+    _id: null
+    totalIncome: number
+  }[]
+  totalExpenditure: {
+    _id: null
+    totalExpenditure: number
+  }[]
+}
+
 export interface ICashBooksRes {
   success: boolean
   count: number
+  totalCashBook: ITotalCashBook[]
   cashBooks: ICashBook[]
 }
 
