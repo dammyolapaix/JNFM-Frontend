@@ -46,7 +46,7 @@ const CashBookItem: FC<{ cashBook: ICashBook }> = ({
           debitCredit === 'Credit' && 'text-red-600'
         }`}
       >
-        {amount ? `Ghc ${changeToHigherDenomination(amount)}` : 'Not Given'}
+        {amount ? changeToHigherDenomination(amount) : 'Not Given'}
       </td>
     </tr>
   )
