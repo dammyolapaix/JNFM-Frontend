@@ -29,10 +29,10 @@ const Expenditures: FC<{
           <div className="shadow-md">
             <div className="flex justify-between items-center">
               <h1 className="font-extrabold text-2xl mb-5 text-secondary">
-                Expenditure (Ghc{' '}
-                {totalExpenditures
-                  ? changeToHigherDenomination(totalExpenditures)
-                  : '0'}
+                Expenditures (
+                {changeToHigherDenomination(
+                  totalExpenditures ? totalExpenditures : 0
+                )}
                 )
               </h1>
               <Link
@@ -54,7 +54,7 @@ const Expenditures: FC<{
                     <th className="px-4 py-2">Date</th>
                     <th className="px-4 py-2">Category</th>
                     <th className="px-4 py-2">Church Service</th>
-                    <th className="px-4 py-2">(Ghc) Amount</th>
+                    <th className="px-4 py-2">(GHS) Amount</th>
                   </tr>
                 </thead>
                 <tbody>
