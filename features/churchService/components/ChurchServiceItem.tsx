@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { IChurchService } from '../index'
 import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
-import { formatDateToddmYYY } from '../../../utils'
+import { changeToHigherDenomination, formatDateToddmYYY } from '../../../utils'
 
 const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
   churchService: {
@@ -12,8 +12,25 @@ const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
     // startsAt,
     attendances,
     churchServiceType,
+    offerings,
+    expenditures,
   },
 }) => {
+  const totalOfferings =
+    typeof offerings !== 'undefined' &&
+    offerings.reduce(
+      (accumulatedOfferings, currentOffering) =>
+        accumulatedOfferings + currentOffering.amount,
+      0
+    )
+
+  const totalExpenditures =
+    typeof expenditures !== 'undefined' &&
+    expenditures.reduce(
+      (accumulatedExpenditures, currentExpenditure) =>
+        accumulatedExpenditures + currentExpenditure.amount,
+      0
+    )
   return (
     <>
       <tr className="border">
@@ -31,11 +48,39 @@ const ChurchServiceItem: FC<{ churchService: IChurchService }> = ({
           ) : (
             <Link
               href={`/services/${_id}/attendances`}
-              className="hover:text-tertiary underline"
+              className="text-primary hover:text-tertiary"
             >
               {attendances.length}
             </Link>
           )}
+        </td>
+        <td>
+          <Link
+            href={`/services/${_id}/offerings`}
+            className={
+              typeof totalOfferings === 'number' && totalOfferings > 0
+                ? 'text-green-600 hover:text-tertiary'
+                : ''
+            }
+          >
+            {changeToHigherDenomination(
+              typeof totalOfferings === 'number' ? totalOfferings : 0
+            )}
+          </Link>
+        </td>
+        <td>
+          <Link
+            href={`/services/${_id}/expenditures`}
+            className={
+              typeof totalExpenditures === 'number' && totalExpenditures !== 0
+                ? 'text-red-600 hover:text-tertiary'
+                : ''
+            }
+          >
+            {changeToHigherDenomination(
+              typeof totalExpenditures === 'number' ? totalExpenditures : 0
+            )}
+          </Link>
         </td>
         <td className="flex items-center mt-2">
           <Link

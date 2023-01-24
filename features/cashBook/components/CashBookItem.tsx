@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { changeToHigherDenomination, formatDateToddmYYY } from '../../../utils'
 import { ICashBook } from '../index'
 
-const CashBookItem: FC<{ cashBook: ICashBook }> = ({
+const CashBookItem: FC<{ cashBook: ICashBook; runningBalance: number }> = ({
   cashBook: {
     amount,
     date,
@@ -13,9 +13,10 @@ const CashBookItem: FC<{ cashBook: ICashBook }> = ({
     chequeNumber,
     pvNumber,
   },
+  runningBalance,
 }) => {
   return (
-    <tr className="border">
+    <tr className="border text-center">
       <td className="px-4 py-2">
         {date ? formatDateToddmYYY(date) : 'Not Given'}
       </td>
@@ -35,18 +36,27 @@ const CashBookItem: FC<{ cashBook: ICashBook }> = ({
         )}
       </td>
       <td
-        className={`px-4 py-2 ${debitCredit === 'Debit' && 'text-green-600'} ${
-          debitCredit === 'Credit' && 'text-red-600'
+        className={`px-4 py-2 text-center ${
+          debitCredit === 'Debit' && 'text-green-600'
         }`}
       >
-        {debitCredit ? debitCredit : 'Not Given'}
+        {debitCredit && debitCredit === 'Debit' && amount
+          ? changeToHigherDenomination(amount)
+          : '-'}
+      </td>
+      <td className={`px-4 py-2 ${debitCredit === 'Credit' && 'text-red-600'}`}>
+        {debitCredit && debitCredit === 'Credit' && amount
+          ? changeToHigherDenomination(amount)
+          : '-'}
       </td>
       <td
-        className={`px-4 py-2 ${debitCredit === 'Debit' && 'text-green-600'} ${
-          debitCredit === 'Credit' && 'text-red-600'
+        className={`px-4 py-2 ${
+          runningBalance > 0 ? 'text-green-600' : 'text-red-600'
         }`}
       >
-        {amount ? `Ghc ${changeToHigherDenomination(amount)}` : 'Not Given'}
+        {runningBalance
+          ? changeToHigherDenomination(runningBalance)
+          : 'Not Given'}
       </td>
     </tr>
   )

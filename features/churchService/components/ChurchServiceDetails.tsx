@@ -6,8 +6,25 @@ import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi'
 import { changeToHigherDenomination, formatDateToddmYYY } from '../../../utils'
 
 const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
-  churchServiceRes: { churchService, totalOfferings },
+  churchServiceRes: { churchService },
 }) => {
+  const totalOfferings =
+    churchService !== null &&
+    typeof churchService.offerings !== 'undefined' &&
+    churchService.offerings.reduce(
+      (accumulatedOfferings, currentOffering) =>
+        accumulatedOfferings + currentOffering.amount,
+      0
+    )
+
+  const totalExpenditures =
+    churchService !== null &&
+    typeof churchService.expenditures !== 'undefined' &&
+    churchService.expenditures.reduce(
+      (accumulatedExpenditures, currentExpenditure) =>
+        accumulatedExpenditures + currentExpenditure.amount,
+      0
+    )
   return (
     <section>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
@@ -31,15 +48,15 @@ const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
         {churchService && (
           <Link
             href={`/services/${churchService._id}/offerings`}
-            className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
+            className="bg-green-600 text-white hover:bg-green-500 rounded-md flex flex-col items-center justify-center p-5 font-semibold"
           >
             <GiReceiveMoney className="text-5xl" />
             <div className="my-3">Offerings</div>
             <div className="text-xl font-bold">
-              (Ghc{' '}
-              {totalOfferings
-                ? changeToHigherDenomination(totalOfferings)
-                : '0'}
+              (
+              {changeToHigherDenomination(
+                typeof totalOfferings === 'number' ? totalOfferings : 0
+              )}
               )
             </div>
           </Link>
@@ -48,18 +65,22 @@ const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
         {churchService && (
           <Link
             href={`/services/${churchService._id}/expenditures`}
-            className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
+            className="bg-red-600 text-white hover:bg-red-500 rounded-md flex flex-col items-center justify-center p-5 font-semibold"
           >
             <GiPayMoney className="text-5xl" />
             <div className="my-3">Expenditures</div>
             <div className="text-xl font-bold">
-              Ghc {changeToHigherDenomination(50000)}
+              (
+              {changeToHigherDenomination(
+                typeof totalExpenditures === 'number' ? totalExpenditures : 0
+              )}
+              )
             </div>
           </Link>
         )}
-        <div className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-10 font-semibold">
+        {/* <div className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-10 font-semibold">
           1
-        </div>
+        </div> */}
       </div>
       <div className="flex justify-between items-center">
         <h1 className="font-extrabold text-2xl mb-5 text-secondary">
