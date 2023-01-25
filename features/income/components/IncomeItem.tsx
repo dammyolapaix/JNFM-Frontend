@@ -14,15 +14,32 @@ const IncomeItem: FC<{ income: IIncome }> = ({
       <td className="px-4 py-2">{naration ? naration : 'Not Given'}</td>
       <td className="px-4 py-2">
         {source && source.offering && typeof source.offering === 'object' ? (
-          <Link href={`/services/${source.offering.churchService}/offerings`}>
+          <Link
+            href={`/services/${source.offering.churchService}/offerings`}
+            className="text-primary hover:text-tertiary"
+          >
             Offering
+          </Link>
+        ) : source.tithe ? (
+          <Link
+            href={`/incomes/tithes`}
+            className="text-primary hover:text-tertiary"
+          >
+            Tithe
+          </Link>
+        ) : source.welfare ? (
+          <Link
+            href={`/incomes/welfares`}
+            className="text-primary hover:text-tertiary"
+          >
+            Welfare
           </Link>
         ) : (
           'Not Given'
         )}
       </td>
       <td className="px-4 py-2">
-        {amount ? `Ghc ${changeToHigherDenomination(amount)}` : 'Not Given'}
+        {amount ? `${changeToHigherDenomination(amount)}` : 'Not Given'}
       </td>
     </tr>
   )

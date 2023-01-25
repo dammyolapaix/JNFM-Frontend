@@ -2,13 +2,28 @@ import IIncome, {
   IBaseIncome,
   IIncomeRes,
   IIncomesRes,
+  ITitheInitialState,
 } from './income.interfaces'
 import { getIncomes } from './income.services'
 
 import Incomes from './components/Incomes'
 import IncomeItem from './components/IncomeItem'
 
-export type { IBaseIncome, IIncome, IIncomeRes, IIncomesRes }
+import incomeReducers, {
+  incomeSlices,
+  resetTithe,
+  resetWelfare,
+} from './income.slices'
+
+export type {
+  IBaseIncome,
+  IIncome,
+  IIncomeRes,
+  IIncomesRes,
+  ITitheInitialState,
+}
 export { getIncomes }
 
 export { Incomes, IncomeItem }
+
+export { incomeReducers, incomeSlices, resetTithe, resetWelfare }
