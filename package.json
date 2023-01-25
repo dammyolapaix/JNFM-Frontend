@@ -9,9 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.4.9",
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/node": "18.11.11",
     "@types/react": "18.0.26",
@@ -19,7 +16,6 @@
     "axios": "^1.2.1",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
-    "framer-motion": "^8.5.2",
     "next": "13.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
