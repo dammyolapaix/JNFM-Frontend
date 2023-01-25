@@ -6,6 +6,7 @@ import SideNav from './layout/SideNav'
 import NoRecordFound from './NoRecordFound'
 import QueryResult from './QueryResult'
 import Spinner from './Spinner'
+import AdvancedSearchDrawer from './ui/AdvancedSearchDrawer'
 import Table from './ui/Table'
 
 export {
@@ -17,5 +18,6 @@ export {
   QueryResult,
   Spinner,
   NoRecordFound,
+  AdvancedSearchDrawer,
   Table,
 }
