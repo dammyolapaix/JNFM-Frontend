@@ -22,6 +22,9 @@ export interface ICashBookQuery {
   debitCredit?: string | 'Credit' | 'Debit'
   select?: string
   sort?: string
+  quarter?: string
+  'date[gte]'?: string
+  'date[lte]'?: string
   // page: string
   // limit: string
 }

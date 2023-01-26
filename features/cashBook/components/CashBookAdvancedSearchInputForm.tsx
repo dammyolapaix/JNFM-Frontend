@@ -20,9 +20,10 @@ const CashBookAdvancedSearchInputForm: FC = () => {
   const [values, setValues] = useState<ICashBookQuery>({
     debitCredit: '',
     date: '',
+    quarter: '',
   })
 
-  const { debitCredit, date } = values
+  const { debitCredit, date, quarter } = values
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -35,7 +36,7 @@ const CashBookAdvancedSearchInputForm: FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    let data = {}
+    let data: ICashBookQuery = {}
     for (let key in values) {
       // @ts-ignore
       if (values[key]) {
@@ -166,21 +167,21 @@ const CashBookAdvancedSearchInputForm: FC = () => {
     },
   ]
 
-  const quaters = [
+  const quarters = [
     {
-      value: '1st Quater',
-      label: '1st Quater',
+      value: 'Q1',
+      label: '1st Quarter',
     },
     {
-      value: '2nd Quarter',
+      value: 'Q2',
       label: '2nd Quarter',
     },
     {
-      value: '3rd Quarter',
+      value: 'Q3',
       label: '3rd Quarter',
     },
     {
-      value: '4th Quarter',
+      value: 'Q4',
       label: '4th Quarter',
     },
   ]
@@ -272,11 +273,11 @@ const CashBookAdvancedSearchInputForm: FC = () => {
           />
           <CustomDropDown
             label={'Filter By Quarter'}
-            name={'gender'}
+            name={'quarter'}
             isRequired={true}
-            changeHandler={() => 'ddd'}
-            values={quaters}
-            currentValue={''}
+            changeHandler={handleChange}
+            values={quarters}
+            currentValue={quarter ? quarter : ''}
           />
           <CustomDropDown
             label={'Filter By Year'}
