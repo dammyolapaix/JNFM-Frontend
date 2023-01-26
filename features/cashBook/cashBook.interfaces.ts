@@ -17,7 +17,7 @@ export default interface ICashBook extends IBaseCashBook {
 }
 
 export interface ICashBookQuery {
-  date?: Date
+  date?: string
   amount?: number
   debitCredit?: string | 'Credit' | 'Debit'
   select?: string
@@ -58,6 +58,7 @@ export interface ICashBookInitialState {
   isSuccess: boolean
   isError: boolean
   error: null
+  advancedSearchFormData: null | ICashBookQuery
   cashBooksRes: ICashBooksRes
   cashBookResCRUD: ICashBookRes
 }

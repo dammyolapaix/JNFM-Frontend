@@ -11,6 +11,7 @@ const initialState = {
   isSuccess: false,
   isError: false,
   error: null,
+  advancedSearchFormData: null,
   cashBooksRes: { success: false, count: 0, cashBooks: [], totalCashBook: [] },
   cashBookResCRUD: { success: false, cashBook: null },
 } as ICashBookInitialState
@@ -19,6 +20,9 @@ export const cashBook = createSlice({
   name: 'cashBook',
   initialState,
   reducers: {
+    setAdvancedSearchFormData: (state, { payload }) => {
+      state.advancedSearchFormData = payload
+    },
     resetCashBook: (state) => {
       state.isLoading = false
       state.isSuccess = false
@@ -30,6 +34,7 @@ export const cashBook = createSlice({
         cashBooks: [],
         totalCashBook: [],
       }
+      state.advancedSearchFormData = null
       state.cashBookResCRUD = { success: false, cashBook: null }
     },
   },
@@ -58,6 +63,6 @@ export const cashBook = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { resetCashBook } = cashBook.actions
+export const { resetCashBook, setAdvancedSearchFormData } = cashBook.actions
 
 export default cashBook.reducer

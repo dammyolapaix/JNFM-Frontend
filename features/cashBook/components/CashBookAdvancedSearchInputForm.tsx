@@ -1,37 +1,59 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import {
   CustomButton,
   CustomDropDown,
   CustomTextField,
 } from '../../../components'
-import { getCashBooksAction, ICashBookQuery } from '../index'
-import { useAppDispatch } from '../../../hooks'
+import {
+  getCashBooksAction,
+  ICashBookQuery,
+  resetCashBook,
+  setAdvancedSearchFormData,
+} from '../index'
+import { useAppDispatch, useAppSelector } from '../../../hooks'
 
 const CashBookAdvancedSearchInputForm: FC = () => {
-  const router = useRouter()
   const dispatch = useAppDispatch()
 
-  console.log(router.query)
+  const { advancedSearchFormData } = useAppSelector((state) => state.cashBook)
+
   const [values, setValues] = useState<ICashBookQuery>({
     debitCredit: '',
+    date: '',
   })
 
-  const { debitCredit } = values
+  const { debitCredit, date } = values
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target
     setValues({ ...values, [name]: value })
+    dispatch(setAdvancedSearchFormData({ ...values, [name]: value }))
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    console.log(values)
-    dispatch(getCashBooksAction(values))
+    let data = {}
+    for (let key in values) {
+      // @ts-ignore
+      if (values[key]) {
+        // @ts-ignore
+        data[key] = values[key]
+      }
+    }
+
+    dispatch(getCashBooksAction(data))
   }
+
+  useEffect(() => {
+    if (advancedSearchFormData === null) {
+      setValues({})
+    } else {
+      setValues(advancedSearchFormData)
+    }
+  }, [advancedSearchFormData])
 
   const debitCredits = [
     {
@@ -221,110 +243,123 @@ const CashBookAdvancedSearchInputForm: FC = () => {
     },
   ]
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-        <CustomDropDown
-          label={'Filter By Debit/Credit'}
-          name={'debitCredit'}
-          isRequired={false}
-          changeHandler={handleChange}
-          values={debitCredits}
-          currentValue={debitCredit ? debitCredit : ''}
-        />
-        <CustomDropDown
-          label={'Filter By Week'}
-          name={'gender'}
-          isRequired={true}
-          changeHandler={() => 'ddd'}
-          values={weeks}
-          currentValue={''}
-        />
-        <CustomDropDown
-          label={'Filter By Month'}
-          name={'gender'}
-          isRequired={true}
-          changeHandler={() => 'ddd'}
-          values={months}
-          currentValue={''}
-        />
-        <CustomDropDown
-          label={'Filter By Quarter'}
-          name={'gender'}
-          isRequired={true}
-          changeHandler={() => 'ddd'}
-          values={quaters}
-          currentValue={''}
-        />
-        <CustomDropDown
-          label={'Filter By Year'}
-          name={'gender'}
-          isRequired={true}
-          changeHandler={() => 'ddd'}
-          values={years}
-          currentValue={''}
-        />
-        <CustomTextField
-          label={'Filter By Specific Date'}
-          type={'date'}
-          name={'dateOfBirth'}
-          value={''}
-          isRequired={false}
-          changeHandler={() => 'ddd'}
-        />
-      </div>
-      <div className="my-3">
-        <div className="text-center text-sm font-semibold text-slate-700">
-          Filter By Date Range
+    <>
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+          <CustomDropDown
+            label={'Filter By Debit/Credit'}
+            name={'debitCredit'}
+            isRequired={false}
+            changeHandler={handleChange}
+            values={debitCredits}
+            currentValue={debitCredit ? debitCredit : ''}
+          />
+          <CustomDropDown
+            label={'Filter By Week'}
+            name={'gender'}
+            isRequired={true}
+            changeHandler={() => 'ddd'}
+            values={weeks}
+            currentValue={''}
+          />
+          <CustomDropDown
+            label={'Filter By Month'}
+            name={'gender'}
+            isRequired={true}
+            changeHandler={() => 'ddd'}
+            values={months}
+            currentValue={''}
+          />
+          <CustomDropDown
+            label={'Filter By Quarter'}
+            name={'gender'}
+            isRequired={true}
+            changeHandler={() => 'ddd'}
+            values={quaters}
+            currentValue={''}
+          />
+          <CustomDropDown
+            label={'Filter By Year'}
+            name={'gender'}
+            isRequired={true}
+            changeHandler={() => 'ddd'}
+            values={years}
+            currentValue={''}
+          />
+          <CustomTextField
+            label={'Filter By Specific Date'}
+            type={'date'}
+            name={'date'}
+            value={date ? date : ''}
+            isRequired={false}
+            changeHandler={handleChange}
+          />
+        </div>
+        <div className="my-3">
+          <div className="text-center text-sm font-semibold text-slate-700">
+            Filter By Date Range
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <CustomTextField
+              label={'From'}
+              type={'date'}
+              name={'dateOfBirth'}
+              value={''}
+              isRequired={false}
+              changeHandler={() => 'ddd'}
+            />
+            <CustomTextField
+              label={'To'}
+              type={'date'}
+              name={'dateOfBirth'}
+              value={''}
+              isRequired={false}
+              changeHandler={() => 'ddd'}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
           <CustomTextField
-            label={'From'}
-            type={'date'}
-            name={'dateOfBirth'}
+            label={'Filter By Amount'}
+            type={'number'}
+            name={'otherNames'}
             value={''}
             isRequired={false}
             changeHandler={() => 'ddd'}
           />
-          <CustomTextField
-            label={'To'}
-            type={'date'}
-            name={'dateOfBirth'}
-            value={''}
-            isRequired={false}
+          <CustomDropDown
+            label={'Filter By Account'}
+            name={'gender'}
+            isRequired={true}
             changeHandler={() => 'ddd'}
+            values={genders}
+            currentValue={''}
           />
         </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
         <CustomTextField
-          label={'Filter By Amount'}
-          type={'number'}
+          label={'Filter By Naration'}
+          type={'text'}
           name={'otherNames'}
           value={''}
           isRequired={false}
           changeHandler={() => 'ddd'}
         />
-        <CustomDropDown
-          label={'Filter By Account'}
-          name={'gender'}
-          isRequired={true}
-          changeHandler={() => 'ddd'}
-          values={genders}
-          currentValue={''}
-        />
-      </div>
-      <CustomTextField
-        label={'Filter By Naration'}
-        type={'text'}
-        name={'otherNames'}
-        value={''}
-        isRequired={false}
-        changeHandler={() => 'ddd'}
-      />
-      <div className="my-10">
-        <CustomButton value="Search" />
-      </div>
-    </form>
+        <div className="my-10">
+          <CustomButton value="Search" />
+        </div>
+      </form>
+      <button
+        disabled={advancedSearchFormData === null}
+        onClick={() => dispatch(resetCashBook())}
+        className={`my-10 p-3 rounded text-center w-full ${
+          advancedSearchFormData === null
+            ? 'bg-gray-200 text-black cursor-not-allowed'
+            : 'bg-tertiary hover:bg-secondary text-white'
+        }`}
+      >
+        Clear Filter
+      </button>
+    </>
   )
 }
 

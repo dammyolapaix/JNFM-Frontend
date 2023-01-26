@@ -10,7 +10,10 @@ import { getCashBooksAction } from './cashBook.actions'
 import CashBookAdvancedSearchInputForm from './components/CashBookAdvancedSearchInputForm'
 import CashBookItem from './components/CashBookItem'
 import CashBooks from './components/CashBooks'
-import cashBookReducers, { resetCashBook } from './cashBook.slices'
+import cashBookReducers, {
+  resetCashBook,
+  setAdvancedSearchFormData,
+} from './cashBook.slices'
 
 export type {
   IBaseCashBook,
@@ -26,4 +29,4 @@ export { getCashBooksAction }
 
 export { CashBooks, CashBookItem, CashBookAdvancedSearchInputForm }
 
-export { cashBookReducers, resetCashBook }
+export { cashBookReducers, resetCashBook, setAdvancedSearchFormData }
