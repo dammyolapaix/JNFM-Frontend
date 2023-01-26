@@ -1,14 +1,22 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import { GiMoneyStack, GiPayMoney, GiTwoCoins } from 'react-icons/gi'
-import { NoRecordFound } from '../../../components'
+import { AdvancedSearchDrawer, NoRecordFound } from '../../../components'
+import { useAppDispatch } from '../../../hooks'
 import { changeToHigherDenomination } from '../../../utils'
-import { CashBookItem, ICashBooksRes } from '../index'
+import {
+  CashBookAdvancedSearchInputForm,
+  CashBookItem,
+  ICashBooksRes,
+  resetCashBook,
+} from '../index'
 
 const CashBooks: FC<{
   cashBooksRes: ICashBooksRes
 }> = ({ cashBooksRes: { cashBooks, count, totalCashBook } }) => {
   let runningBalance = 0
+
+  const dispatch = useAppDispatch()
 
   return (
     <section>
@@ -84,6 +92,9 @@ const CashBooks: FC<{
                 )}
                 )
               </h1>
+              <AdvancedSearchDrawer>
+                <CashBookAdvancedSearchInputForm />
+              </AdvancedSearchDrawer>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -115,6 +126,10 @@ const CashBooks: FC<{
                 </tbody>
               </table>
             </div>
+          </div>
+
+          <div className="" onClick={() => dispatch(resetCashBook())}>
+            Clear Filters
           </div>
         </>
       )}

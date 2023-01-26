@@ -9,11 +9,21 @@ export interface IBaseCashBook {
   account?: {
     offering?: IOffering | IOffering['_id'] | undefined
   }
-  debitCredit: 'Credit' | 'Debit'
+  debitCredit: 'Credit' | 'Debit' | string
 }
 
 export default interface ICashBook extends IBaseCashBook {
   _id: string
+}
+
+export interface ICashBookQuery {
+  date?: Date
+  amount?: number
+  debitCredit?: string | 'Credit' | 'Debit'
+  select?: string
+  sort?: string
+  // page: string
+  // limit: string
 }
 
 export interface ITotalCashBook {
@@ -41,4 +51,13 @@ export interface ICashBooksRes {
 export interface ICashBookRes {
   success: boolean
   cashBook: null | ICashBook
+}
+
+export interface ICashBookInitialState {
+  isLoading: boolean
+  isSuccess: boolean
+  isError: boolean
+  error: null
+  cashBooksRes: ICashBooksRes
+  cashBookResCRUD: ICashBookRes
 }

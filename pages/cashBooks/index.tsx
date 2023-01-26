@@ -1,13 +1,28 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import { Layout } from '../../components'
+import { Layout, QueryResult } from '../../components'
 import { CashBooks, getCashBooks, ICashBooksRes } from '../../features/cashBook'
+import { useAppSelector } from '../../hooks'
 
 const CashBooksPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ cashBooksRes }) => {
+  const {
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+    cashBooksRes: cashBooksResQuery,
+  } = useAppSelector((state) => state.cashBook)
   return (
     <Layout>
-      <CashBooks cashBooksRes={cashBooksRes} />
+      <QueryResult
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        error={error}
+      ></QueryResult>
+
+      <CashBooks cashBooksRes={isSuccess ? cashBooksResQuery : cashBooksRes} />
     </Layout>
   )
 }
