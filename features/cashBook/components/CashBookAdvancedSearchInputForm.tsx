@@ -23,9 +23,11 @@ const CashBookAdvancedSearchInputForm: FC = () => {
     month: '',
     quarter: '',
     year: '',
+    fromDate: '',
+    toDate: '',
   })
 
-  const { debitCredit, date, quarter, month, year } = values
+  const { debitCredit, date, quarter, month, year, fromDate, toDate } = values
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -294,25 +296,25 @@ const CashBookAdvancedSearchInputForm: FC = () => {
           />
         </div>
         <div>
-          <div className="text-center text-sm font-semibold text-slate-700 mt-10 mb-5">
+          <div className="text-center text-sm font-semibold text-slate-700 mt-10 mb-5 text-primary">
             Filter By Date Range
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <CustomTextField
               label={'From'}
               type={'date'}
-              name={'dateOfBirth'}
-              value={''}
+              name={'fromDate'}
+              value={fromDate ? fromDate : ''}
               isRequired={false}
-              changeHandler={() => 'ddd'}
+              changeHandler={handleChange}
             />
             <CustomTextField
               label={'To'}
               type={'date'}
-              name={'dateOfBirth'}
-              value={''}
+              name={'toDate'}
+              value={toDate ? toDate : ''}
               isRequired={false}
-              changeHandler={() => 'ddd'}
+              changeHandler={handleChange}
             />
           </div>
         </div>

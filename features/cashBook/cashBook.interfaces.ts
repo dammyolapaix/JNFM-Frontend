@@ -25,6 +25,8 @@ export interface ICashBookQuery {
   quarter?: string
   month?: string
   year?: string
+  fromDate?: string
+  toDate?: string
   'date[gte]'?: string
   'date[lte]'?: string
   // page: string

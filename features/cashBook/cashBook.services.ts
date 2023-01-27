@@ -169,6 +169,17 @@ export const getCashBooks = async (cashBookQuery?: ICashBookQuery) => {
       delete cashBookQuery.year
     }
 
+    if (cashBookQuery.fromDate) {
+      cashBookQuery['date[gte]'] = cashBookQuery.fromDate
+
+      delete cashBookQuery.fromDate
+    }
+    if (cashBookQuery.toDate) {
+      cashBookQuery['date[lte]'] = cashBookQuery.toDate
+
+      delete cashBookQuery.toDate
+    }
+
     // Turn object to string
     let queryStr = JSON.stringify(cashBookQuery)
 
