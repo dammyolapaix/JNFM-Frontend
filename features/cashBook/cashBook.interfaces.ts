@@ -23,6 +23,7 @@ export interface ICashBookQuery {
   select?: string
   sort?: string
   quarter?: string
+  month?: string
   'date[gte]'?: string
   'date[lte]'?: string
   // page: string

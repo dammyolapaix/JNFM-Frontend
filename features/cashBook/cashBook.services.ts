@@ -3,7 +3,68 @@ import { ICashBookQuery, ICashBooksRes } from './index'
 
 export const getCashBooks = async (cashBookQuery?: ICashBookQuery) => {
   if (cashBookQuery) {
-    const currentYear = new Date().getFullYear()
+    const currentDate = new Date()
+
+    const currentYear = currentDate.getFullYear()
+
+    // Getting the start and end of this month
+    const startOfThisMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    )
+      .toISOString()
+      .slice(0, 10)
+    const endOfThisMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    )
+      .toISOString()
+      .slice(0, 10)
+
+    // Getting the start and end of last month
+    const startOfLastMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 1,
+      1
+    )
+      .toISOString()
+      .slice(0, 10)
+    const endOfLastMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      0
+    )
+      .toISOString()
+      .slice(0, 10)
+
+    // Getting the start of last 3 months
+    const startOfLast3Months = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 3,
+      1
+    )
+      .toISOString()
+      .slice(0, 10)
+
+    // Getting the start of last 6 months
+    const startOfLast6Months = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 6,
+      1
+    )
+      .toISOString()
+      .slice(0, 10)
+
+    // Getting the start of last 12 months
+    const startOfLast12Months = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 12,
+      1
+    )
+      .toISOString()
+      .slice(0, 10)
 
     if (cashBookQuery.quarter === 'Q1') {
       const Q1start = new Date(currentYear, 0, 1).toISOString().slice(0, 10)
@@ -43,6 +104,41 @@ export const getCashBooks = async (cashBookQuery?: ICashBookQuery) => {
       cashBookQuery['date[lte]'] = Q4end
 
       delete cashBookQuery.quarter
+    }
+
+    if (cashBookQuery.month === 'This Month') {
+      cashBookQuery['date[gte]'] = startOfThisMonth
+      cashBookQuery['date[lte]'] = endOfThisMonth
+
+      delete cashBookQuery.month
+    }
+
+    if (cashBookQuery.month === 'Last Month') {
+      cashBookQuery['date[gte]'] = startOfLastMonth
+      cashBookQuery['date[lte]'] = endOfLastMonth
+
+      delete cashBookQuery.month
+    }
+
+    if (cashBookQuery.month === 'Last 3 Months') {
+      cashBookQuery['date[gte]'] = startOfLast3Months
+      cashBookQuery['date[lte]'] = endOfLastMonth
+
+      delete cashBookQuery.month
+    }
+
+    if (cashBookQuery.month === 'Last 6 Months') {
+      cashBookQuery['date[gte]'] = startOfLast6Months
+      cashBookQuery['date[lte]'] = endOfLastMonth
+
+      delete cashBookQuery.month
+    }
+
+    if (cashBookQuery.month === 'Last 12 Months') {
+      cashBookQuery['date[gte]'] = startOfLast12Months
+      cashBookQuery['date[lte]'] = endOfLastMonth
+
+      delete cashBookQuery.month
     }
 
     // Turn object to string
