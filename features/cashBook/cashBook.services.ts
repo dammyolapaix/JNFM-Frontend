@@ -66,6 +66,20 @@ export const getCashBooks = async (cashBookQuery?: ICashBookQuery) => {
       .toISOString()
       .slice(0, 10)
 
+    const startOfThisYear = new Date(currentYear, 0, 1)
+      .toISOString()
+      .slice(0, 10)
+    const endOfThisYear = new Date(currentYear, 11, 31)
+      .toISOString()
+      .slice(0, 10)
+
+    const startOfLastYear = new Date(currentYear - 1, 0, 1)
+      .toISOString()
+      .slice(0, 10)
+    const endOfLastYear = new Date(currentYear - 1, 11, 31)
+      .toISOString()
+      .slice(0, 10)
+
     if (cashBookQuery.quarter === 'Q1') {
       const Q1start = new Date(currentYear, 0, 1).toISOString().slice(0, 10)
       const Q1end = new Date(currentYear, 2, 31).toISOString().slice(0, 10)
@@ -139,6 +153,20 @@ export const getCashBooks = async (cashBookQuery?: ICashBookQuery) => {
       cashBookQuery['date[lte]'] = endOfLastMonth
 
       delete cashBookQuery.month
+    }
+
+    if (cashBookQuery.year === 'This Year') {
+      cashBookQuery['date[gte]'] = startOfThisYear
+      cashBookQuery['date[lte]'] = endOfThisYear
+
+      delete cashBookQuery.year
+    }
+
+    if (cashBookQuery.year === 'Last Year') {
+      cashBookQuery['date[gte]'] = startOfLastYear
+      cashBookQuery['date[lte]'] = endOfLastYear
+
+      delete cashBookQuery.year
     }
 
     // Turn object to string

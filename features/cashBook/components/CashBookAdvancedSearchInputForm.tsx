@@ -22,9 +22,10 @@ const CashBookAdvancedSearchInputForm: FC = () => {
     date: '',
     month: '',
     quarter: '',
+    year: '',
   })
 
-  const { debitCredit, date, quarter, month } = values
+  const { debitCredit, date, quarter, month, year } = values
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -277,11 +278,11 @@ const CashBookAdvancedSearchInputForm: FC = () => {
           />
           <CustomDropDown
             label={'Filter By Year'}
-            name={'gender'}
+            name={'year'}
             isRequired={true}
             changeHandler={handleChange}
             values={years}
-            currentValue={''}
+            currentValue={year ? year : ''}
           />
           <CustomTextField
             label={'Filter By Specific Date'}
