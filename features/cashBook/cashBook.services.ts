@@ -180,6 +180,30 @@ export const getCashBooks = async (cashBookQuery?: ICashBookQuery) => {
       delete cashBookQuery.toDate
     }
 
+    // Filtering by Account
+    if (cashBookQuery.account === 'offering') {
+      cashBookQuery['account.offering[exists]'] = true
+
+      delete cashBookQuery.account
+    }
+
+    if (cashBookQuery.account === 'welfare') {
+      cashBookQuery['account.welfare[exists]'] = true
+
+      delete cashBookQuery.account
+    }
+    if (cashBookQuery.account === 'tithe') {
+      cashBookQuery['account.tithe[exists]'] = true
+
+      delete cashBookQuery.account
+    }
+
+    if (cashBookQuery.account === 'specialContribution') {
+      cashBookQuery['account.specialContribution[exists]'] = true
+
+      delete cashBookQuery.account
+    }
+
     // Turn object to string
     let queryStr = JSON.stringify(cashBookQuery)
 

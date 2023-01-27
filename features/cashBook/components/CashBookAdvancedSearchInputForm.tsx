@@ -25,9 +25,11 @@ const CashBookAdvancedSearchInputForm: FC = () => {
     year: '',
     fromDate: '',
     toDate: '',
+    account: '',
   })
 
-  const { debitCredit, date, quarter, month, year, fromDate, toDate } = values
+  const { debitCredit, date, quarter, month, year, fromDate, toDate, account } =
+    values
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -242,6 +244,25 @@ const CashBookAdvancedSearchInputForm: FC = () => {
     // },
   ]
 
+  const accounts = [
+    {
+      value: 'offering',
+      label: 'Offering',
+    },
+    {
+      value: 'welfare',
+      label: 'Welfare',
+    },
+    {
+      value: 'tithe',
+      label: 'Tithe',
+    },
+    {
+      value: 'specialContribution',
+      label: 'Special Contribution',
+    },
+  ]
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -265,7 +286,7 @@ const CashBookAdvancedSearchInputForm: FC = () => {
           <CustomDropDown
             label={'Filter By Month'}
             name={'month'}
-            isRequired={true}
+            isRequired={false}
             changeHandler={handleChange}
             values={months}
             currentValue={month ? month : ''}
@@ -273,7 +294,7 @@ const CashBookAdvancedSearchInputForm: FC = () => {
           <CustomDropDown
             label={'Filter By Quarter'}
             name={'quarter'}
-            isRequired={true}
+            isRequired={false}
             changeHandler={handleChange}
             values={quarters}
             currentValue={quarter ? quarter : ''}
@@ -281,7 +302,7 @@ const CashBookAdvancedSearchInputForm: FC = () => {
           <CustomDropDown
             label={'Filter By Year'}
             name={'year'}
-            isRequired={true}
+            isRequired={false}
             changeHandler={handleChange}
             values={years}
             currentValue={year ? year : ''}
@@ -294,9 +315,17 @@ const CashBookAdvancedSearchInputForm: FC = () => {
             isRequired={false}
             changeHandler={handleChange}
           />
+          <CustomDropDown
+            label={'Filter By Account'}
+            name={'account'}
+            isRequired={false}
+            changeHandler={handleChange}
+            values={accounts}
+            currentValue={account ? account : ''}
+          />
         </div>
         <div>
-          <div className="text-center text-sm font-semibold text-slate-700 mt-10 mb-5 text-primary">
+          <div className="text-center text-sm font-semibold mt-10 mb-5 text-primary">
             Filter By Date Range
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

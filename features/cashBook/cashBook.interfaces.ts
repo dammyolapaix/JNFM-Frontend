@@ -27,8 +27,13 @@ export interface ICashBookQuery {
   year?: string
   fromDate?: string
   toDate?: string
+  account?: string
   'date[gte]'?: string
   'date[lte]'?: string
+  'account.offering[exists]'?: boolean
+  'account.welfare[exists]'?: boolean
+  'account.tithe[exists]'?: boolean
+  'account.specialContribution[exists]'?: boolean
   // page: string
   // limit: string
 }
