@@ -1,11 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { attendanceReducers } from './features/attendance'
+import { cellReducers } from './features/cell'
 import { churchServiceReducers } from './features/churchService'
+import { departmentReducers } from './features/department'
+import { expenditureReducers } from './features/expenditure'
+import { incomeReducers } from './features/income'
 import { memberReducers } from './features/member'
 
 export const store = configureStore({
   reducer: {
     attendance: attendanceReducers,
+    cell: cellReducers,
+    department: departmentReducers,
+    expenditure: expenditureReducers,
+    income: incomeReducers,
     member: memberReducers,
     churchService: churchServiceReducers,
   },
