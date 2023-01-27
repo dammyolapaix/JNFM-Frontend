@@ -22,7 +22,10 @@ const CashBooksPage: NextPage<
         error={error}
       ></QueryResult>
 
-      <CashBooks cashBooksRes={isSuccess ? cashBooksResQuery : cashBooksRes} />
+      <CashBooks
+        cashBooksRes={isSuccess ? cashBooksResQuery : cashBooksRes}
+        cashBooksResQueryCount={isSuccess && cashBooksResQuery.count === 0}
+      />
     </Layout>
   )
 }
