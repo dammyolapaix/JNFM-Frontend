@@ -20,6 +20,12 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async () => {
   const membersRes: IMembersRes = await getMembers()
 
+  if (!membersRes) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       membersRes,
