@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { FC } from 'react'
-import { IMember } from '../index'
+import { IMember, MemberDetailsOthers } from '../index'
 import { MdEdit } from 'react-icons/md'
 import { formatDateToddmYYY, getAge } from '../../../utils'
 
@@ -15,6 +15,7 @@ const MemberDetails: FC<{ member: IMember }> = ({
     maritalStatus,
     occupation,
     postalAddress,
+    attendances,
     // phoneNumbers,
   },
 }) => {
@@ -90,6 +91,8 @@ const MemberDetails: FC<{ member: IMember }> = ({
           <h4>{postalAddress ? postalAddress : 'Not Given'}</h4>
         </div>
       </div>
+
+      <MemberDetailsOthers attendances={attendances} />
     </section>
   )
 }

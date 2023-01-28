@@ -15,6 +15,9 @@ import MemberItem from './components/MemberItem'
 import Members from './components/Members'
 import MembersTable from './components/MembersTable'
 import MembersTableLayout from './components/MembersTableLayout'
+import MemberDetailsOthers from './components/MemberDetailsOthers'
+import MemberAttendancesItem from './components/MemberAttendancesItem'
+import MemberAttendances from './components/MemberAttendances'
 
 // Importing Services
 import {
@@ -53,6 +56,9 @@ export {
   MemberInputForm,
   MembersTable,
   MembersTableLayout,
+  MemberDetailsOthers,
+  MemberAttendancesItem,
+  MemberAttendances,
 }
 
 // Exporting Services
