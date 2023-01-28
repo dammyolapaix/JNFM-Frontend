@@ -1,5 +1,6 @@
 import { IAttendance } from '../attendance'
 import { IDepartment } from '../department'
+import { IWelfare } from '../income/welfare'
 
 export interface IBaseMember {
   firstName: string
@@ -19,6 +20,7 @@ export interface IBaseMember {
   }[]
   attendances?: IAttendance[]
   departments?: IDepartment[]
+  welfares?: IWelfare[]
 }
 
 export default interface IMember extends IBaseMember {

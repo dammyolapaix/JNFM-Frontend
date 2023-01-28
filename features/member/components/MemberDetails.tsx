@@ -17,6 +17,7 @@ const MemberDetails: FC<{ member: IMember }> = ({
     postalAddress,
     attendances,
     departments,
+    welfares,
     // phoneNumbers,
   },
 }) => {
@@ -96,6 +97,7 @@ const MemberDetails: FC<{ member: IMember }> = ({
       <MemberDetailsOthers
         attendances={attendances}
         departments={departments}
+        welfares={welfares}
       />
     </section>
   )

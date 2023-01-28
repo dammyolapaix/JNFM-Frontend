@@ -20,6 +20,8 @@ import MemberAttendancesItem from './components/MemberAttendancesItem'
 import MemberAttendances from './components/MemberAttendances'
 import MemberDepartments from './components/MemberDepartments'
 import MemberDepartmentItem from './components/MemberDepartmentItem'
+import MemberWelfares from './components/MemberWelfares'
+import MemberWelfareItem from './components/MemberWelfareItem'
 
 // Importing Services
 import {
@@ -63,6 +65,8 @@ export {
   MemberAttendances,
   MemberDepartments,
   MemberDepartmentItem,
+  MemberWelfares,
+  MemberWelfareItem,
 }
 
 // Exporting Services

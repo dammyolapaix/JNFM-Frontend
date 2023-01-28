@@ -8,6 +8,8 @@ import MemberAttendances from './MemberAttendances'
 import { NoRecordFound } from '../../../components'
 import { IDepartment } from '../../department'
 import MemberDepartments from './MemberDepartments'
+import { IWelfare } from '../../income/welfare'
+import MemberWelfares from './MemberWelfares'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -45,7 +47,8 @@ function a11yProps(index: number) {
 const MemberDetailsOthers: FC<{
   attendances?: IAttendance[]
   departments?: IDepartment[]
-}> = ({ attendances, departments }) => {
+  welfares?: IWelfare[]
+}> = ({ attendances, departments, welfares }) => {
   const [value, setValue] = useState(0)
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
@@ -86,7 +89,11 @@ const MemberDetailsOthers: FC<{
           )}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Welfares
+          {welfares ? (
+            <MemberWelfares welfares={welfares} />
+          ) : (
+            <NoRecordFound />
+          )}
         </TabPanel>
         <TabPanel value={value} index={2}>
           Tithes
