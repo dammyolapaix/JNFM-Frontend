@@ -5,6 +5,9 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { IAttendance } from '../../attendance'
 import MemberAttendances from './MemberAttendances'
+import { NoRecordFound } from '../../../components'
+import { IDepartment } from '../../department'
+import MemberDepartments from './MemberDepartments'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -39,9 +42,10 @@ function a11yProps(index: number) {
   }
 }
 
-const MemberDetailsOthers: FC<{ attendances?: IAttendance[] }> = ({
-  attendances,
-}) => {
+const MemberDetailsOthers: FC<{
+  attendances?: IAttendance[]
+  departments?: IDepartment[]
+}> = ({ attendances, departments }) => {
   const [value, setValue] = useState(0)
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
@@ -68,11 +72,18 @@ const MemberDetailsOthers: FC<{ attendances?: IAttendance[] }> = ({
             <Tab label="Tithes" {...a11yProps(2)} />
             <Tab label="Special Contributions" {...a11yProps(3)} />
             <Tab label="Cell" {...a11yProps(4)} />
-            <Tab label="Departments" {...a11yProps(5)} />
+            <Tab
+              label={`Departments (${departments ? departments.length : '0'})`}
+              {...a11yProps(5)}
+            />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          {attendances && <MemberAttendances attendances={attendances} />}
+          {attendances ? (
+            <MemberAttendances attendances={attendances} />
+          ) : (
+            <NoRecordFound />
+          )}
         </TabPanel>
         <TabPanel value={value} index={1}>
           Welfares
@@ -87,7 +98,11 @@ const MemberDetailsOthers: FC<{ attendances?: IAttendance[] }> = ({
           Cell
         </TabPanel>
         <TabPanel value={value} index={5}>
-          Departments
+          {departments ? (
+            <MemberDepartments departments={departments} />
+          ) : (
+            <NoRecordFound />
+          )}
         </TabPanel>
       </Box>
     </section>

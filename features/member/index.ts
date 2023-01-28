@@ -18,6 +18,8 @@ import MembersTableLayout from './components/MembersTableLayout'
 import MemberDetailsOthers from './components/MemberDetailsOthers'
 import MemberAttendancesItem from './components/MemberAttendancesItem'
 import MemberAttendances from './components/MemberAttendances'
+import MemberDepartments from './components/MemberDepartments'
+import MemberDepartmentItem from './components/MemberDepartmentItem'
 
 // Importing Services
 import {
@@ -59,6 +61,8 @@ export {
   MemberDetailsOthers,
   MemberAttendancesItem,
   MemberAttendances,
+  MemberDepartments,
+  MemberDepartmentItem,
 }
 
 // Exporting Services
