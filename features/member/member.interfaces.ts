@@ -75,3 +75,14 @@ export interface IMemberEditReq {
   id: IMember['_id']
   member: IMemberRequestQuery
 }
+
+export interface IMemberQuery {
+  fullName?: string
+  gender?: 'Male' | 'Female'
+  maritalStatus?: 'Single' | 'Married' | 'Divorced' | 'Widowed'
+  dateOfBirth?: Date
+  select?: string
+  sort?: string
+  page?: string
+  limit?: string
+}

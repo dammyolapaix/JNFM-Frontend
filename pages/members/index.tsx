@@ -1,14 +1,32 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import React from 'react'
-import { Layout } from '../../components'
+import { Layout, QueryResult } from '../../components'
 import { getMembers, IMembersRes, Members } from '../../features/member'
+import { useAppSelector } from '../../hooks'
 
 const MembersPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ membersRes }) => {
+  const {
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+    membersRes: membersResQuery,
+  } = useAppSelector((state) => state.member)
+
   return (
     <Layout>
-      <Members membersRes={membersRes} />
+      <QueryResult
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+        error={error}
+      ></QueryResult>
+      <Members
+        membersRes={isSuccess ? membersResQuery : membersRes}
+        membersResQueryCount={isSuccess && membersResQuery.count === 0}
+      />
     </Layout>
   )
 }

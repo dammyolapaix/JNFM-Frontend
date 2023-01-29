@@ -6,6 +6,7 @@ import IMember, {
   IMemberRequestQuery,
   IMemberInitialState,
   IMemberEditReq,
+  IMemberQuery,
 } from './member.interfaces'
 
 // Importing Components
@@ -24,6 +25,7 @@ import MemberWelfares from './components/MemberWelfares'
 import MemberWelfareItem from './components/MemberWelfareItem'
 import MemberTithes from './components/MemberTithes'
 import MemberTitheItem from './components/MemberTitheItem'
+import MemberAdvancedSearchInputForm from './components/MemberAdvancedSearchInputForm'
 
 // Importing Services
 import {
@@ -52,6 +54,7 @@ export type {
   IMemberRequestQuery,
   IMemberInitialState,
   IMemberEditReq,
+  IMemberQuery,
 }
 
 // Exporting components
@@ -71,6 +74,7 @@ export {
   MemberWelfareItem,
   MemberTithes,
   MemberTitheItem,
+  MemberAdvancedSearchInputForm,
 }
 
 // Exporting Services
