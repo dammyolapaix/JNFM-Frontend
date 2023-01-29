@@ -1,14 +1,15 @@
-import { GetStaticPaths, NextPage } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Layout } from '../../../components'
 import {
-  getMembers,
   getSingleMemberById,
-  IMember,
-  IMembersRes,
+  IMemberRes,
   MemberDetails,
 } from '../../../features/member'
+import { IParams } from '../../../interfaces'
 
-const SingleMemberPage: NextPage<{ member: IMember }> = ({ member }) => {
+const SingleMemberPage: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ memberRes: { member } }) => {
   return (
     <Layout>
       {member && member !== null && <MemberDetails member={member} />}
@@ -16,28 +17,21 @@ const SingleMemberPage: NextPage<{ member: IMember }> = ({ member }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { members }: IMembersRes = await getMembers()
+export const getServerSideProps: GetServerSideProps<{
+  memberRes: IMemberRes
+}> = async ({ params }) => {
+  const { id } = params as IParams
 
-  const paths = members.map((member) => ({
-    params: { id: member?._id },
-  }))
+  const memberRes: IMemberRes = await getSingleMemberById(id)
 
-  return { paths, fallback: false }
-}
-
-interface IContext {
-  params: {
-    id: IMember['_id']
+  if (!memberRes) {
+    return {
+      notFound: true,
+    }
   }
-}
-
-export async function getStaticProps({ params: { id } }: IContext) {
-  const { member } = await getSingleMemberById(id)
 
   return {
-    props: { member },
-    revalidate: 1,
+    props: { memberRes },
   }
 }
 

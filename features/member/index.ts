@@ -15,6 +15,15 @@ import MemberItem from './components/MemberItem'
 import Members from './components/Members'
 import MembersTable from './components/MembersTable'
 import MembersTableLayout from './components/MembersTableLayout'
+import MemberDetailsOthers from './components/MemberDetailsOthers'
+import MemberAttendancesItem from './components/MemberAttendancesItem'
+import MemberAttendances from './components/MemberAttendances'
+import MemberDepartments from './components/MemberDepartments'
+import MemberDepartmentItem from './components/MemberDepartmentItem'
+import MemberWelfares from './components/MemberWelfares'
+import MemberWelfareItem from './components/MemberWelfareItem'
+import MemberTithes from './components/MemberTithes'
+import MemberTitheItem from './components/MemberTitheItem'
 
 // Importing Services
 import {
@@ -53,6 +62,15 @@ export {
   MemberInputForm,
   MembersTable,
   MembersTableLayout,
+  MemberDetailsOthers,
+  MemberAttendancesItem,
+  MemberAttendances,
+  MemberDepartments,
+  MemberDepartmentItem,
+  MemberWelfares,
+  MemberWelfareItem,
+  MemberTithes,
+  MemberTitheItem,
 }
 
 // Exporting Services
