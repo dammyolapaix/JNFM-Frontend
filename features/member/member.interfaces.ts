@@ -1,5 +1,6 @@
 import { IAttendance } from '../attendance'
 import { IDepartment } from '../department'
+import { ITithe } from '../income/tithe'
 import { IWelfare } from '../income/welfare'
 
 export interface IBaseMember {
@@ -21,6 +22,7 @@ export interface IBaseMember {
   attendances?: IAttendance[]
   departments?: IDepartment[]
   welfares?: IWelfare[]
+  tithes?: ITithe[]
 }
 
 export default interface IMember extends IBaseMember {

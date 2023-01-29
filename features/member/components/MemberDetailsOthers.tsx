@@ -4,12 +4,16 @@ import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { IAttendance } from '../../attendance'
-import MemberAttendances from './MemberAttendances'
 import { NoRecordFound } from '../../../components'
 import { IDepartment } from '../../department'
-import MemberDepartments from './MemberDepartments'
 import { IWelfare } from '../../income/welfare'
-import MemberWelfares from './MemberWelfares'
+import { ITithe } from '../../income/tithe'
+import {
+  MemberAttendances,
+  MemberDepartments,
+  MemberTithes,
+  MemberWelfares,
+} from '../index'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -48,7 +52,8 @@ const MemberDetailsOthers: FC<{
   attendances?: IAttendance[]
   departments?: IDepartment[]
   welfares?: IWelfare[]
-}> = ({ attendances, departments, welfares }) => {
+  tithes?: ITithe[]
+}> = ({ attendances, departments, welfares, tithes }) => {
   const [value, setValue] = useState(0)
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
@@ -96,7 +101,7 @@ const MemberDetailsOthers: FC<{
           )}
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Tithes
+          {tithes ? <MemberTithes tithes={tithes} /> : <NoRecordFound />}
         </TabPanel>
         <TabPanel value={value} index={3}>
           Special Contributions
