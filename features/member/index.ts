@@ -45,6 +45,9 @@ import {
 // Importing Slice
 import memberReducers, { resetMember } from './member.slices'
 
+// Importing Input Options
+import { genders } from './member.inputOptions'
+
 // Exporting Interfaces
 export type {
   IMember,
@@ -85,3 +88,6 @@ export { addMemberAction, editMemberAction, getMembersAction }
 
 // Exporting Slice
 export { memberReducers, resetMember }
+
+// Exporting Input Options
+export { genders }

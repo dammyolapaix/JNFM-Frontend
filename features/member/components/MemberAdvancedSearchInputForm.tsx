@@ -1,16 +1,21 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
-import { CustomButton, CustomTextField } from '../../../components'
+import {
+  CustomButton,
+  CustomDropDown,
+  CustomTextField,
+} from '../../../components'
 import { useAppDispatch } from '../../../hooks'
-import { getMembersAction, IMemberQuery } from '../index'
+import { genders, getMembersAction, IMemberQuery } from '../index'
 
 const MemberAdvancedSearchInputForm: FC = () => {
   const dispatch = useAppDispatch()
 
   const [values, setValues] = useState<IMemberQuery>({
     fullName: '',
+    gender: '',
   })
 
-  const { fullName } = values
+  const { gender, fullName } = values
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -45,6 +50,16 @@ const MemberAdvancedSearchInputForm: FC = () => {
           isRequired={false}
           changeHandler={handleChange}
         />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-5">
+          <CustomDropDown
+            label={'Filter By Gender'}
+            name={'gender'}
+            isRequired={false}
+            changeHandler={handleChange}
+            values={genders}
+            currentValue={gender ? gender : ''}
+          />
+        </div>
         <div className="mt-10">
           <CustomButton value="Search" />
         </div>
