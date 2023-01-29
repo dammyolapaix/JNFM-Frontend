@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { IMember } from '../index'
 import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
+import { getAge } from '../../../utils'
 
 const MemberItem: FC<{ member: IMember }> = ({
   member: { _id, fullName, gender, dateOfBirth },
@@ -9,12 +10,9 @@ const MemberItem: FC<{ member: IMember }> = ({
   return (
     <>
       <tr className="border">
-        <td className="p-3">{`${!fullName ? '' : fullName}`}</td>
-        <td>{!gender ? 'Not Given' : gender?.at(0)}</td>
-        <td>32</td>
-        {/* <td>
-      {!dateOfBirth ? 'Not Given' : age(dateOfBirth)}
-    </td> */}
+        <td className="p-3">{fullName ? fullName : ''}</td>
+        <td>{gender ? gender?.at(0) : 'Not Given'}</td>
+        <td>{dateOfBirth ? getAge(dateOfBirth) : 'Not Given'}</td>
         <td className="flex items-center mt-2">
           <Link
             href={`/members/${_id}`}
