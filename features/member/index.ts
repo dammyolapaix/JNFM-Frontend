@@ -46,7 +46,7 @@ import {
 import memberReducers, { resetMember } from './member.slices'
 
 // Importing Input Options
-import { genders } from './member.inputOptions'
+import { genders, maritalStatuses } from './member.inputOptions'
 
 // Exporting Interfaces
 export type {
@@ -90,4 +90,4 @@ export { addMemberAction, editMemberAction, getMembersAction }
 export { memberReducers, resetMember }
 
 // Exporting Input Options
-export { genders }
+export { genders, maritalStatuses }

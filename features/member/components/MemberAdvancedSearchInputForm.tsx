@@ -5,7 +5,12 @@ import {
   CustomTextField,
 } from '../../../components'
 import { useAppDispatch } from '../../../hooks'
-import { genders, getMembersAction, IMemberQuery } from '../index'
+import {
+  genders,
+  getMembersAction,
+  IMemberQuery,
+  maritalStatuses,
+} from '../index'
 
 const MemberAdvancedSearchInputForm: FC = () => {
   const dispatch = useAppDispatch()
@@ -13,9 +18,10 @@ const MemberAdvancedSearchInputForm: FC = () => {
   const [values, setValues] = useState<IMemberQuery>({
     fullName: '',
     gender: '',
+    maritalStatus: '',
   })
 
-  const { gender, fullName } = values
+  const { gender, fullName, maritalStatus } = values
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -58,6 +64,14 @@ const MemberAdvancedSearchInputForm: FC = () => {
             changeHandler={handleChange}
             values={genders}
             currentValue={gender ? gender : ''}
+          />
+          <CustomDropDown
+            label={'Filter By Marital Status'}
+            name={'maritalStatus'}
+            isRequired={false}
+            changeHandler={handleChange}
+            values={maritalStatuses}
+            currentValue={maritalStatus ? maritalStatus : ''}
           />
         </div>
         <div className="mt-10">

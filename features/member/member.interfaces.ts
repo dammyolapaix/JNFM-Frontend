@@ -79,7 +79,7 @@ export interface IMemberEditReq {
 export interface IMemberQuery {
   fullName?: string
   gender?: string | 'Male' | 'Female'
-  maritalStatus?: 'Single' | 'Married' | 'Divorced' | 'Widowed'
+  maritalStatus?: string | 'Single' | 'Married' | 'Divorced' | 'Widowed'
   dateOfBirth?: Date
   select?: string
   sort?: string
