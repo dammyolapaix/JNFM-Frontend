@@ -10,6 +10,19 @@ import {
 
 export const getMembers = async (memberQuery?: IMemberQuery) => {
   if (memberQuery) {
+    if (memberQuery.age === 'Oldest') {
+      memberQuery['dateOfBirth[ne]'] = 'null'
+      memberQuery.sort = 'dateOfBirth'
+
+      delete memberQuery.age
+    }
+
+    if (memberQuery.age === 'Youngest') {
+      memberQuery['dateOfBirth[ne]'] = 'null'
+      memberQuery.sort = '-dateOfBirth'
+
+      delete memberQuery.age
+    }
     const queryStr = getQueryStr(memberQuery)
 
     const { data } = await makeRequest.get<IMembersRes>(`/members/${queryStr}`)

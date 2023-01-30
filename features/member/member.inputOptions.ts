@@ -27,3 +27,18 @@ export const maritalStatuses = [
     label: 'Widowed',
   },
 ]
+
+export const ages = [
+  {
+    value: 'Oldest',
+    label: 'Oldest',
+  },
+  {
+    value: 'Youngest',
+    label: 'Youngest',
+  },
+  // {
+  //   value: '18+',
+  //   label: '18+',
+  // },
+]

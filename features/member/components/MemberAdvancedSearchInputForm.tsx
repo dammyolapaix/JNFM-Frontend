@@ -19,9 +19,10 @@ const MemberAdvancedSearchInputForm: FC = () => {
     fullName: '',
     gender: '',
     maritalStatus: '',
+    age: '',
   })
 
-  const { gender, fullName, maritalStatus } = values
+  const { gender, fullName, maritalStatus, age } = values
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -49,7 +50,7 @@ const MemberAdvancedSearchInputForm: FC = () => {
     <>
       <form onSubmit={handleSubmit}>
         <CustomTextField
-          label={'First Name'}
+          label={'Name'}
           type={'text'}
           name={'fullName'}
           value={fullName ? fullName : ''}
@@ -72,6 +73,14 @@ const MemberAdvancedSearchInputForm: FC = () => {
             changeHandler={handleChange}
             values={maritalStatuses}
             currentValue={maritalStatus ? maritalStatus : ''}
+          />
+          <CustomDropDown
+            label={'Filter By Age'}
+            name={'age'}
+            isRequired={false}
+            changeHandler={handleChange}
+            values={ages}
+            currentValue={age ? age : ''}
           />
         </div>
         <div className="mt-10">

@@ -80,9 +80,11 @@ export interface IMemberQuery {
   fullName?: string
   gender?: string | 'Male' | 'Female'
   maritalStatus?: string | 'Single' | 'Married' | 'Divorced' | 'Widowed'
+  age?: string | 'Oldest' | 'Youngest' | '18+'
   dateOfBirth?: Date
   select?: string
   sort?: string
   page?: string
   limit?: string
+  'dateOfBirth[ne]'?: string
 }
