@@ -67,6 +67,7 @@ export interface IMemberInitialState {
   isSuccess: boolean
   isError: boolean
   error: null
+  advancedSearchFormData: null | IMemberQuery
   membersRes: IMembersRes
   memberResCRUD: IMemberRes
 }
@@ -74,4 +75,17 @@ export interface IMemberInitialState {
 export interface IMemberEditReq {
   id: IMember['_id']
   member: IMemberRequestQuery
+}
+
+export interface IMemberQuery {
+  fullName?: string
+  gender?: string | 'Male' | 'Female'
+  maritalStatus?: string | 'Single' | 'Married' | 'Divorced' | 'Widowed'
+  age?: string | 'Oldest' | 'Youngest' | '18+'
+  dateOfBirth?: Date
+  select?: string
+  sort?: string
+  page?: string
+  limit?: string
+  'dateOfBirth[ne]'?: string
 }

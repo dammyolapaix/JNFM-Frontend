@@ -3,15 +3,16 @@ import {
   editMember,
   getMembers,
   IMemberEditReq,
+  IMemberQuery,
   IMemberRequestQuery,
 } from './index'
 import { addMember } from './index'
 
 export const getMembersAction = createAsyncThunk(
   'member/getMembersAction',
-  async (_, thunkAPI) => {
+  async (memberQuery: IMemberQuery, thunkAPI) => {
     try {
-      return await getMembers()
+      return await getMembers(memberQuery)
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data.error)
     }
