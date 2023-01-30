@@ -26,6 +26,7 @@ import MemberWelfareItem from './components/MemberWelfareItem'
 import MemberTithes from './components/MemberTithes'
 import MemberTitheItem from './components/MemberTitheItem'
 import MemberAdvancedSearchInputForm from './components/MemberAdvancedSearchInputForm'
+import MembersStats from './components/MembersStats'
 
 // Importing Services
 import {
@@ -81,6 +82,7 @@ export {
   MemberTithes,
   MemberTitheItem,
   MemberAdvancedSearchInputForm,
+  MembersStats,
 }
 
 // Exporting Services

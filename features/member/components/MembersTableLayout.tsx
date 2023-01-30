@@ -2,7 +2,11 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import { MdAdd } from 'react-icons/md'
 import IMember, { IMembersRes } from '../member.interfaces'
-import { MemberAdvancedSearchInputForm, MembersTable } from '../index'
+import {
+  MemberAdvancedSearchInputForm,
+  MembersStats,
+  MembersTable,
+} from '../index'
 import { AdvancedSearchDrawer, NoRecordFound } from '../../../components'
 
 const MembersTableLayout: FC<{
@@ -20,7 +24,8 @@ const MembersTableLayout: FC<{
       membersRes?.count === 0 ? (
         <NoRecordFound message="Oops, No Member Found, Add A New Member" />
       ) : (
-        <div className="shadow-md">
+        <div className="">
+          {membersRes && <MembersStats members={membersRes.members} />}
           <div className="flex justify-between items-center">
             <h1 className="font-extrabold text-2xl mb-5 text-secondary">
               Members (
