@@ -14,6 +14,7 @@ const initialState = {
   isSuccess: false,
   isError: false,
   error: null,
+  advancedSearchFormData: null,
   membersRes: { success: false, count: 0, members: [] },
   memberResCRUD: { success: false, member: null },
 } as IMemberInitialState
@@ -22,11 +23,15 @@ export const memberSlices = createSlice({
   name: 'member',
   initialState,
   reducers: {
+    setAdvancedSearchFormData: (state, { payload }) => {
+      state.advancedSearchFormData = payload
+    },
     resetMember: (state) => {
       state.isLoading = false
       state.isSuccess = false
       state.isError = false
       state.error = null
+      state.advancedSearchFormData = null
       state.membersRes = { success: false, count: 0, members: [] }
       state.memberResCRUD = { success: false, member: null }
     },
@@ -98,6 +103,6 @@ export const memberSlices = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { resetMember } = memberSlices.actions
+export const { resetMember, setAdvancedSearchFormData } = memberSlices.actions
 
 export default memberSlices.reducer

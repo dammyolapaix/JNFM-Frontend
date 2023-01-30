@@ -67,6 +67,7 @@ export interface IMemberInitialState {
   isSuccess: boolean
   isError: boolean
   error: null
+  advancedSearchFormData: null | IMemberQuery
   membersRes: IMembersRes
   memberResCRUD: IMemberRes
 }

@@ -43,7 +43,10 @@ import {
 } from './member.actions'
 
 // Importing Slice
-import memberReducers, { resetMember } from './member.slices'
+import memberReducers, {
+  resetMember,
+  setAdvancedSearchFormData,
+} from './member.slices'
 
 // Importing Input Options
 import { genders, maritalStatuses, ages } from './member.inputOptions'
@@ -87,7 +90,7 @@ export { getMembers, getSingleMemberById, addMember, editMember }
 export { addMemberAction, editMemberAction, getMembersAction }
 
 // Exporting Slice
-export { memberReducers, resetMember }
+export { memberReducers, resetMember, setAdvancedSearchFormData }
 
 // Exporting Input Options
 export { genders, maritalStatuses, ages }
