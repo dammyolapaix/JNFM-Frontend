@@ -8,6 +8,18 @@ import {
   MembersTable,
 } from '../index'
 import { AdvancedSearchDrawer, NoRecordFound } from '../../../components'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js'
+import { Bar } from 'react-chartjs-2'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const MembersTableLayout: FC<{
   membersRes?: IMembersRes
@@ -17,6 +29,37 @@ const MembersTableLayout: FC<{
   }[]
   href?: string
 }> = ({ membersRes, membersData, href, membersResQueryCount }) => {
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Bar Chart',
+      },
+    },
+  }
+
+  // const labels = membersRes?.members.map((member) => member.gender)
+  const labels = ['Male', 'Female']
+
+  const memberData = [
+    membersRes?.members.filter((member) => member.gender === 'Male').length,
+    membersRes?.members.filter((member) => member.gender === 'Female').length,
+  ]
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Gender',
+        data: memberData,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  }
   return (
     <section>
       {typeof membersResQueryCount !== 'undefined' &&
@@ -26,6 +69,7 @@ const MembersTableLayout: FC<{
       ) : (
         <div className="">
           {membersRes && <MembersStats members={membersRes.members} />}
+
           <div className="flex justify-between items-center">
             <h1 className="font-extrabold text-2xl mb-5 text-secondary">
               Members (
@@ -63,6 +107,7 @@ const MembersTableLayout: FC<{
               {membersData && <MembersTable membersData={membersData} />}
             </>
           )}
+          <Bar options={options} data={data} />
         </div>
       )}
     </section>
