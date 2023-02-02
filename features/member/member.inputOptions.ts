@@ -42,3 +42,30 @@ export const ages = [
   //   label: '18+',
   // },
 ]
+
+export const nearestRelativeRelationships = [
+  {
+    value: 'Mother',
+    label: 'Mother',
+  },
+  {
+    value: 'Father',
+    label: 'Father',
+  },
+  {
+    value: 'Son',
+    label: 'Son',
+  },
+  {
+    value: 'Daughter',
+    label: 'Daughter',
+  },
+  {
+    value: 'Husband',
+    label: 'Husband',
+  },
+  {
+    value: 'Wife',
+    label: 'Wife',
+  },
+]

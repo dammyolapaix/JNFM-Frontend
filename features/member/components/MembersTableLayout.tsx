@@ -18,17 +18,18 @@ import {
   Legend,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
+import { useRouter } from 'next/router'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const MembersTableLayout: FC<{
   membersRes?: IMembersRes
   membersResQueryCount?: boolean
-  membersData?: {
-    member: IMember
-  }[]
+  membersData?: IMember[]
   href?: string
 }> = ({ membersRes, membersData, href, membersResQueryCount }) => {
+  const { route } = useRouter()
+
   const options = {
     responsive: true,
     plugins: {
@@ -86,15 +87,17 @@ const MembersTableLayout: FC<{
                   <MemberAdvancedSearchInputForm />
                 </AdvancedSearchDrawer>
               </div>
-              <div className="ml-1">
-                <Link
-                  href={href ? href : `/members/new`}
-                  className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
-                >
-                  <MdAdd />
-                  <div>New</div>
-                </Link>
-              </div>
+              {route === '/cells/[id]' && (
+                <div className="ml-1">
+                  <Link
+                    href={href ? href : `/members/new`}
+                    className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
+                  >
+                    <MdAdd />
+                    <div>New Member</div>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
 
@@ -104,7 +107,7 @@ const MembersTableLayout: FC<{
             <>
               {membersRes && <MembersTable members={membersRes.members} />}
 
-              {membersData && <MembersTable membersData={membersData} />}
+              {membersData && <MembersTable members={membersData} />}
             </>
           )}
           <Bar options={options} data={data} />
