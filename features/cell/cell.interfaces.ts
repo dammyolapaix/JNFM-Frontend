@@ -2,9 +2,7 @@ import { IMember } from '../member'
 
 export interface IBaseCell {
   name?: string
-  members?: {
-    member: IMember
-  }[]
+  members?: IMember[]
 }
 
 export default interface ICell extends IBaseCell {
@@ -14,12 +12,13 @@ export default interface ICell extends IBaseCell {
 export interface ICellsRes {
   success: boolean
   count: number | 0
-  cells: IMember[]
+  cells: ICell[]
 }
 
 export interface ICellRes {
   success: boolean
-  cell: null | IMember
+  countMembers: number | 0
+  cell: null | ICell
 }
 
 export interface ICellInitialState {
