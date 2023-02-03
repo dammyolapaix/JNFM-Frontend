@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
   editMember,
   getMembers,
+  IBaseMember,
   IMemberEditReq,
   IMemberQuery,
-  IMemberRequestQuery,
 } from './index'
 import { addMember } from './index'
 
@@ -21,7 +21,7 @@ export const getMembersAction = createAsyncThunk(
 
 export const addMemberAction = createAsyncThunk(
   'member/addMemberAction',
-  async (member: IMemberRequestQuery, thunkAPI) => {
+  async (member: IBaseMember, thunkAPI) => {
     try {
       return await addMember(member)
     } catch (error: any) {

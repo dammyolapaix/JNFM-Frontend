@@ -5,7 +5,7 @@ import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
 import { getAge } from '../../../utils'
 
 const MemberItem: FC<{ member: IMember }> = ({
-  member: { _id, fullName, gender, dateOfBirth },
+  member: { _id, fullName, gender, dateOfBirth, cell },
 }) => {
   return (
     <>
@@ -13,6 +13,11 @@ const MemberItem: FC<{ member: IMember }> = ({
         <td className="p-3">{fullName ? fullName : ''}</td>
         <td>{gender ? gender?.at(0) : 'Not Given'}</td>
         <td>{dateOfBirth ? getAge(dateOfBirth) : 'Not Given'}</td>
+        <td>
+          {cell && cell?.cell && typeof cell?.cell === 'object'
+            ? cell?.cell?.name
+            : 'Not Given'}
+        </td>
         <td className="flex items-center mt-2">
           <Link
             href={`/members/${_id}`}

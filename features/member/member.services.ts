@@ -1,9 +1,9 @@
 import { makeRequest } from '../../lib'
 import { getQueryStr } from '../../utils'
 import {
+  IBaseMember,
   IMember,
   IMemberQuery,
-  IMemberRequestQuery,
   IMemberRes,
   IMembersRes,
 } from './index'
@@ -39,15 +39,12 @@ export const getSingleMemberById = async (id: IMember['_id']) => {
   return data
 }
 
-export const addMember = async (member: IMemberRequestQuery) => {
+export const addMember = async (member: IBaseMember) => {
   const { data } = await makeRequest.post<IMemberRes>(`/members`, member)
   return data
 }
 
-export const editMember = async (
-  id: IMember['_id'],
-  member: IMemberRequestQuery
-) => {
+export const editMember = async (id: IMember['_id'], member: IBaseMember) => {
   const { data } = await makeRequest.patch<IMemberRes>(`/members/${id}`, member)
   return data
 }

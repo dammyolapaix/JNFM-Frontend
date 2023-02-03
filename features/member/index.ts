@@ -3,7 +3,6 @@ import IMember, {
   IBaseMember,
   IMemberRes,
   IMembersRes,
-  IMemberRequestQuery,
   IMemberInitialState,
   IMemberEditReq,
   IMemberQuery,
@@ -50,7 +49,12 @@ import memberReducers, {
 } from './member.slices'
 
 // Importing Input Options
-import { genders, maritalStatuses, ages } from './member.inputOptions'
+import {
+  genders,
+  maritalStatuses,
+  ages,
+  nearestRelativeRelationships,
+} from './member.inputOptions'
 
 // Exporting Interfaces
 export type {
@@ -58,7 +62,6 @@ export type {
   IBaseMember,
   IMemberRes,
   IMembersRes,
-  IMemberRequestQuery,
   IMemberInitialState,
   IMemberEditReq,
   IMemberQuery,
@@ -95,4 +98,4 @@ export { addMemberAction, editMemberAction, getMembersAction }
 export { memberReducers, resetMember, setAdvancedSearchFormData }
 
 // Exporting Input Options
-export { genders, maritalStatuses, ages }
+export { genders, maritalStatuses, ages, nearestRelativeRelationships }
