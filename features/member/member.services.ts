@@ -1,9 +1,37 @@
 import { makeRequest } from '../../lib'
-import { IMember, IMemberRequestQuery, IMemberRes, IMembersRes } from './index'
+import { getQueryStr } from '../../utils'
+import {
+  IBaseMember,
+  IMember,
+  IMemberQuery,
+  IMemberRes,
+  IMembersRes,
+} from './index'
 
-export const getMembers = async () => {
-  const { data } = await makeRequest.get<IMembersRes>('/members')
-  return data
+export const getMembers = async (memberQuery?: IMemberQuery) => {
+  if (memberQuery) {
+    if (memberQuery.age === 'Oldest') {
+      memberQuery['dateOfBirth[ne]'] = 'null'
+      memberQuery.sort = 'dateOfBirth'
+
+      delete memberQuery.age
+    }
+
+    if (memberQuery.age === 'Youngest') {
+      memberQuery['dateOfBirth[ne]'] = 'null'
+      memberQuery.sort = '-dateOfBirth'
+
+      delete memberQuery.age
+    }
+    const queryStr = getQueryStr(memberQuery)
+
+    const { data } = await makeRequest.get<IMembersRes>(`/members/${queryStr}`)
+
+    return data
+  } else {
+    const { data } = await makeRequest.get<IMembersRes>('/members')
+    return data
+  }
 }
 
 export const getSingleMemberById = async (id: IMember['_id']) => {
@@ -11,15 +39,12 @@ export const getSingleMemberById = async (id: IMember['_id']) => {
   return data
 }
 
-export const addMember = async (member: IMemberRequestQuery) => {
+export const addMember = async (member: IBaseMember) => {
   const { data } = await makeRequest.post<IMemberRes>(`/members`, member)
   return data
 }
 
-export const editMember = async (
-  id: IMember['_id'],
-  member: IMemberRequestQuery
-) => {
+export const editMember = async (id: IMember['_id'], member: IBaseMember) => {
   const { data } = await makeRequest.patch<IMemberRes>(`/members/${id}`, member)
   return data
 }

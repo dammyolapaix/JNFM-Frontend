@@ -26,10 +26,13 @@ const ChurchServices: FC<{ churchServicesRes: IChurchServicesRes }> = ({
           <table className="w-full">
             <thead className="text-secondary">
               <tr className="text-left border">
-                <th className="p-3">Date</th>
-                <th>Starts At</th>
-                <th>Ends At</th>
+                <th className="p-3">Type</th>
+                <th>Date</th>
+                {/* <th>Starts At</th>
+                <th>Ends At</th> */}
                 <th>Attendances</th>
+                <th>Offerings</th>
+                <th>Expenditures</th>
               </tr>
             </thead>
             <tbody>
@@ -42,6 +45,15 @@ const ChurchServices: FC<{ churchServicesRes: IChurchServicesRes }> = ({
             </tbody>
           </table>
         </div>
+      </div>
+      <div className="flex items-center justify-center mt-10">
+        <Link
+          href={`/services/ServiceTypes/new`}
+          className="bg-tertiary hover:bg-primary text-white rounded-md py-2 px-4 flex items-center"
+        >
+          <MdAdd />
+          <div>Add New Church Service Type</div>
+        </Link>
       </div>
     </section>
   )

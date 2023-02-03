@@ -10,12 +10,12 @@ import {
   IChurchServicesRes,
 } from '../../../features/churchService'
 
-const SingleChurchServicePage: NextPage<{ churchService: IChurchService }> = ({
-  churchService,
-}) => {
+const SingleChurchServicePage: NextPage<{
+  churchServiceRes: IChurchServiceRes
+}> = ({ churchServiceRes }) => {
   return (
     <Layout>
-      <ChurchServiceDetails churchService={churchService} />
+      <ChurchServiceDetails churchServiceRes={churchServiceRes} />
     </Layout>
   )
 }
@@ -43,18 +43,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params as IParams // no longer causes error
-  const { churchService }: IChurchServiceRes = await getSingleChurchServiceById(
+  const churchServiceRes: IChurchServiceRes = await getSingleChurchServiceById(
     id
   )
 
-  if (!churchService) {
+  if (!churchServiceRes) {
     return {
       notFound: true,
     }
   }
 
   return {
-    props: { churchService },
+    props: { churchServiceRes },
     revalidate: 1,
   }
 }

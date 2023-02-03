@@ -5,17 +5,25 @@ import {
   CustomTextField,
 } from '../../../components'
 import { useAppDispatch } from '../../../hooks'
+import { ICell } from '../../cell'
 import {
   addMemberAction,
   editMemberAction,
+  genders,
+  IBaseMember,
   IMember,
-  IMemberRequestQuery,
+  maritalStatuses,
+  nearestRelativeRelationships,
 } from '../index'
 
-const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
+const MemberInputForm: FC<{
+  member?: IMember
+  cellName?: ICell['name']
+  cellId?: ICell['_id']
+}> = ({ member, cellId, cellName }) => {
   const dispatch = useAppDispatch()
 
-  const [values, setValues] = useState<IMemberRequestQuery>({
+  const [values, setValues] = useState<IBaseMember>({
     lastName: '',
     firstName: '',
     otherNames: '',
@@ -26,8 +34,16 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
     postalAddress: '',
     homeAddress: '',
     email: '',
-    // 'phoneNumbers.countryCode': '',
-    // 'phoneNumbers.number': '',
+    phoneNumber: '',
+    nearestRelative: {
+      name: '',
+      relationship: '',
+      phoneNumber: '',
+    },
+    cell: {
+      cell: cellId ? cellId : '',
+      dateJoined: '',
+    },
   })
 
   const {
@@ -41,44 +57,10 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
     occupation,
     otherNames,
     postalAddress,
+    phoneNumber,
+    cell,
+    nearestRelative,
   } = values
-
-  const genders = [
-    {
-      value: 'Male',
-      label: 'Male',
-    },
-    {
-      value: 'Female',
-      label: 'Female',
-    },
-  ]
-
-  // const countriesCode = [
-  //   {
-  //     value: '233',
-  //     label: 'Ghana (233)',
-  //   },
-  // ]
-
-  const maritalStatuses = [
-    {
-      value: 'Single',
-      label: 'Single',
-    },
-    {
-      value: 'Married',
-      label: 'Married',
-    },
-    {
-      value: 'Divorced',
-      label: 'Divorced',
-    },
-    {
-      value: 'Widowed',
-      label: 'Widowed',
-    },
-  ]
 
   useEffect(() => {
     if (member) {
@@ -86,15 +68,51 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
     }
   }, [member])
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  // const handleChange = (
+  //   e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  // ) => {
+  //   const { name, value } = e.target
+  //   setValues({ ...values, [name]: value })
+  // }
+
+  // const handleNestedOnChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  // ) => {
+  //   const { name, value } = e.target
+
+  //   const [property, nestedProperty] = name.split('.')
+
+  //   setValues({
+  //     ...values,
+  //     [property]: {
+  //       // @ts-ignore
+  //       ...values[property],
+  //       [nestedProperty]: value,
+  //     },
+  //   })
+  // }
+
+  const handleDeepUpdate = (obj: any, path: string[], value: any) => {
+    let current = obj
+    for (let i = 0; i < path.length - 1; i++) {
+      current = current[path[i]]
+    }
+    current[path[path.length - 1]] = value
+    return obj
+  }
+
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
-    setValues({ ...values, [name]: value })
+    const path = name.split('.')
+    setValues((prev) => ({
+      ...prev,
+      ...handleDeepUpdate(prev, path, value),
+    }))
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     if (member) {
       dispatch(editMemberAction({ id: member._id, member: values }))
     } else {
@@ -116,7 +134,7 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
             name={'lastName'}
             value={lastName ? lastName : ''}
             isRequired={true}
-            changeHandler={handleChange}
+            changeHandler={onChange}
           />
           <CustomTextField
             label={'First Name'}
@@ -124,7 +142,7 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
             name={'firstName'}
             value={firstName ? firstName : ''}
             isRequired={false}
-            changeHandler={handleChange}
+            changeHandler={onChange}
           />
           <CustomTextField
             label={'Other Names'}
@@ -132,13 +150,13 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
             name={'otherNames'}
             value={otherNames ? otherNames : ''}
             isRequired={false}
-            changeHandler={handleChange}
+            changeHandler={onChange}
           />
           <CustomDropDown
             label={'Gender/Sex'}
             name={'gender'}
             isRequired={true}
-            changeHandler={handleChange}
+            changeHandler={onChange}
             values={genders}
             currentValue={gender ? gender : ''}
           />
@@ -148,13 +166,13 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
             name={'dateOfBirth'}
             value={dateOfBirth ? dateOfBirth : ''}
             isRequired={false}
-            changeHandler={handleChange}
+            changeHandler={onChange}
           />
           <CustomDropDown
             label={'Marital Status'}
             name={'maritalStatus'}
             isRequired={false}
-            changeHandler={handleChange}
+            changeHandler={onChange}
             values={maritalStatuses}
             currentValue={maritalStatus ? maritalStatus : ''}
           />
@@ -164,7 +182,7 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
             name={'occupation'}
             value={occupation ? occupation : ''}
             isRequired={false}
-            changeHandler={handleChange}
+            changeHandler={onChange}
           />
           <CustomTextField
             label={'Email'}
@@ -172,45 +190,25 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
             name={'email'}
             value={email ? email : ''}
             isRequired={false}
-            changeHandler={handleChange}
+            changeHandler={onChange}
           />
-          {/* <div className="flex">
-            <div className="mr-1 w-4/12">
-              <CustomDropDown
-                label={'Country Code'}
-                name={'phoneNumbers.countryCode'}
-                isRequired={false}
-                changeHandler={handleChange}
-                values={countriesCode}
-                currentValue={
-                  values['phoneNumbers.countryCode']
-                    ? values['phoneNumbers.countryCode']
-                    : ''
-                }
-              />
-            </div>
-            <div className="ml-1 w-8/12">
-              <CustomTextField
-                label={'Phone Number'}
-                type={'tel'}
-                name={'phoneNumbers.number'}
-                value={
-                  values['phoneNumbers.number']
-                    ? values['phoneNumbers.number']
-                    : ''
-                }
-                isRequired={false}
-                changeHandler={handleChange}
-              />
-            </div>
-          </div> */}
+
+          <CustomTextField
+            label={'Phone Number'}
+            type={'tel'}
+            name={'phoneNumber'}
+            value={phoneNumber ? phoneNumber : ''}
+            isRequired={false}
+            changeHandler={onChange}
+          />
+
           <CustomTextField
             label={'Postal Address'}
             type={'text'}
             name={'postalAddress'}
             value={postalAddress ? postalAddress : ''}
             isRequired={false}
-            changeHandler={handleChange}
+            changeHandler={onChange}
           />
           <CustomTextField
             label={'Home Address'}
@@ -218,8 +216,87 @@ const MemberInputForm: FC<{ member?: IMember }> = ({ member }) => {
             name={'homeAddress'}
             value={homeAddress ? homeAddress : ''}
             isRequired={false}
-            changeHandler={handleChange}
+            changeHandler={onChange}
           />
+          <CustomTextField
+            label={'Home Address'}
+            type={'text'}
+            name={'homeAddress'}
+            value={homeAddress ? homeAddress : ''}
+            isRequired={false}
+            changeHandler={onChange}
+          />
+        </div>
+        <div className="my-5">
+          <h3 className="text-center font-semibold mb-3 text-secondary">
+            Nearest Relative Information
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <CustomTextField
+              label={'Name'}
+              type={'text'}
+              name={'nearestRelative.name'}
+              value={nearestRelative?.name ? nearestRelative?.name : ''}
+              isRequired={false}
+              changeHandler={onChange}
+            />
+            <CustomDropDown
+              label={'Relationship'}
+              name={'nearestRelative.relationship'}
+              isRequired={false}
+              changeHandler={onChange}
+              values={nearestRelativeRelationships}
+              currentValue={
+                values.nearestRelative?.relationship
+                  ? values.nearestRelative?.relationship
+                  : ''
+              }
+            />
+
+            <CustomTextField
+              label={'Phone Number'}
+              type={'tel'}
+              name={'nearestRelative.phoneNumber'}
+              value={
+                nearestRelative?.phoneNumber ? nearestRelative?.phoneNumber : ''
+              }
+              isRequired={false}
+              changeHandler={onChange}
+            />
+          </div>
+        </div>
+        <div className="my-5">
+          <h3 className="text-center font-semibold mb-3 text-secondary">
+            Cell Information
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <div>
+              <label htmlFor="cell.cell" className="block">
+                <span className="block text-sm font-semibold text-slate-700">
+                  Cell Name
+                </span>
+              </label>
+
+              <input
+                type="text"
+                id="cell.cell"
+                name="cell.cell"
+                value={cellName}
+                disabled
+                readOnly
+                className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 text-primary"
+                required
+              />
+            </div>
+            <CustomTextField
+              label={'Date Joined'}
+              type={'date'}
+              name={'cell.dateJoined'}
+              value={cell?.dateJoined ? cell?.dateJoined : ''}
+              isRequired={false}
+              changeHandler={onChange}
+            />
+          </div>
         </div>
         <CustomButton value={!member ? 'Add Member' : 'Update Member'} />
       </form>
