@@ -10,7 +10,7 @@ const CellDetails: FC<{ cell: ICell }> = ({ cell: { _id, name, members } }) => {
     <section>
       <div className="flex justify-between items-center">
         <h1 className="font-extrabold text-2xl mb-5 text-secondary">
-          Cell Details
+          Cell Details {`(${name && name})`}
         </h1>
         <Link
           href={`/cells/${_id}/edit`}
@@ -30,7 +30,6 @@ const CellDetails: FC<{ cell: ICell }> = ({ cell: { _id, name, members } }) => {
           <h4>{members ? members.length : '0'}</h4>
         </div>
       </div>
-
       <div className="mt-10">
         {members && members.length > 0 ? (
           <MembersTableLayout
