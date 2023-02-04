@@ -98,6 +98,7 @@ export interface IMemberQuery {
   maritalStatus?: string | 'Single' | 'Married' | 'Divorced' | 'Widowed'
   age?: string | 'Oldest' | 'Youngest' | '18+'
   dateOfBirth?: Date
+  'cell.cell'?: string
   select?: string
   sort?: string
   page?: string
