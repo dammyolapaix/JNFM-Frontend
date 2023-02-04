@@ -15,6 +15,7 @@ import CellItem from './components/CellItem'
 import Cells from './components/Cells'
 import CellAddMemberItem from './components/CellAddMemberItem'
 import CellAddMember from './components/CellAddMember'
+import CellDetailsCards from './components/CellDetailsCards'
 
 // Importing Services
 import {
@@ -57,6 +58,7 @@ export {
   CellInputForm,
   CellAddMember,
   CellAddMemberItem,
+  CellDetailsCards,
 }
 
 // Exporting Services

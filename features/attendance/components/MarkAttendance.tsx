@@ -1,26 +1,19 @@
-import { useRouter } from 'next/router'
-import { ParsedUrlQuery } from 'querystring'
-import React, { FC, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { IMember } from '../../member'
 import { MarkAttendanceItem } from '../index'
 
-const MarkAttendance: FC<{ members: IMember[] }> = ({ members }) => {
-  const router = useRouter()
-
-  interface IParams extends ParsedUrlQuery {
-    id: string
-  }
-
-  const { id: churchServiceId } = router.query as IParams
-
-  useEffect(() => {}, [router, churchServiceId])
+const MarkAttendance: FC<{ members: IMember[]; churchServiceId: string }> = ({
+  members,
+  churchServiceId,
+}) => {
+  useEffect(() => {}, [churchServiceId])
 
   return (
     <section>
       <div className="shadow-md">
         <div className="flex justify-between items-center">
           <h1 className="font-extrabold text-2xl mb-5 text-secondary">
-            Church Service Attendance
+            Mark Attendance
           </h1>
         </div>
 
