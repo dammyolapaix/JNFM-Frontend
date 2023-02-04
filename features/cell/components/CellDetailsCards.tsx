@@ -3,12 +3,14 @@ import Link from 'next/link'
 import { MdGroup } from 'react-icons/md'
 import { IoIosPerson } from 'react-icons/io'
 import { SlPeople, SlUserFemale } from 'react-icons/sl'
+import ICell from '../cell.interfaces'
 
 const CellDetailsCards: FC<{
   totalMembers: number
   totalMales: number
   totalFemales: number
-}> = ({ totalMembers, totalMales, totalFemales }) => {
+  cellId: ICell['_id']
+}> = ({ totalMembers, totalMales, totalFemales, cellId }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
       <Link
@@ -36,7 +38,7 @@ const CellDetailsCards: FC<{
         <div className="text-xl font-bold">{totalFemales}</div>
       </Link>
       <Link
-        href={`#`}
+        href={`/cells/${cellId}/attendances`}
         className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
       >
         <SlPeople className="text-5xl" />

@@ -34,6 +34,7 @@ const CellDetails: FC<{ cell: ICell }> = ({ cell: { _id, name, members } }) => {
         totalMembers={totalMembers}
         totalMales={totalMales}
         totalFemales={totalFemales}
+        cellId={_id}
       />
       <div className="mt-10">
         {members && members.length > 0 ? (
