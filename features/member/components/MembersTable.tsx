@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { MemberItem, IMember } from '../index'
 
 const MembersTable: FC<{
   members?: IMember[]
 }> = ({ members }) => {
+  const { route } = useRouter()
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
@@ -12,7 +15,7 @@ const MembersTable: FC<{
             <th className="p-3">Name</th>
             <th>Sex</th>
             <th>Age</th>
-            <th>Cell</th>
+            {route !== '/cells/[id]' && <th>Cell</th>}
             <th>Action</th>
           </tr>
         </thead>
