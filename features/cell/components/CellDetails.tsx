@@ -1,16 +1,26 @@
 import { FC } from 'react'
 import Link from 'next/link'
-import { ICell } from '../index'
+import { CellDetailsCards, ICell } from '../index'
 import { MdEdit } from 'react-icons/md'
 import { MembersTableLayout } from '../../member'
 import { NoRecordFound } from '../../../components'
 
 const CellDetails: FC<{ cell: ICell }> = ({ cell: { _id, name, members } }) => {
+  const totalMembers = members ? members.length : 0
+
+  const totalMales = members
+    ? members.filter((member) => member.gender === 'Male').length
+    : 0
+
+  const totalFemales = members
+    ? members.filter((member) => member.gender === 'Female').length
+    : 0
+
   return (
     <section>
       <div className="flex justify-between items-center">
         <h1 className="font-extrabold text-2xl mb-5 text-secondary">
-          Cell Details
+          {name ? name : 'Cell Details'}
         </h1>
         <Link
           href={`/cells/${_id}/edit`}
@@ -20,17 +30,12 @@ const CellDetails: FC<{ cell: ICell }> = ({ cell: { _id, name, members } }) => {
           <div>Edit</div>
         </Link>
       </div>
-      <div className="shadow-md p-3 rounded-md mt-5">
-        <div className="mb-5">
-          <h3 className="font-semibold">Name</h3>
-          <h4>{name ? name : 'Not Given'}</h4>
-        </div>
-        <div className="mb-5">
-          <h3 className="font-semibold">Number of members</h3>
-          <h4>{members ? members.length : '0'}</h4>
-        </div>
-      </div>
-
+      <CellDetailsCards
+        totalMembers={totalMembers}
+        totalMales={totalMales}
+        totalFemales={totalFemales}
+        cellId={_id}
+      />
       <div className="mt-10">
         {members && members.length > 0 ? (
           <MembersTableLayout
