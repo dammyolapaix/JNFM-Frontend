@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { IMember } from '../index'
 import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
-import { getAge } from '../../../utils'
+import { formatDateToddmYYY, getAge } from '../../../utils'
 
 const MemberItem: FC<{ member: IMember }> = ({
   member: { _id, fullName, gender, dateOfBirth, cell, attendances },
@@ -31,6 +31,13 @@ const MemberItem: FC<{ member: IMember }> = ({
               : 'Not Given'}
           </td>
         )}
+
+        <td>
+          {cell && cell?.dateJoined
+            ? formatDateToddmYYY(cell?.dateJoined)
+            : 'Not Given'}
+        </td>
+
         {route === '/cells/[id]/[serviceId]/attendance' ? (
           <td>
             {typeof memberIsPresent !== 'undefined' && memberIsPresent ? (

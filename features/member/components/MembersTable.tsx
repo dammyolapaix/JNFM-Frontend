@@ -16,6 +16,7 @@ const MembersTable: FC<{
             <th>Sex</th>
             <th>Age</th>
             {!route.includes('/cells/[id]') && <th>Cell</th>}
+            <th>Date Joined</th>
             <th>Action</th>
           </tr>
         </thead>

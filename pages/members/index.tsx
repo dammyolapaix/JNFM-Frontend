@@ -25,7 +25,7 @@ const MembersPage: NextPage<
       ></QueryResult>
       <Members
         membersRes={isSuccess ? membersResQuery : membersRes}
-        membersResQueryCount={isSuccess && membersResQuery.count === 0}
+        membersResQueryCountIsZero={isSuccess && membersResQuery.count === 0}
       />
     </Layout>
   )
