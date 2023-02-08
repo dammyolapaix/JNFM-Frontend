@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import {
   CustomButton,
@@ -16,6 +17,8 @@ import {
 } from '../index'
 
 const MemberAdvancedSearchInputForm: FC = () => {
+  const { route, query } = useRouter()
+
   const dispatch = useAppDispatch()
 
   const { advancedSearchFormData } = useAppSelector((state) => state.member)
@@ -25,6 +28,8 @@ const MemberAdvancedSearchInputForm: FC = () => {
     gender: '',
     maritalStatus: '',
     age: '',
+    'cell.dateJoined[gte]': '',
+    'cell.dateJoined[lte]': '',
   })
 
   const { gender, fullName, maritalStatus, age } = values
@@ -53,10 +58,19 @@ const MemberAdvancedSearchInputForm: FC = () => {
   }
 
   useEffect(() => {
+    const cell =
+      route === '/cells/[id]' && typeof query.id === 'string' ? query.id : ''
+
     if (advancedSearchFormData === null) {
-      setValues({})
+      setValues({
+        'cell.cell': cell,
+      })
     } else {
-      setValues(advancedSearchFormData)
+      const newAdvancedSearchFormData = {
+        ...advancedSearchFormData,
+        'cell.cell': cell,
+      }
+      setValues(newAdvancedSearchFormData)
     }
   }, [advancedSearchFormData])
 
@@ -96,6 +110,37 @@ const MemberAdvancedSearchInputForm: FC = () => {
             values={ages}
             currentValue={age ? age : ''}
           />
+        </div>
+        <div>
+          <div className="text-center text-sm font-semibold mt-10 mb-5 text-primary">
+            Filter By Date Joined (Cell)
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <CustomTextField
+              label={'From'}
+              type={'date'}
+              name={'cell.dateJoined[gte]'}
+              value={
+                values['cell.dateJoined[gte]']
+                  ? values['cell.dateJoined[gte]']
+                  : ''
+              }
+              isRequired={false}
+              changeHandler={handleChange}
+            />
+            <CustomTextField
+              label={'To'}
+              type={'date'}
+              name={'cell.dateJoined[lte]'}
+              value={
+                values['cell.dateJoined[lte]']
+                  ? values['cell.dateJoined[lte]']
+                  : ''
+              }
+              isRequired={false}
+              changeHandler={handleChange}
+            />
+          </div>
         </div>
         <div className="mt-10">
           <CustomButton value="Search" />

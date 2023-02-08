@@ -4,12 +4,12 @@ import { MembersTableLayout } from '../index'
 
 const Members: FC<{
   membersRes: IMembersRes
-  membersResQueryCount: boolean
-}> = ({ membersRes, membersResQueryCount }) => {
+  membersResQueryCountIsZero: boolean
+}> = ({ membersRes, membersResQueryCountIsZero }) => {
   return (
     <MembersTableLayout
       membersRes={membersRes}
-      membersResQueryCount={membersResQueryCount}
+      membersResQueryCountIsZero={membersResQueryCountIsZero}
     />
   )
 }

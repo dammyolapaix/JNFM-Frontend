@@ -104,4 +104,6 @@ export interface IMemberQuery {
   page?: string
   limit?: string
   'dateOfBirth[ne]'?: string
+  'cell.dateJoined[gte]'?: string
+  'cell.dateJoined[lte]'?: string
 }

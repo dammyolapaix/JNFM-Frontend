@@ -47,63 +47,67 @@ const ChurchServiceItem: FC<{
             ? churchServiceType.name
             : 'Not Given'}
         </td>
-
-        <td className="px-4 py-2">
-          {hasCell && attendances ? (
-            attendances.filter(
-              (attendance) =>
-                typeof attendance.member === 'object' &&
-                attendance.member.cell?.cell === cell?._id
-            ).length
-          ) : attendances ? (
-            <Link
-              href={`/services/${_id}/attendances`}
-              className="text-primary hover:text-tertiary"
-            >
-              {attendances.length}
-            </Link>
-          ) : (
-            '0'
-          )}
-        </td>
-
-        <td className="px-4 py-2">
-          {hasCell && attendances
-            ? attendances.filter(
-                (attendance) =>
-                  typeof attendance.member === 'object' &&
-                  attendance.member.cell?.cell === cell?._id &&
-                  attendance.member.gender === 'Male'
-              ).length
-            : '0'}
-        </td>
-        <td>
-          {hasCell && attendances
-            ? attendances.filter(
-                (attendance) =>
-                  typeof attendance.member === 'object' &&
-                  attendance.member.cell?.cell === cell?._id &&
-                  attendance.member.gender === 'Female'
-              ).length
-            : '0'}
-        </td>
-        {hasCell && (
-          <td className="flex items-center my-2">
-            <Link
-              href={`/cells/${cell?._id}/${_id}/`}
-              className="bg-tertiary hover:bg-primary text-white rounded-md py-2 px-4 mr-3"
-            >
-              <div className="flex items-center">
-                <span>
-                  <MdAdd />
-                </span>
-                <span>Take Attendance</span>
-              </div>
-            </Link>
-          </td>
-        )}
-        {!hasCell && (
+        {/* Rendering conditionalily based on hasCell */}
+        {hasCell ? (
           <>
+            <td className="px-4 py-2">
+              {attendances
+                ? attendances.filter(
+                    (attendance) =>
+                      typeof attendance.member === 'object' &&
+                      attendance.member.cell?.cell === cell?._id
+                  ).length
+                : '0'}
+            </td>
+            <td className="px-4 py-2">
+              {attendances
+                ? attendances.filter(
+                    (attendance) =>
+                      typeof attendance.member === 'object' &&
+                      attendance.member.cell?.cell === cell?._id &&
+                      attendance.member.gender === 'Male'
+                  ).length
+                : '0'}
+            </td>
+            <td>
+              {attendances
+                ? attendances.filter(
+                    (attendance) =>
+                      typeof attendance.member === 'object' &&
+                      attendance.member.cell?.cell === cell?._id &&
+                      attendance.member.gender === 'Female'
+                  ).length
+                : '0'}
+            </td>
+            <td className="px-4 py-2 flex">
+              <Link
+                href={`/cells/${cell?._id}/${_id}/attendance`}
+                className="bg-secondary hover:bg-tertiary text-white rounded-md py-2 px-4 mr-3"
+              >
+                <MdRemoveRedEye />
+              </Link>
+              <Link
+                href={`/cells/${cell?._id}/${_id}`}
+                className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4"
+              >
+                <MdAdd />
+              </Link>
+            </td>
+          </>
+        ) : (
+          <>
+            <td className="px-4 py-2">
+              {attendances ? (
+                <Link
+                  href={`/services/${_id}/attendances`}
+                  className="text-primary hover:text-tertiary"
+                >
+                  {attendances.length}
+                </Link>
+              ) : (
+                '0'
+              )}
+            </td>
             <td className="px-4 py-2">
               <Link
                 href={`/services/${_id}/offerings`}

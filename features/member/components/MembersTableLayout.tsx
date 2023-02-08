@@ -13,21 +13,32 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js'
-import { Bar } from 'react-chartjs-2'
+import { Bar, Line } from 'react-chartjs-2'
 import { useRouter } from 'next/router'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+)
 
 const MembersTableLayout: FC<{
   membersRes?: IMembersRes
-  membersResQueryCount?: boolean
+  membersResQueryCountIsZero?: boolean
   membersData?: IMember[]
   href?: string
-}> = ({ membersRes, membersData, href, membersResQueryCount }) => {
+}> = ({ membersRes, membersData, href, membersResQueryCountIsZero }) => {
   const { route } = useRouter()
 
   const options = {
@@ -61,10 +72,48 @@ const MembersTableLayout: FC<{
       },
     ],
   }
+
+  const months: string[] = []
+  const joinedCount: number[] = []
+
+  membersRes?.members.forEach((member) => {
+    if (member && member.cell && member.cell.dateJoined) {
+      const month = new Date(member?.cell?.dateJoined).toLocaleString(
+        'default',
+        {
+          month: 'short',
+        }
+      )
+
+      // Checking if the month is not in the months array
+      if (months.indexOf(month) === -1) {
+        // Add the month to the months array
+        months.push(month)
+
+        // set the joinedCount of that month to one
+        joinedCount.push(1)
+      } else {
+        // If month is already in the months array, increament the joinedCount
+        joinedCount[months.indexOf(month)]++
+      }
+    }
+  })
+
+  const data2 = {
+    labels: months,
+    datasets: [
+      {
+        label: 'Members joined by month',
+        data: joinedCount,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  }
+
   return (
     <section>
-      {typeof membersResQueryCount !== 'undefined' &&
-      !membersResQueryCount &&
+      {typeof membersResQueryCountIsZero !== 'undefined' &&
+      !membersResQueryCountIsZero &&
       membersRes?.count === 0 ? (
         <NoRecordFound message="Oops, No Member Found, Add A New Member" />
       ) : (
@@ -101,7 +150,7 @@ const MembersTableLayout: FC<{
             </div>
           </div>
 
-          {membersResQueryCount ? (
+          {membersResQueryCountIsZero ? (
             <NoRecordFound message="Oops, No member found for this filter, filter for something else" />
           ) : (
             <>
@@ -111,6 +160,7 @@ const MembersTableLayout: FC<{
             </>
           )}
           <Bar options={options} data={data} />
+          <Line options={options} data={data2} />
         </div>
       )}
     </section>
