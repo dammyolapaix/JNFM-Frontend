@@ -23,20 +23,41 @@ const MembersPage: NextPage<
         isError={isError}
         error={error}
       ></QueryResult>
-      <Members
-        membersRes={isSuccess ? membersResQuery : membersRes}
-        membersResQueryCountIsZero={isSuccess && membersResQuery.count === 0}
-      />
+      {membersRes && (
+        <Members
+          membersRes={isSuccess ? membersResQuery : membersRes}
+          membersResQueryCountIsZero={isSuccess && membersResQuery.count === 0}
+        />
+      )}
     </Layout>
   )
 }
 
 export default MembersPage
 
+interface IErrorRes {
+  success: boolean
+  error: string
+}
+
 export const getServerSideProps: GetServerSideProps<{
-  membersRes: IMembersRes
-}> = async () => {
-  const membersRes: IMembersRes = await getMembers()
+  membersRes?: IMembersRes
+  errorRes?: IErrorRes
+}> = async ({ req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!req.headers.cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
+  const membersRes: IMembersRes = await getMembers(undefined, cookie)
 
   if (!membersRes) {
     return {
