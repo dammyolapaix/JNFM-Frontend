@@ -7,6 +7,7 @@ import { useAppSelector } from '../../hooks'
 const MembersPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ membersRes }) => {
+  const [statusCode, setStatusCode] = useState(200)
   const {
     isLoading,
     isError,
@@ -14,6 +15,14 @@ const MembersPage: NextPage<
     isSuccess,
     membersRes: membersResQuery,
   } = useAppSelector((state) => state.member)
+
+  useEffect(() => {
+    if (error && error.status && error.status === 401) {
+      setStatusCode(error.status)
+    }
+  }, [error])
+
+  useAuth(statusCode)
 
   return (
     <Layout>
