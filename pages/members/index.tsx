@@ -30,7 +30,7 @@ const MembersPage: NextPage<
         isLoading={isLoading}
         isSuccess={isSuccess}
         isError={isError}
-        error={error}
+        error={error?.error}
       ></QueryResult>
       {membersRes && (
         <Members
@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async ({ req, res }) => {
   const cookie = req.headers.cookie
 
-  if (!req.headers.cookie) {
+  if (!cookie) {
     res.writeHead(302, { Location: '/login' })
     res.end()
     return {
