@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import React from 'react'
 import { Layout, QueryResult } from '../../components'
 import { getMembers, IMembersRes, Members } from '../../features/member'
-import { useAppSelector } from '../../hooks'
+import { useAppSelector, useAuth } from '../../hooks'
 
 const MembersPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
