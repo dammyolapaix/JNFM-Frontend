@@ -1,3 +1,4 @@
+import { IError } from '../../interfaces'
 import { IAttendance } from '../attendance'
 import { ICell } from '../cell'
 import { IDepartment } from '../department'
@@ -40,6 +41,7 @@ export interface IMembersRes {
   success: boolean
   count: number | 0
   members: IMember[]
+  status: null | number
 }
 
 export interface IMemberRes {
@@ -81,7 +83,7 @@ export interface IMemberInitialState {
   isLoading: boolean
   isSuccess: boolean
   isError: boolean
-  error: null
+  error: null | IError
   advancedSearchFormData: null | IMemberQuery
   membersRes: IMembersRes
   memberResCRUD: IMemberRes
