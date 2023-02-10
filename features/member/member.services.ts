@@ -8,7 +8,10 @@ import {
   IMembersRes,
 } from './index'
 
-export const getMembers = async (memberQuery?: IMemberQuery) => {
+export const getMembers = async (
+  memberQuery?: IMemberQuery,
+  cookie?: string
+) => {
   if (memberQuery) {
     if (memberQuery.age === 'Oldest') {
       memberQuery['dateOfBirth[ne]'] = 'null'
@@ -25,26 +28,70 @@ export const getMembers = async (memberQuery?: IMemberQuery) => {
     }
     const queryStr = getQueryStr(memberQuery)
 
-    const { data } = await makeRequest.get<IMembersRes>(`/members/${queryStr}`)
+    const { data, status } = await makeRequest.get<IMembersRes>(
+      `/members/${queryStr}`,
+      {
+        withCredentials: true,
+        headers: {
+          Cookie: cookie,
+        },
+      }
+    )
+
+    data.status = status
 
     return data
   } else {
-    const { data } = await makeRequest.get<IMembersRes>('/members')
+    const { data, status } = await makeRequest.get<IMembersRes>('/members', {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    })
+
+    data.status = status
+
     return data
   }
 }
 
-export const getSingleMemberById = async (id: IMember['_id']) => {
-  const { data } = await makeRequest.get<IMemberRes>(`/members/${id}`)
+export const getSingleMemberById = async (
+  id: IMember['_id'],
+  cookie?: string
+) => {
+  const { data } = await makeRequest.get<IMemberRes>(`/members/${id}`, {
+    withCredentials: true,
+    headers: {
+      Cookie: cookie,
+    },
+  })
   return data
 }
 
-export const addMember = async (member: IBaseMember) => {
-  const { data } = await makeRequest.post<IMemberRes>(`/members`, member)
+export const addMember = async (member: IBaseMember, cookie?: string) => {
+  const { data } = await makeRequest.post<IMemberRes>(`/members`, member, {
+    withCredentials: true,
+    headers: {
+      Cookie: cookie,
+    },
+  })
   return data
 }
 
-export const editMember = async (id: IMember['_id'], member: IBaseMember) => {
-  const { data } = await makeRequest.patch<IMemberRes>(`/members/${id}`, member)
+export const editMember = async (
+  id: IMember['_id'],
+  member: IBaseMember,
+  cookie?: string
+) => {
+  const { data } = await makeRequest.patch<IMemberRes>(
+    `/members/${id}`,
+    member,
+    {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    }
+  )
   return data
 }
