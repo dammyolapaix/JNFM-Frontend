@@ -8,7 +8,10 @@ import {
   IMembersRes,
 } from './index'
 
-export const getMembers = async (memberQuery?: IMemberQuery) => {
+export const getMembers = async (
+  memberQuery?: IMemberQuery,
+  cookie?: string
+) => {
   if (memberQuery) {
     if (memberQuery.age === 'Oldest') {
       memberQuery['dateOfBirth[ne]'] = 'null'
@@ -25,11 +28,29 @@ export const getMembers = async (memberQuery?: IMemberQuery) => {
     }
     const queryStr = getQueryStr(memberQuery)
 
-    const { data } = await makeRequest.get<IMembersRes>(`/members/${queryStr}`)
+    const { data, status } = await makeRequest.get<IMembersRes>(
+      `/members/${queryStr}`,
+      {
+        withCredentials: true,
+        headers: {
+          Cookie: cookie,
+        },
+      }
+    )
+
+    data.status = status
 
     return data
   } else {
-    const { data } = await makeRequest.get<IMembersRes>('/members')
+    const { data, status } = await makeRequest.get<IMembersRes>('/members', {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    })
+
+    data.status = status
+
     return data
   }
 }

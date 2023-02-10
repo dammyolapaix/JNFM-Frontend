@@ -15,7 +15,7 @@ const initialState = {
   isError: false,
   error: null,
   advancedSearchFormData: null,
-  membersRes: { success: false, count: 0, members: [] },
+  membersRes: { success: false, count: 0, members: [], status: null },
   memberResCRUD: { success: false, member: null },
 } as IMemberInitialState
 
@@ -32,7 +32,7 @@ export const memberSlices = createSlice({
       state.isError = false
       state.error = null
       state.advancedSearchFormData = null
-      state.membersRes = { success: false, count: 0, members: [] }
+      state.membersRes = { success: false, count: 0, members: [], status: null }
       state.memberResCRUD = { success: false, member: null }
     },
   },
@@ -49,14 +49,13 @@ export const memberSlices = createSlice({
         state.membersRes = action.payload
       }
     )
-    builder.addCase(
-      getMembersAction.rejected,
-      (state, action: PayloadAction<any>) => {
-        state.isLoading = false
-        state.isError = true
+    builder.addCase(getMembersAction.rejected, (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      if (action.payload) {
         state.error = action.payload
       }
-    )
+    })
 
     // Add Member
     builder.addCase(addMemberAction.pending, (state) => {
