@@ -55,17 +55,43 @@ export const getMembers = async (
   }
 }
 
-export const getSingleMemberById = async (id: IMember['_id']) => {
-  const { data } = await makeRequest.get<IMemberRes>(`/members/${id}`)
+export const getSingleMemberById = async (
+  id: IMember['_id'],
+  cookie?: string
+) => {
+  const { data } = await makeRequest.get<IMemberRes>(`/members/${id}`, {
+    withCredentials: true,
+    headers: {
+      Cookie: cookie,
+    },
+  })
   return data
 }
 
-export const addMember = async (member: IBaseMember) => {
-  const { data } = await makeRequest.post<IMemberRes>(`/members`, member)
+export const addMember = async (member: IBaseMember, cookie?: string) => {
+  const { data } = await makeRequest.post<IMemberRes>(`/members`, member, {
+    withCredentials: true,
+    headers: {
+      Cookie: cookie,
+    },
+  })
   return data
 }
 
-export const editMember = async (id: IMember['_id'], member: IBaseMember) => {
-  const { data } = await makeRequest.patch<IMemberRes>(`/members/${id}`, member)
+export const editMember = async (
+  id: IMember['_id'],
+  member: IBaseMember,
+  cookie?: string
+) => {
+  const { data } = await makeRequest.patch<IMemberRes>(
+    `/members/${id}`,
+    member,
+    {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    }
+  )
   return data
 }
