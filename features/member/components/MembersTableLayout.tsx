@@ -21,6 +21,7 @@ import {
 } from 'chart.js'
 import { Bar, Line } from 'react-chartjs-2'
 import { useRouter } from 'next/router'
+import { utils, writeFile } from 'xlsx'
 
 ChartJS.register(
   CategoryScale,
@@ -110,6 +111,32 @@ const MembersTableLayout: FC<{
     ],
   }
 
+  const generateReport = () => {
+    if (membersRes) {
+      const rows = membersRes.members.map((row) => ({
+        'Full Name': row.fullName as String,
+        Gender: row.gender?.charAt(0),
+      }))
+
+      console.log(rows)
+
+      const worksheet = utils.json_to_sheet(rows)
+
+      const workbook = utils.book_new()
+      utils.book_append_sheet(workbook, worksheet, 'Bio Data')
+      utils.book_append_sheet(workbook, worksheet, 'Bio Data 2')
+
+      worksheet['!cols'] = [{ wch: 10 }] // set column A width to 10 characters
+      const max_width = rows.reduce(
+        (w, r) => Math.max(w, r['Full Name'].length),
+        10
+      )
+      worksheet['!cols'] = [{ wch: max_width }]
+
+      writeFile(workbook, 'Members Report.xlsx', { compression: true })
+    }
+  }
+
   return (
     <section>
       {typeof membersResQueryCountIsZero !== 'undefined' &&
@@ -131,6 +158,7 @@ const MembersTableLayout: FC<{
               )
             </h1>
             <div className="flex">
+              <div onClick={generateReport}>Report</div>
               <div className="mr-1">
                 <AdvancedSearchDrawer>
                   <MemberAdvancedSearchInputForm />
