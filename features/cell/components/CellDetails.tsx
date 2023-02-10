@@ -2,11 +2,15 @@ import { FC } from 'react'
 import Link from 'next/link'
 import { CellDetailsCards, ICell } from '../index'
 import { MdEdit } from 'react-icons/md'
-import { MembersTableLayout } from '../../member'
-import { NoRecordFound } from '../../../components'
+import { IMembersRes, MembersTableLayout } from '../../member'
 
-const CellDetails: FC<{ cell: ICell }> = ({ cell: { _id, name, members } }) => {
-  const totalMembers = members ? members.length : 0
+const CellDetails: FC<{
+  cell: ICell
+  membersRes: IMembersRes
+  membersResQueryCountIsZero: boolean
+}> = ({ cell: { _id, name }, membersRes, membersResQueryCountIsZero }) => {
+  const { count, members } = membersRes
+  const totalMembers = count
 
   const totalMales = members
     ? members.filter((member) => member.gender === 'Male').length
@@ -36,19 +40,12 @@ const CellDetails: FC<{ cell: ICell }> = ({ cell: { _id, name, members } }) => {
         totalFemales={totalFemales}
         cellId={_id}
       />
+
       <div className="mt-10">
-        {members && members.length > 0 ? (
-          <MembersTableLayout
-            membersData={members}
-            href={`/cells/${_id}/members/new`}
-          />
-        ) : (
-          <NoRecordFound
-            message="Oops, no member found in this cell"
-            href={`/cells/${_id}/members/new`}
-            cta="Add A New Member"
-          />
-        )}
+        <MembersTableLayout
+          membersRes={membersRes}
+          membersResQueryCountIsZero={membersResQueryCountIsZero}
+        />
       </div>
     </section>
   )
