@@ -54,12 +54,14 @@ const MemberItem: FC<{ member: IMember }> = ({
             >
               <MdRemoveRedEye />
             </Link>
-            <Link
-              href={`/members/${_id}/edit`}
-              className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4"
-            >
-              <MdEdit />
-            </Link>
+            {cell && cell?.cell && typeof cell?.cell === 'object' && (
+              <Link
+                href={`/cells/${cell.cell._id}/members/${_id}/edit`}
+                className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4"
+              >
+                <MdEdit />
+              </Link>
+            )}
           </td>
         )}
       </tr>
