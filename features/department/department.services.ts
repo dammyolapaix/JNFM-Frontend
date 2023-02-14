@@ -76,7 +76,7 @@ export const addMemberToDepartment = async (
 
   const { data } = await makeRequest.patch<IDepartmentRes>(
     `/departments/${id}/members/add`,
-    member,
+    { member },
     {
       withCredentials: true,
       headers: {
@@ -96,7 +96,7 @@ export const removeMemberFromDepartment = async (
 
   const { data } = await makeRequest.patch<IDepartmentRes>(
     `/departments/${id}/members/remove`,
-    member,
+    { member },
     {
       withCredentials: true,
       headers: {
