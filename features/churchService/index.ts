@@ -2,6 +2,7 @@ import { addChurchServiceAction } from './churchService.actions'
 
 import churchServiceReducers, {
   resetChurchService,
+  resetOffering,
 } from './churchService.slices'
 import IChurchService, {
   IBaseChurchService,
@@ -38,4 +39,4 @@ export type {
 
 export { getChurchServices, getSingleChurchServiceById, addChurchService }
 
-export { churchServiceReducers, resetChurchService }
+export { churchServiceReducers, resetChurchService, resetOffering }
