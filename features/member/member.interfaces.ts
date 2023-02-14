@@ -24,7 +24,7 @@ export interface IBaseMember {
     phoneNumber?: string
   }
   cell?: {
-    cell?: ICell | ICell['_id']
+    cell: ICell | ICell['_id']
     dateJoined?: string
   }
   attendances?: IAttendance[]
