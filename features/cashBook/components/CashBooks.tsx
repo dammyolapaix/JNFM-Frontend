@@ -1,23 +1,27 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import { GiMoneyStack, GiPayMoney, GiTwoCoins } from 'react-icons/gi'
-import { NoRecordFound } from '../../../components'
+import { AdvancedSearchDrawer, NoRecordFound } from '../../../components'
 import { changeToHigherDenomination } from '../../../utils'
-import { CashBookItem, ICashBooksRes } from '../index'
+import {
+  CashBookAdvancedSearchInputForm,
+  CashBookItem,
+  ICashBooksRes,
+} from '../index'
 
 const CashBooks: FC<{
   cashBooksRes: ICashBooksRes
-}> = ({ cashBooksRes: { cashBooks, count, totalCashBook } }) => {
+  cashBooksResQueryCount: boolean
+}> = ({
+  cashBooksRes: { cashBooks, count, totalCashBook },
+  cashBooksResQueryCount,
+}) => {
   let runningBalance = 0
 
   return (
     <section>
-      {count === 0 ? (
-        <NoRecordFound
-          message="Oops, No Cash Book Found"
-          cta="Add New Cash Book"
-          href={`#`}
-        />
+      {!cashBooksResQueryCount && count === 0 ? (
+        <NoRecordFound message="Oops, No Cash Book Found, Add A Income or Expenditure" />
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
@@ -84,37 +88,44 @@ const CashBooks: FC<{
                 )}
                 )
               </h1>
+              <AdvancedSearchDrawer>
+                <CashBookAdvancedSearchInputForm />
+              </AdvancedSearchDrawer>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="text-secondary">
-                  <tr className="text-center border">
-                    <th className="px-4 py-2">Date</th>
-                    <th className="px-4 py-2">Naration</th>
-                    <th className="px-4 py-2">PV. No</th>
-                    <th className="px-4 py-2">Cheque. No</th>
-                    <th className="px-4 py-2">Account/Source</th>
-                    <th className="px-4 py-2">Debit</th>
-                    <th className="px-4 py-2">Credit</th>
-                    <th className="px-4 py-2">(GHS) Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cashBooks &&
-                    cashBooks.map((cashBook) => {
-                      runningBalance += cashBook.amount
+            {cashBooksResQueryCount ? (
+              <NoRecordFound message="Oops, No Cash Book found for this filter, filter for something else" />
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="text-secondary">
+                    <tr className="text-center border">
+                      <th className="px-4 py-2">Date</th>
+                      <th className="px-4 py-2">Naration</th>
+                      <th className="px-4 py-2">PV. No</th>
+                      <th className="px-4 py-2">Cheque. No</th>
+                      <th className="px-4 py-2">Account/Source</th>
+                      <th className="px-4 py-2">Debit</th>
+                      <th className="px-4 py-2">Credit</th>
+                      <th className="px-4 py-2">(GHS) Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cashBooks &&
+                      cashBooks.map((cashBook) => {
+                        runningBalance += cashBook.amount
 
-                      return (
-                        <CashBookItem
-                          key={cashBook._id}
-                          cashBook={cashBook}
-                          runningBalance={runningBalance}
-                        />
-                      )
-                    })}
-                </tbody>
-              </table>
-            </div>
+                        return (
+                          <CashBookItem
+                            key={cashBook._id}
+                            cashBook={cashBook}
+                            runningBalance={runningBalance}
+                          />
+                        )
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </>
       )}

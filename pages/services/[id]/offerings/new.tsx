@@ -15,7 +15,7 @@ import { resetOffering } from '../../../../features/churchService'
 
 const NewOfferingPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ churchServiceId, offeringTypesRes: { offeringTypes } }) => {
+> = ({ churchServiceId, offeringTypesRes }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
@@ -45,20 +45,39 @@ const NewOfferingPage: NextPage<
         isError={isError}
         error={error}
       ></QueryResult>
-      <OfferingInputForm
-        offeringTypes={offeringTypes}
-        churchServiceId={churchServiceId}
-      />
+
+      {offeringTypesRes &&
+        offeringTypesRes.offeringTypes &&
+        churchServiceId && (
+          <OfferingInputForm
+            offeringTypes={offeringTypesRes.offeringTypes}
+            churchServiceId={churchServiceId}
+          />
+        )}
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  offeringTypesRes: IOfferingTypesRes
-  churchServiceId: string
-}> = async ({ params }) => {
+  offeringTypesRes?: IOfferingTypesRes
+  churchServiceId?: string
+}> = async ({ params, req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
   const { id: churchServiceId } = params as IParams
-  const offeringTypesRes = await getOfferingTypes()
+
+  const offeringTypesRes = await getOfferingTypes(cookie)
 
   if (!offeringTypesRes) {
     return {

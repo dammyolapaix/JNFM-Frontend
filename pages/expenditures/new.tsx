@@ -17,13 +17,11 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { IError } from '../../interfaces'
 
 const NewExpenditurePage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({
-  churchServicesRes: { churchServices },
-  expenditureCategoriesRes: { expenditureCategories },
-}) => {
+> = ({ churchServicesRes, expenditureCategoriesRes }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
@@ -53,22 +51,38 @@ const NewExpenditurePage: NextPage<
         error={error}
       ></QueryResult>
 
-      <ExpenditureInputForm
-        churchServices={churchServices}
-        expenditureCategories={expenditureCategories}
-      />
+      {churchServicesRes && expenditureCategoriesRes && (
+        <ExpenditureInputForm
+          churchServices={churchServicesRes.churchServices}
+          expenditureCategories={expenditureCategoriesRes.expenditureCategories}
+        />
+      )}
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  churchServicesRes: IChurchServicesRes
-  expenditureCategoriesRes: IExpenditureCategoriesRes
-}> = async () => {
-  const churchServicesRes: IChurchServicesRes = await getChurchServices()
+  churchServicesRes?: IChurchServicesRes
+  expenditureCategoriesRes?: IExpenditureCategoriesRes
+  errorRes?: IError
+}> = async ({ req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
+  const churchServicesRes: IChurchServicesRes = await getChurchServices(cookie)
 
   const expenditureCategoriesRes: IExpenditureCategoriesRes =
-    await getExpenditureCategories()
+    await getExpenditureCategories(cookie)
 
   if (!churchServicesRes && !expenditureCategoriesRes) {
     return {

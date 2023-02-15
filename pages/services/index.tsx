@@ -5,21 +5,38 @@ import {
   getChurchServices,
   IChurchServicesRes,
 } from '../../features/churchService'
+import { IError } from '../../interfaces'
 
 const ChurchServicesPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ churchServicesRes }) => {
   return (
     <Layout>
-      <ChurchServices churchServicesRes={churchServicesRes} />
+      {churchServicesRes && (
+        <ChurchServices churchServicesRes={churchServicesRes} />
+      )}
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  churchServicesRes: IChurchServicesRes
-}> = async () => {
-  const churchServicesRes = await getChurchServices()
+  churchServicesRes?: IChurchServicesRes
+  errorRes?: IError
+}> = async ({ req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
+  const churchServicesRes = await getChurchServices(cookie)
 
   if (!churchServicesRes) {
     return {
