@@ -1,9 +1,15 @@
 import { makeRequest } from '../../../lib'
 import { IExpenditureCategoriesRes } from './index'
 
-export const getExpenditureCategories = async () => {
+export const getExpenditureCategories = async (cookie?: string) => {
   const { data } = await makeRequest.get<IExpenditureCategoriesRes>(
-    '/expenditureCategories'
+    '/expenditureCategories',
+    {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    }
   )
   return data
 }
