@@ -12,21 +12,36 @@ const ChurchServiceOfferingsPage: NextPage<
 > = ({ offeringsRes, churchServiceId }) => {
   return (
     <Layout>
-      <Offerings
-        offeringsRes={offeringsRes}
-        churchServiceId={churchServiceId}
-      />
+      {offeringsRes && churchServiceId && (
+        <Offerings
+          offeringsRes={offeringsRes}
+          churchServiceId={churchServiceId}
+        />
+      )}
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  offeringsRes: IOfferingsRes
-  churchServiceId: string
-}> = async ({ params }) => {
+  offeringsRes?: IOfferingsRes
+  churchServiceId?: string
+}> = async ({ params, req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
   const { id: churchServiceId } = params as IParams
 
-  const offeringsRes = await getOfferings(churchServiceId)
+  const offeringsRes = await getOfferings(churchServiceId, cookie)
 
   if (!offeringsRes) {
     return {
