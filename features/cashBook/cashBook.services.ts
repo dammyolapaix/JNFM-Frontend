@@ -1,7 +1,10 @@
 import { makeRequest } from '../../lib'
 import { ICashBookQuery, ICashBooksRes } from './index'
 
-export const getCashBooks = async (cashBookQuery?: ICashBookQuery) => {
+export const getCashBooks = async (
+  cashBookQuery?: ICashBookQuery,
+  cookie?: string
+) => {
   if (cashBookQuery) {
     const currentDate = new Date()
 
@@ -220,11 +223,22 @@ export const getCashBooks = async (cashBookQuery?: ICashBookQuery) => {
     queryStr = `?${queryStr}`
 
     const { data } = await makeRequest.get<ICashBooksRes>(
-      `/cashBooks/${queryStr}`
+      `/cashBooks/${queryStr}`,
+      {
+        withCredentials: true,
+        headers: {
+          Cookie: cookie,
+        },
+      }
     )
     return data
   } else {
-    const { data } = await makeRequest.get<ICashBooksRes>('/cashBooks')
+    const { data } = await makeRequest.get<ICashBooksRes>('/cashBooks', {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    })
     return data
   }
 }
