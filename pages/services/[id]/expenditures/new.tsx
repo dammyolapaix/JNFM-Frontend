@@ -12,16 +12,13 @@ import {
   IExpenditureCategoriesRes,
 } from '../../../../features/expenditure/ExpenditureCategory'
 import { useAppDispatch, useAppSelector } from '../../../../hooks'
-import { IParams } from '../../../../interfaces'
+import { IError, IParams } from '../../../../interfaces'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const NewChurchServiceExpenditurePage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({
-  churchServiceId,
-  expenditureCategoriesRes: { expenditureCategories },
-}) => {
+> = ({ churchServiceId, expenditureCategoriesRes }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
@@ -51,22 +48,42 @@ const NewChurchServiceExpenditurePage: NextPage<
         error={error}
       ></QueryResult>
 
-      <ExpenditureInputForm
-        churchServiceId={churchServiceId}
-        expenditureCategories={expenditureCategories}
-      />
+      {expenditureCategoriesRes &&
+        churchServiceId &&
+        expenditureCategoriesRes.expenditureCategories && (
+          <ExpenditureInputForm
+            churchServiceId={churchServiceId}
+            expenditureCategories={
+              expenditureCategoriesRes.expenditureCategories
+            }
+          />
+        )}
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  expenditureCategoriesRes: IExpenditureCategoriesRes
-  churchServiceId: IChurchService['_id']
-}> = async ({ params }) => {
+  expenditureCategoriesRes?: IExpenditureCategoriesRes
+  churchServiceId?: IChurchService['_id']
+  errorRes?: IError
+}> = async ({ params, req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
   const { id: churchServiceId } = params as IParams
 
   const expenditureCategoriesRes: IExpenditureCategoriesRes =
-    await getExpenditureCategories()
+    await getExpenditureCategories(cookie)
 
   if (!expenditureCategoriesRes) {
     return {
