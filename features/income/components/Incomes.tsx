@@ -2,9 +2,9 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { GiTwoCoins } from 'react-icons/gi'
 import { MdAdd } from 'react-icons/md'
-import { NoRecordFound } from '../../../components'
+import { AdvancedSearchDrawer, NoRecordFound } from '../../../components'
 import { changeToHigherDenomination } from '../../../utils'
-import { IIncomesRes, IncomeItem } from '../index'
+import { IIncomesRes, IncomeAdvancedSearchForm, IncomeItem } from '../index'
 
 const Incomes: FC<{
   incomesRes: IIncomesRes
@@ -98,13 +98,20 @@ const Incomes: FC<{
                 )}
                 )
               </h1>
-              <Link
-                href={`#`}
-                className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
-              >
-                <MdAdd />
-                <div>New</div>
-              </Link>
+              <div className="flex justify-between items-center">
+                <div className="mr-3">
+                  <AdvancedSearchDrawer>
+                    <IncomeAdvancedSearchForm />
+                  </AdvancedSearchDrawer>
+                </div>
+                <Link
+                  href={`#`}
+                  className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
+                >
+                  <MdAdd />
+                  <div>New</div>
+                </Link>
+              </div>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
