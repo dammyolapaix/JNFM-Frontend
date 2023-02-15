@@ -27,7 +27,7 @@ const ExpenditureInputForm: FC<{
     amount: 0,
     date: '',
     naration: '',
-    churchService: churchServiceId ? churchServiceId : '',
+    churchService: churchServiceId ? churchServiceId : undefined,
     expenditureCategory: '',
   })
 

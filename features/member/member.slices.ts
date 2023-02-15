@@ -14,7 +14,8 @@ const initialState = {
   isSuccess: false,
   isError: false,
   error: null,
-  membersRes: { success: false, count: 0, members: [] },
+  advancedSearchFormData: null,
+  membersRes: { success: false, count: 0, members: [], status: null },
   memberResCRUD: { success: false, member: null },
 } as IMemberInitialState
 
@@ -22,12 +23,16 @@ export const memberSlices = createSlice({
   name: 'member',
   initialState,
   reducers: {
+    setAdvancedSearchFormData: (state, { payload }) => {
+      state.advancedSearchFormData = payload
+    },
     resetMember: (state) => {
       state.isLoading = false
       state.isSuccess = false
       state.isError = false
       state.error = null
-      state.membersRes = { success: false, count: 0, members: [] }
+      state.advancedSearchFormData = null
+      state.membersRes = { success: false, count: 0, members: [], status: null }
       state.memberResCRUD = { success: false, member: null }
     },
   },
@@ -44,14 +49,13 @@ export const memberSlices = createSlice({
         state.membersRes = action.payload
       }
     )
-    builder.addCase(
-      getMembersAction.rejected,
-      (state, action: PayloadAction<any>) => {
-        state.isLoading = false
-        state.isError = true
+    builder.addCase(getMembersAction.rejected, (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      if (action.payload) {
         state.error = action.payload
       }
-    )
+    })
 
     // Add Member
     builder.addCase(addMemberAction.pending, (state) => {
@@ -98,6 +102,6 @@ export const memberSlices = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { resetMember } = memberSlices.actions
+export const { resetMember, setAdvancedSearchFormData } = memberSlices.actions
 
 export default memberSlices.reducer

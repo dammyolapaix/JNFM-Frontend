@@ -1,3 +1,4 @@
 import { IParams } from './IParams'
+import IError from './IError'
 
-export type { IParams }
+export type { IParams, IError }
