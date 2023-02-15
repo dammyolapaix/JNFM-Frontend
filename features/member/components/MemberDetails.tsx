@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { FC } from 'react'
-import { IMember } from '../index'
+import { IMember, MemberDetailsOthers } from '../index'
 import { MdEdit } from 'react-icons/md'
+import { formatDateToddmYYY, getAge } from '../../../utils'
 
 const MemberDetails: FC<{ member: IMember }> = ({
   member: {
@@ -14,6 +15,10 @@ const MemberDetails: FC<{ member: IMember }> = ({
     maritalStatus,
     occupation,
     postalAddress,
+    attendances,
+    departments,
+    welfares,
+    tithes,
     // phoneNumbers,
   },
 }) => {
@@ -41,12 +46,12 @@ const MemberDetails: FC<{ member: IMember }> = ({
           <h4>{gender ? gender : 'Not Given'}</h4>
         </div>
         <div className="mb-5">
-          <h3 className="font-semibold">Age</h3>
-          <h4>32</h4>
+          <h3 className="font-semibold">Date Of Birth</h3>
+          <h4>{dateOfBirth ? formatDateToddmYYY(dateOfBirth) : 'Not Given'}</h4>
         </div>
         <div className="mb-5">
-          <h3 className="font-semibold">Date Of Birth</h3>
-          <h4>{dateOfBirth ? dateOfBirth : 'Not Given'}</h4>
+          <h3 className="font-semibold">Age</h3>
+          <h4>{dateOfBirth ? getAge(dateOfBirth) : 'Not Given'}</h4>
         </div>
         <div className="mb-5">
           <h3 className="font-semibold">Email</h3>
@@ -89,6 +94,13 @@ const MemberDetails: FC<{ member: IMember }> = ({
           <h4>{postalAddress ? postalAddress : 'Not Given'}</h4>
         </div>
       </div>
+
+      <MemberDetailsOthers
+        attendances={attendances}
+        departments={departments}
+        welfares={welfares}
+        tithes={tithes}
+      />
     </section>
   )
 }

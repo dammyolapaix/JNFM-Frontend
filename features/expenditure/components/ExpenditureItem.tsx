@@ -23,7 +23,7 @@ const ExpenditureItem: FC<{ expenditure: IExpenditure }> = ({
           : 'Not Given'}
       </td>
       <td className="px-4 py-2">
-        {amount ? `Ghc ${changeToHigherDenomination(amount)}` : 'Not Given'}
+        {amount ? changeToHigherDenomination(amount) : 'Not Given'}
       </td>
     </tr>
   )
