@@ -6,22 +6,49 @@ import {
   IBaseChurchService,
 } from './index'
 
-export const getChurchServices = async () => {
-  const { data } = await makeRequest.get<IChurchServicesRes>('/churchServices')
+export const getChurchServices = async (cookie?: string) => {
+  const { data } = await makeRequest.get<IChurchServicesRes>(
+    '/churchServices',
+    {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    }
+  )
+
   return data
 }
 
-export const getSingleChurchServiceById = async (id: IChurchService['_id']) => {
+export const getSingleChurchServiceById = async (
+  id: IChurchService['_id'],
+  cookie?: string
+) => {
   const { data } = await makeRequest.get<IChurchServiceRes>(
-    `/churchServices/${id}`
+    `/churchServices/${id}`,
+    {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    }
   )
   return data
 }
 
-export const addChurchService = async (churchService: IBaseChurchService) => {
+export const addChurchService = async (
+  churchService: IBaseChurchService,
+  cookie?: string
+) => {
   const { data } = await makeRequest.post<IChurchServiceRes>(
     `/churchServices`,
-    churchService
+    churchService,
+    {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    }
   )
   return data
 }

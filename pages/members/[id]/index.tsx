@@ -1,43 +1,58 @@
-import { GetStaticPaths, NextPage } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Layout } from '../../../components'
 import {
-  getMembers,
   getSingleMemberById,
-  IMember,
-  IMembersRes,
+  IMemberRes,
   MemberDetails,
 } from '../../../features/member'
+import { IParams } from '../../../interfaces'
 
-const SingleMemberPage: NextPage<{ member: IMember }> = ({ member }) => {
+const SingleMemberPage: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ memberRes }) => {
   return (
     <Layout>
-      {member && member !== null && <MemberDetails member={member} />}
+      {memberRes && memberRes.member && memberRes.member !== null && (
+        <MemberDetails member={memberRes.member} />
+      )}
     </Layout>
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { members }: IMembersRes = await getMembers()
-
-  const paths = members.map((member) => ({
-    params: { id: member?._id },
-  }))
-
-  return { paths, fallback: false }
+interface IErrorRes {
+  success: boolean
+  error: string
 }
 
-interface IContext {
-  params: {
-    id: IMember['_id']
+export const getServerSideProps: GetServerSideProps<{
+  memberRes?: IMemberRes
+  errorRes?: IErrorRes
+}> = async ({ params, req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
   }
-}
 
-export async function getStaticProps({ params: { id } }: IContext) {
-  const { member } = await getSingleMemberById(id)
+  const { id } = params as IParams
+
+  const memberRes: IMemberRes = await getSingleMemberById(id, cookie)
+
+  if (!memberRes) {
+    return {
+      notFound: true,
+    }
+  }
 
   return {
-    props: { member },
-    revalidate: 1,
+    props: { memberRes },
   }
 }
 

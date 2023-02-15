@@ -3,9 +3,9 @@ import IMember, {
   IBaseMember,
   IMemberRes,
   IMembersRes,
-  IMemberRequestQuery,
   IMemberInitialState,
   IMemberEditReq,
+  IMemberQuery,
 } from './member.interfaces'
 
 // Importing Components
@@ -15,6 +15,17 @@ import MemberItem from './components/MemberItem'
 import Members from './components/Members'
 import MembersTable from './components/MembersTable'
 import MembersTableLayout from './components/MembersTableLayout'
+import MemberDetailsOthers from './components/MemberDetailsOthers'
+import MemberAttendancesItem from './components/MemberAttendancesItem'
+import MemberAttendances from './components/MemberAttendances'
+import MemberDepartments from './components/MemberDepartments'
+import MemberDepartmentItem from './components/MemberDepartmentItem'
+import MemberWelfares from './components/MemberWelfares'
+import MemberWelfareItem from './components/MemberWelfareItem'
+import MemberTithes from './components/MemberTithes'
+import MemberTitheItem from './components/MemberTitheItem'
+import MemberAdvancedSearchInputForm from './components/MemberAdvancedSearchInputForm'
+import MembersStats from './components/MembersStats'
 
 // Importing Services
 import {
@@ -32,7 +43,18 @@ import {
 } from './member.actions'
 
 // Importing Slice
-import memberReducers, { resetMember } from './member.slices'
+import memberReducers, {
+  resetMember,
+  setAdvancedSearchFormData,
+} from './member.slices'
+
+// Importing Input Options
+import {
+  genders,
+  maritalStatuses,
+  ages,
+  nearestRelativeRelationships,
+} from './member.inputOptions'
 
 // Exporting Interfaces
 export type {
@@ -40,9 +62,9 @@ export type {
   IBaseMember,
   IMemberRes,
   IMembersRes,
-  IMemberRequestQuery,
   IMemberInitialState,
   IMemberEditReq,
+  IMemberQuery,
 }
 
 // Exporting components
@@ -53,6 +75,17 @@ export {
   MemberInputForm,
   MembersTable,
   MembersTableLayout,
+  MemberDetailsOthers,
+  MemberAttendancesItem,
+  MemberAttendances,
+  MemberDepartments,
+  MemberDepartmentItem,
+  MemberWelfares,
+  MemberWelfareItem,
+  MemberTithes,
+  MemberTitheItem,
+  MemberAdvancedSearchInputForm,
+  MembersStats,
 }
 
 // Exporting Services
@@ -62,4 +95,7 @@ export { getMembers, getSingleMemberById, addMember, editMember }
 export { addMemberAction, editMemberAction, getMembersAction }
 
 // Exporting Slice
-export { memberReducers, resetMember }
+export { memberReducers, resetMember, setAdvancedSearchFormData }
+
+// Exporting Input Options
+export { genders, maritalStatuses, ages, nearestRelativeRelationships }
