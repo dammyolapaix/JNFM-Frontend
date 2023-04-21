@@ -6,27 +6,37 @@ import {
   getAttendances,
   IAttendancesRes,
 } from '../../../../features/attendance'
+import { IParams } from '../../../../interfaces'
 
 const SingleChurchServiceAttendacePage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ attendancesRes }) => {
   return (
     <Layout>
-      <Attendances attendancesRes={attendancesRes} />
+      {attendancesRes && <Attendances attendancesRes={attendancesRes} />}
     </Layout>
   )
 }
 
-interface IParams extends ParsedUrlQuery {
-  id: string
-}
-
 export const getServerSideProps: GetServerSideProps<{
-  attendancesRes: IAttendancesRes
-}> = async ({ params }) => {
+  attendancesRes?: IAttendancesRes
+}> = async ({ params, req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
   const { id } = params as IParams
 
-  const attendancesRes: IAttendancesRes = await getAttendances(id)
+  const attendancesRes: IAttendancesRes = await getAttendances(id, cookie)
 
   if (!attendancesRes) {
     return {

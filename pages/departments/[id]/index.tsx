@@ -1,34 +1,47 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import { ParsedUrlQuery } from 'querystring'
 import { Layout } from '../../../components'
 import {
   DepartmentDetails,
   getSingleDepartmentById,
   IDepartmentRes,
 } from '../../../features/department'
+import { IError, IParams } from '../../../interfaces'
 
 const SingleDepartmentPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ departmentRes: { department } }) => {
+> = ({ departmentRes }) => {
   return (
     <Layout>
-      {department && department !== null && (
-        <DepartmentDetails department={department} />
+      {departmentRes && departmentRes.department && (
+        <DepartmentDetails department={departmentRes.department} />
       )}
     </Layout>
   )
 }
 
-interface IParams extends ParsedUrlQuery {
-  id: string
-}
-
 export const getServerSideProps: GetServerSideProps<{
-  departmentRes: IDepartmentRes
-}> = async ({ params }) => {
+  departmentRes?: IDepartmentRes
+  errorRes?: IError
+}> = async ({ params, req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
   const { id } = params as IParams
 
-  const departmentRes: IDepartmentRes = await getSingleDepartmentById(id)
+  const departmentRes: IDepartmentRes = await getSingleDepartmentById(
+    id,
+    cookie
+  )
 
   if (!departmentRes) {
     return {

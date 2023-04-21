@@ -1,61 +1,56 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { ParsedUrlQuery } from 'querystring'
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Layout } from '../../../components'
 import {
   ChurchServiceDetails,
-  getChurchServices,
   getSingleChurchServiceById,
-  IChurchService,
   IChurchServiceRes,
-  IChurchServicesRes,
 } from '../../../features/churchService'
+import { IError, IParams } from '../../../interfaces'
 
-const SingleChurchServicePage: NextPage<{ churchService: IChurchService }> = ({
-  churchService,
-}) => {
+const SingleChurchServicePage: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ churchServiceRes }) => {
   return (
     <Layout>
-      <ChurchServiceDetails churchService={churchService} />
+      {churchServiceRes && (
+        <ChurchServiceDetails churchServiceRes={churchServiceRes} />
+      )}
     </Layout>
   )
 }
 
-interface IParams extends ParsedUrlQuery {
-  id: string
-}
+export const getServerSideProps: GetServerSideProps<{
+  churchServiceRes?: IChurchServiceRes
+  errorRes?: IError
+}> = async ({ params, req, res }) => {
+  const cookie = req.headers.cookie
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { churchServices }: IChurchServicesRes = await getChurchServices()
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
 
-  const paths = churchServices.map((churchService) => ({
-    params: { id: churchService?._id },
-  }))
+  const { id } = params as IParams
 
-  return { paths, fallback: false }
-}
-
-/**
- * Special thanks to Jame Wallis.
- * Due to his article, I was able to fix typescript's error below.
- * About how typescript (GetStaticProps) doesn't recognized the params "id" passed from GetStaticPaths
- * Here's the link to the article "https://wallis.dev/blog/nextjs-getstaticprops-and-getstaticpaths-with-typescript"
- */
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { id } = context.params as IParams // no longer causes error
-  const { churchService }: IChurchServiceRes = await getSingleChurchServiceById(
-    id
+  const churchServiceRes: IChurchServiceRes = await getSingleChurchServiceById(
+    id,
+    cookie
   )
 
-  if (!churchService) {
+  if (!churchServiceRes) {
     return {
       notFound: true,
     }
   }
 
   return {
-    props: { churchService },
-    revalidate: 1,
+    props: { churchServiceRes },
   }
 }
 

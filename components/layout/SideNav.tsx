@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import { FC } from 'react'
-import { MdDashboard, MdGroup } from 'react-icons/md'
+import { MdDashboard, MdGroup, MdGroups } from 'react-icons/md'
 import { FaChurch } from 'react-icons/fa'
+import { GiMoneyStack, GiPayMoney } from 'react-icons/gi'
+import { IoIosJournal } from 'react-icons/io'
 
 const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
   return (
@@ -36,8 +38,36 @@ const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
           href={'/departments'}
           className="flex items-center border-b py-5 hover:text-secondary"
         >
-          <FaChurch className="mr-3" />
+          <MdGroups className="mr-3" />
           <div className="font-semibold">Departments</div>
+        </Link>
+        <Link
+          href={'/cells'}
+          className="flex items-center border-b py-5 hover:text-secondary"
+        >
+          <MdGroups className="mr-3" />
+          <div className="font-semibold">Cells</div>
+        </Link>
+        <Link
+          href={'/expenditures'}
+          className="flex items-center border-b py-5 hover:text-secondary"
+        >
+          <GiPayMoney className="mr-3" />
+          <div className="font-semibold">Expenditures</div>
+        </Link>
+        <Link
+          href={'/incomes'}
+          className="flex items-center border-b py-5 hover:text-secondary"
+        >
+          <GiMoneyStack className="text-primary mr-3" />
+          <div className="font-semibold">Income</div>
+        </Link>
+        <Link
+          href={'/cashBooks'}
+          className="flex items-center border-b py-5 hover:text-secondary"
+        >
+          <IoIosJournal className="mr-3" />
+          <div className="font-semibold">Cash Book</div>
         </Link>
       </div>
     </aside>

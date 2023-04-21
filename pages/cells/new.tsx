@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Layout, QueryResult } from '../../components'
-import { MemberInputForm, resetMember } from '../../features/member'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { CellInputForm, resetCell } from '../../features/cell'
 
-const AddNewMemberPage = () => {
+const AddNewCellPage = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
@@ -15,16 +15,16 @@ const AddNewMemberPage = () => {
     isError,
     error,
     isSuccess,
-    memberResCRUD: { member },
-  } = useAppSelector((state) => state.member)
+    cellResCRUD: { cell },
+  } = useAppSelector((state) => state.cell)
 
   useEffect(() => {
-    if (isSuccess && member !== null) {
-      toast.success('Member added successfully')
-      dispatch(resetMember())
-      router.push('/members')
+    if (isSuccess && cell !== null) {
+      toast.success('Cell added successfully')
+      dispatch(resetCell())
+      router.push('/cells')
     }
-  }, [router, dispatch, isLoading, isError, error, isSuccess, member])
+  }, [router, dispatch, isSuccess, cell])
 
   return (
     <Layout>
@@ -37,9 +37,9 @@ const AddNewMemberPage = () => {
         error={error}
       ></QueryResult>
 
-      <MemberInputForm />
+      <CellInputForm />
     </Layout>
   )
 }
 
-export default AddNewMemberPage
+export default AddNewCellPage

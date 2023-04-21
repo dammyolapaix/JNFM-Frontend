@@ -11,11 +11,11 @@ import {
   IDepartmentRes,
   resetDepartment,
 } from '../../../features/department'
-import { IParams } from '../../../interfaces'
+import { IError, IParams } from '../../../interfaces'
 
 const EditDepartmentPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ departmentRes: { department } }) => {
+> = ({ departmentRes }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
@@ -31,7 +31,7 @@ const EditDepartmentPage: NextPage<
     if (isSuccess && updatedDepartment !== null) {
       toast.success('Department updated successfully')
       dispatch(resetDepartment())
-      router.push(`/departments/${department?._id}`)
+      router.push(`/departments/${departmentRes?.department?._id}`)
     }
   }, [router, dispatch, isSuccess, updatedDepartment])
 
@@ -46,19 +46,36 @@ const EditDepartmentPage: NextPage<
         error={error}
       ></QueryResult>
 
-      {department && department !== null && (
-        <DepartmentInputForm department={department} />
+      {departmentRes && departmentRes.department && (
+        <DepartmentInputForm department={departmentRes.department} />
       )}
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  departmentRes: IDepartmentRes
-}> = async ({ params }) => {
+  departmentRes?: IDepartmentRes
+  errorRes?: IError
+}> = async ({ params, req, res }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
   const { id } = params as IParams
 
-  const departmentRes: IDepartmentRes = await getSingleDepartmentById(id)
+  const departmentRes: IDepartmentRes = await getSingleDepartmentById(
+    id,
+    cookie
+  )
 
   if (!departmentRes) {
     return {
