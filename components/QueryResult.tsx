@@ -1,11 +1,12 @@
 import { ReactNode } from 'react'
 import Spinner from './Spinner'
+import ErrorMessage from './ErrorMessage'
 
 interface IQueryResult {
   isLoading?: boolean
   isSuccess?: boolean
   isError?: boolean
-  error?: any
+  error?: string
   children?: ReactNode
 }
 
@@ -18,8 +19,8 @@ const QueryResult = ({
 }: IQueryResult) => {
   return (
     <>
-      {isError ? (
-        <p className="text-center text-red-600">{error}</p>
+      {isError && error ? (
+        <ErrorMessage errorMessage={error} />
       ) : isLoading ? (
         <Spinner />
       ) : isSuccess ? (
