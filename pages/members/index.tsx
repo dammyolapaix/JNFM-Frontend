@@ -1,9 +1,10 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import { Layout, QueryResult } from '../../components'
+import { ErrorMessage, Layout, QueryResult } from '../../components'
 import { getMembers, IMembersRes, Members } from '../../features/member'
 import { useAppSelector } from '../../hooks'
 import { AxiosError } from 'axios'
 import cookie from 'cookie'
+import { IError } from '../../interfaces'
 
 const MembersPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -19,7 +20,7 @@ const MembersPage: NextPage<
   return (
     <Layout>
       {errorMessage ? (
-        <div className="text-center text-red-600">{errorMessage}</div>
+        <ErrorMessage errorMessage={errorMessage} />
       ) : membersRes ? (
         <>
           <QueryResult
@@ -42,11 +43,6 @@ const MembersPage: NextPage<
       )}
     </Layout>
   )
-}
-
-interface IErrorRes {
-  success: boolean
-  error: string
 }
 
 export const getServerSideProps: GetServerSideProps<{
@@ -88,7 +84,7 @@ export const getServerSideProps: GetServerSideProps<{
       }
     }
 
-    const errorMessageRes = (error as AxiosError).response?.data as IErrorRes
+    const errorMessageRes = (error as AxiosError).response?.data as IError
 
     const errorMessage = `An error occurred ${errorMessageRes.error}`
     return { props: { errorMessage } }
