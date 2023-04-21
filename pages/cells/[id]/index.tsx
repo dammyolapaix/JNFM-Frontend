@@ -4,11 +4,11 @@ import { CellDetails, ICellRes } from '../../../features/cell'
 import { getSingleCellById } from '../../../features/cell/cell.services'
 import { getMembers, IMembersRes } from '../../../features/member'
 import { useAppSelector } from '../../../hooks'
-import { IParams } from '../../../interfaces'
+import { IError, IParams } from '../../../interfaces'
 
 const SingleCellPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ cellRes: { cell }, membersRes }) => {
+> = ({ cellRes, membersRes }) => {
   const {
     isLoading,
     isError,
@@ -26,9 +26,9 @@ const SingleCellPage: NextPage<
         error={error}
       ></QueryResult>
 
-      {cell && cell !== null && (
+      {cellRes && cellRes.cell !== null && membersRes && (
         <CellDetails
-          cell={cell}
+          cell={cellRes.cell}
           membersRes={isSuccess ? membersResQuery : membersRes}
           membersResQueryCountIsZero={isSuccess && membersResQuery.count === 0}
         />
@@ -38,13 +38,27 @@ const SingleCellPage: NextPage<
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  cellRes: ICellRes
-  membersRes: IMembersRes
-}> = async ({ params }) => {
+  cellRes?: ICellRes
+  membersRes?: IMembersRes
+  errorRes?: IError
+}> = async ({ req, res, params }) => {
+  const cookie = req.headers.cookie
+
+  if (!cookie) {
+    res.writeHead(302, { Location: '/login' })
+    res.end()
+    return {
+      props: {
+        success: false,
+        error: 'Access Denied',
+      },
+    }
+  }
+
   const { id } = params as IParams
 
-  const cellRes: ICellRes = await getSingleCellById(id)
-  const membersRes: IMembersRes = await getMembers({ 'cell.cell': id })
+  const cellRes: ICellRes = await getSingleCellById(id, cookie)
+  const membersRes: IMembersRes = await getMembers({ 'cell.cell': id }, cookie)
 
   if (!cellRes && !membersRes) {
     return {

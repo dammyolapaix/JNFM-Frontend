@@ -2,9 +2,9 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { GiTwoCoins } from 'react-icons/gi'
 import { MdAdd } from 'react-icons/md'
-import { NoRecordFound } from '../../../components'
+import { AdvancedSearchDrawer, NoRecordFound } from '../../../components'
 import { changeToHigherDenomination } from '../../../utils'
-import { IIncomesRes, IncomeItem } from '../index'
+import { IIncomesRes, IncomeAdvancedSearchForm, IncomeItem } from '../index'
 
 const Incomes: FC<{
   incomesRes: IIncomesRes
@@ -21,7 +21,7 @@ const Incomes: FC<{
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
             <Link
-              href={`/incomes/tithes`}
+              href={`#`}
               className="bg-secondary text-white hover:bg-tertiary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
             >
               <GiTwoCoins className="text-5xl" />
@@ -69,7 +69,7 @@ const Incomes: FC<{
               </div>
             </Link>
             <Link
-              href={`/incomes/tithes`}
+              href={`#`}
               className="bg-tertiary text-white hover:bg-secondary rounded-md flex flex-col items-center justify-center p-5 font-semibold"
             >
               <GiTwoCoins className="text-5xl" />
@@ -98,13 +98,20 @@ const Incomes: FC<{
                 )}
                 )
               </h1>
-              <Link
-                href={`#`}
-                className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
-              >
-                <MdAdd />
-                <div>New</div>
-              </Link>
+              <div className="flex justify-between items-center">
+                <div className="mr-3">
+                  <AdvancedSearchDrawer>
+                    <IncomeAdvancedSearchForm />
+                  </AdvancedSearchDrawer>
+                </div>
+                <Link
+                  href={`#`}
+                  className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
+                >
+                  <MdAdd />
+                  <div>New</div>
+                </Link>
+              </div>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">

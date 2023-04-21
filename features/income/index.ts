@@ -8,6 +8,7 @@ import { getIncomes } from './income.services'
 
 import Incomes from './components/Incomes'
 import IncomeItem from './components/IncomeItem'
+import IncomeAdvancedSearchForm from './components/IncomeAdvancedSearchForm'
 
 import incomeReducers, {
   incomeSlices,
@@ -24,6 +25,6 @@ export type {
 }
 export { getIncomes }
 
-export { Incomes, IncomeItem }
+export { Incomes, IncomeItem, IncomeAdvancedSearchForm }
 
 export { incomeReducers, incomeSlices, resetTithe, resetWelfare }
