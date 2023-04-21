@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Layout, QueryResult } from '../../components'
 import { getMembers, IMembersRes, Members } from '../../features/member'
-import { useAppSelector, useAuth } from '../../hooks'
+import { useAppSelector } from '../../hooks'
+import { AxiosError } from 'axios'
+import cookie from 'cookie'
 
 const MembersPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ membersRes }) => {
-  const [statusCode, setStatusCode] = useState(200)
+> = ({ membersRes, errorMessage }) => {
   const {
     isLoading,
     isError,
@@ -16,33 +16,33 @@ const MembersPage: NextPage<
     membersRes: membersResQuery,
   } = useAppSelector((state) => state.member)
 
-  useEffect(() => {
-    if (error && error.status && error.status === 401) {
-      setStatusCode(error.status)
-    }
-  }, [error])
-
-  useAuth(statusCode)
-
   return (
     <Layout>
-      <QueryResult
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        isError={isError}
-        error={error?.error}
-      ></QueryResult>
-      {membersRes && (
-        <Members
-          membersRes={isSuccess ? membersResQuery : membersRes}
-          membersResQueryCountIsZero={isSuccess && membersResQuery.count === 0}
-        />
+      {errorMessage ? (
+        <div className="text-center text-red-600">{errorMessage}</div>
+      ) : membersRes ? (
+        <>
+          <QueryResult
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+            isError={isError}
+            error={error?.error}
+          ></QueryResult>
+          {membersRes && (
+            <Members
+              membersRes={isSuccess ? membersResQuery : membersRes}
+              membersResQueryCountIsZero={
+                isSuccess && membersResQuery.count === 0
+              }
+            />
+          )}
+        </>
+      ) : (
+        <div>Loading...</div>
       )}
     </Layout>
   )
 }
-
-export default MembersPage
 
 interface IErrorRes {
   success: boolean
@@ -51,32 +51,48 @@ interface IErrorRes {
 
 export const getServerSideProps: GetServerSideProps<{
   membersRes?: IMembersRes
-  errorRes?: IErrorRes
+  errorMessage?: string
 }> = async ({ req, res }) => {
-  const cookie = req.headers.cookie
+  const cookieHeaders = req.headers.cookie
+  try {
+    const membersRes: IMembersRes = await getMembers(undefined, cookieHeaders)
 
-  if (!cookie) {
-    res.writeHead(302, { Location: '/login' })
-    res.end()
+    if (!membersRes) {
+      return {
+        notFound: true,
+      }
+    }
+
     return {
       props: {
-        success: false,
-        error: 'Access Denied',
+        membersRes,
       },
     }
-  }
+  } catch (error) {
+    // Handle the error and return a custom error page or message
+    if (!cookieHeaders) {
+      res.writeHead(302, { Location: '/login' })
+      res.end()
+      return {
+        props: {},
+      }
+    } else {
+      const { token } = cookie.parse(cookieHeaders)
 
-  const membersRes: IMembersRes = await getMembers(undefined, cookie)
-
-  if (!membersRes) {
-    return {
-      notFound: true,
+      if (!token) {
+        res.writeHead(302, { Location: '/login' })
+        res.end()
+        return {
+          props: {},
+        }
+      }
     }
-  }
 
-  return {
-    props: {
-      membersRes,
-    },
+    const errorMessageRes = (error as AxiosError).response?.data as IErrorRes
+
+    const errorMessage = `An error occurred ${errorMessageRes.error}`
+    return { props: { errorMessage } }
   }
 }
+
+export default MembersPage
