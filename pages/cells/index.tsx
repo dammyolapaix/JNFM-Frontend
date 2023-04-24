@@ -2,42 +2,67 @@ import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Layout } from '../../components'
 import { Cells, getCells, ICellsRes } from '../../features/cell'
 import { IError } from '../../interfaces'
+import { AxiosError } from 'axios'
+import cookie from 'cookie'
 
 const CellsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ cellsRes }) => {
-  return <Layout>{cellsRes && <Cells cellsRes={cellsRes} />}</Layout>
+> = ({ cellsRes, errorMessage }) => {
+  return (
+    <Layout>
+      {errorMessage ? (
+        <div className="text-center text-red-600">{errorMessage}</div>
+      ) : (
+        cellsRes && <Cells cellsRes={cellsRes} />
+      )}
+    </Layout>
+  )
 }
 
 export const getServerSideProps: GetServerSideProps<{
   cellsRes?: ICellsRes
-  errorRes?: IError
+  errorMessage?: string
 }> = async ({ req, res }) => {
-  const cookie = req.headers.cookie
+  const cookieHeaders = req.headers.cookie
 
-  if (!cookie) {
-    res.writeHead(302, { Location: '/login' })
-    res.end()
+  try {
+    const cellsRes: ICellsRes = await getCells(cookieHeaders)
+
+    if (!cellsRes) {
+      return {
+        notFound: true,
+      }
+    }
+
     return {
       props: {
-        success: false,
-        error: 'Access Denied',
+        cellsRes,
       },
     }
-  }
+  } catch (error) {
+    // Handle the error and return a custom error page or message
+    if (!cookieHeaders) {
+      res.writeHead(302, { Location: '/login' })
+      res.end()
+      return {
+        props: {},
+      }
+    } else {
+      const { token } = cookie.parse(cookieHeaders)
 
-  const cellsRes: ICellsRes = await getCells(cookie)
-
-  if (!cellsRes) {
-    return {
-      notFound: true,
+      if (!token) {
+        res.writeHead(302, { Location: '/login' })
+        res.end()
+        return {
+          props: {},
+        }
+      }
     }
-  }
 
-  return {
-    props: {
-      cellsRes,
-    },
+    const errorMessageRes = (error as AxiosError).response?.data as IError
+
+    const errorMessage = `An error occurred ${errorMessageRes.error}`
+    return { props: { errorMessage } }
   }
 }
 

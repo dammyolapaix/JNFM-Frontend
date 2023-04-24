@@ -116,6 +116,7 @@ const MemberInputForm: FC<{
     if (member) {
       dispatch(editMemberAction({ id: member._id, member: values }))
     } else {
+      // console.log(values)
       dispatch(addMemberAction(values))
     }
   }

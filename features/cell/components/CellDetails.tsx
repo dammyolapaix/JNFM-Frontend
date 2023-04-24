@@ -45,6 +45,7 @@ const CellDetails: FC<{
         <MembersTableLayout
           membersRes={membersRes}
           membersResQueryCountIsZero={membersResQueryCountIsZero}
+          href={`/cells/${_id}`}
         />
       </div>
     </section>

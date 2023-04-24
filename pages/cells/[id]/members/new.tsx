@@ -2,16 +2,18 @@ import { useEffect } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useAppDispatch, useAppSelector } from '../../../../hooks'
-import { Layout, QueryResult } from '../../../../components'
+import { ErrorMessage, Layout, QueryResult } from '../../../../components'
 import { MemberInputForm, resetMember } from '../../../../features/member'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ICellRes, getSingleCellById } from '../../../../features/cell'
-import { IParams } from '../../../../interfaces'
+import { IError, IParams } from '../../../../interfaces'
+import { AxiosError } from 'axios'
+import cookie from 'cookie'
 
 const AddMemberToCellPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ cellRes: { cell } }) => {
+> = ({ cellRes, errorMessage }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
@@ -33,37 +35,75 @@ const AddMemberToCellPage: NextPage<
 
   return (
     <Layout>
-      <ToastContainer />
-
-      <QueryResult
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        isError={isError}
-        error={error}
-      ></QueryResult>
-
-      {cell && cell !== null && (
-        <MemberInputForm cellName={cell.name} cellId={cell._id} />
+      {errorMessage ? (
+        <ErrorMessage errorMessage={errorMessage} />
+      ) : cellRes ? (
+        <>
+          <ToastContainer />
+          <QueryResult
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+            isError={isError}
+            error={error && error}
+          ></QueryResult>
+          {cellRes && cellRes.cell && (
+            <MemberInputForm
+              cellName={cellRes.cell.name}
+              cellId={cellRes.cell._id}
+            />
+          )}
+        </>
+      ) : (
+        <div>Loading...</div>
       )}
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  cellRes: ICellRes
-}> = async ({ params }) => {
+  cellRes?: ICellRes
+  errorMessage?: string
+}> = async ({ req, res, params }) => {
+  const cookieHeaders = req.headers.cookie
+
   const { id } = params as IParams
 
-  const cellRes: ICellRes = await getSingleCellById(id)
+  try {
+    const cellRes: ICellRes = await getSingleCellById(id, cookieHeaders)
 
-  if (!cellRes) {
-    return {
-      notFound: true,
+    if (!cellRes) {
+      return {
+        notFound: true,
+      }
     }
-  }
 
-  return {
-    props: { cellRes },
+    return {
+      props: { cellRes },
+    }
+  } catch (error) {
+    // Handle the error and return a custom error page or message
+    if (!cookieHeaders) {
+      res.writeHead(302, { Location: '/login' })
+      res.end()
+      return {
+        props: {},
+      }
+    } else {
+      const { token } = cookie.parse(cookieHeaders)
+
+      if (!token) {
+        res.writeHead(302, { Location: '/login' })
+        res.end()
+        return {
+          props: {},
+        }
+      }
+    }
+
+    const errorMessageRes = (error as AxiosError).response?.data as IError
+
+    const errorMessage = `${errorMessageRes.error}`
+    return { props: { errorMessage } }
   }
 }
 

@@ -7,7 +7,9 @@ const CellItem: FC<{ cell: ICell }> = ({ cell: { _id, members, name } }) => {
   return (
     <>
       <tr className="border">
-        <td className="p-3">{!name ? 'Not Given' : name}</td>
+        <td className="p-3">
+          <Link href={`/cells/${_id}`}>{!name ? 'Not Given' : name}</Link>{' '}
+        </td>
         <td>{!members ? '0' : members.length}</td>
         <td className="flex items-center mt-2">
           <Link

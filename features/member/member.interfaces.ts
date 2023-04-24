@@ -83,7 +83,7 @@ export interface IMemberInitialState {
   isLoading: boolean
   isSuccess: boolean
   isError: boolean
-  error: null | IError
+  error?: IError['error']
   advancedSearchFormData: null | IMemberQuery
   membersRes: IMembersRes
   memberResCRUD: IMemberRes
