@@ -1,37 +1,20 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import { Layout, QueryResult } from '../../../components'
+import { Layout } from '../../../components'
 import { CellDetails, ICellRes } from '../../../features/cell'
 import { getSingleCellById } from '../../../features/cell/cell.services'
-import { getMembers, IMembersRes } from '../../../features/member'
-import { useAppSelector } from '../../../hooks'
 import { IError, IParams } from '../../../interfaces'
+import { AxiosError } from 'axios'
+import cookie from 'cookie'
 
 const SingleCellPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ cellRes, membersRes }) => {
-  const {
-    isLoading,
-    isError,
-    error,
-    isSuccess,
-    membersRes: membersResQuery,
-  } = useAppSelector((state) => state.member)
-
+> = ({ cellRes, errorMessage }) => {
   return (
     <Layout>
-      <QueryResult
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        isError={isError}
-        error={error}
-      ></QueryResult>
-
-      {cellRes && cellRes.cell !== null && membersRes && (
-        <CellDetails
-          cell={cellRes.cell}
-          membersRes={isSuccess ? membersResQuery : membersRes}
-          membersResQueryCountIsZero={isSuccess && membersResQuery.count === 0}
-        />
+      {errorMessage ? (
+        <div className="text-center text-red-600">{errorMessage}</div>
+      ) : (
+        cellRes && cellRes.cell !== null && <CellDetails cell={cellRes.cell} />
       )}
     </Layout>
   )
@@ -39,35 +22,47 @@ const SingleCellPage: NextPage<
 
 export const getServerSideProps: GetServerSideProps<{
   cellRes?: ICellRes
-  membersRes?: IMembersRes
-  errorRes?: IError
+  errorMessage?: string
 }> = async ({ req, res, params }) => {
-  const cookie = req.headers.cookie
-
-  if (!cookie) {
-    res.writeHead(302, { Location: '/login' })
-    res.end()
-    return {
-      props: {
-        success: false,
-        error: 'Access Denied',
-      },
-    }
-  }
-
+  const cookieHeaders = req.headers.cookie
   const { id } = params as IParams
 
-  const cellRes: ICellRes = await getSingleCellById(id, cookie)
-  const membersRes: IMembersRes = await getMembers({ 'cell.cell': id }, cookie)
+  try {
+    const cellRes: ICellRes = await getSingleCellById(id, cookieHeaders)
 
-  if (!cellRes && !membersRes) {
-    return {
-      notFound: true,
+    if (!cellRes) {
+      return {
+        notFound: true,
+      }
     }
-  }
 
-  return {
-    props: { cellRes, membersRes },
+    return {
+      props: { cellRes },
+    }
+  } catch (error) {
+    // Handle the error and return a custom error page or message
+    if (!cookieHeaders) {
+      res.writeHead(302, { Location: '/login' })
+      res.end()
+      return {
+        props: {},
+      }
+    } else {
+      const { token } = cookie.parse(cookieHeaders)
+
+      if (!token) {
+        res.writeHead(302, { Location: '/login' })
+        res.end()
+        return {
+          props: {},
+        }
+      }
+    }
+
+    const errorMessageRes = (error as AxiosError).response?.data as IError
+
+    const errorMessage = `An error occurred: ${errorMessageRes.error}`
+    return { props: { errorMessage } }
   }
 }
 

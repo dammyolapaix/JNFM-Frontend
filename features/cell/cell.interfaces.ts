@@ -1,3 +1,4 @@
+import { IError } from '../../interfaces'
 import { IMember } from '../member'
 
 export interface IBaseCell {
@@ -25,7 +26,7 @@ export interface ICellInitialState {
   isLoading: boolean
   isSuccess: boolean
   isError: boolean
-  error: null
+  error?: IError['error']
   cellsRes: ICellsRes
   cellResCRUD: ICellRes
 }

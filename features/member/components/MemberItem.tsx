@@ -26,9 +26,16 @@ const MemberItem: FC<{ member: IMember }> = ({
         <td>{dateOfBirth ? getAge(dateOfBirth) : 'Not Given'}</td>
         {!route.includes('/cells/[id]') && (
           <td>
-            {cell && cell?.cell && typeof cell?.cell === 'object'
-              ? cell?.cell?.name
-              : 'Not Given'}
+            {cell && cell?.cell && typeof cell?.cell === 'object' ? (
+              <Link
+                href={`/cells/${cell.cell._id}`}
+                className="hover:text-tertiary"
+              >
+                {cell?.cell?.name}
+              </Link>
+            ) : (
+              'Not Given'
+            )}
           </td>
         )}
 
