@@ -31,7 +31,7 @@ export const memberSlices = createSlice({
       state.isSuccess = false
       state.isError = false
       state.advancedSearchFormData = null
-      state.membersRes = { success: false, count: 0, members: [], status: null }
+      state.membersRes = { success: false, count: 0, members: [] }
       state.memberResCRUD = { success: false, member: null }
     },
   },

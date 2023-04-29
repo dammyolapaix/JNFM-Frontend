@@ -41,7 +41,6 @@ export interface IMembersRes {
   success: boolean
   count: number | 0
   members: IMember[]
-  status: null | number
 }
 
 export interface IMemberRes {

@@ -26,7 +26,7 @@ const MembersPage: NextPage<
             isLoading={isLoading}
             isSuccess={isSuccess}
             isError={isError}
-            error={error?.error}
+            error={error && error}
           ></QueryResult>
           {membersRes && (
             <Members
