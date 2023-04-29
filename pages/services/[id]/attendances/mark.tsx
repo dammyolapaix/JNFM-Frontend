@@ -28,7 +28,7 @@ const MarkChurchServiceAttendancePage: NextPage = () => {
   } = useAppSelector((state) => state.attendance)
 
   useEffect(() => {
-    dispatch(getMembersAction())
+    dispatch(getMembersAction({}))
     if (isSuccess && attendance !== null) {
       dispatch(resetAttendance())
     }
@@ -39,7 +39,7 @@ const MarkChurchServiceAttendancePage: NextPage = () => {
         isLoading={isLoading}
         isSuccess={isSuccess}
         isError={isError}
-        error={error}
+        error={error && error}
       ></QueryResult>
 
       <QueryResult

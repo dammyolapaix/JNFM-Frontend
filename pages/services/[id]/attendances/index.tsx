@@ -1,5 +1,4 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import { ParsedUrlQuery } from 'querystring'
 import { Layout } from '../../../../components'
 import {
   Attendances,

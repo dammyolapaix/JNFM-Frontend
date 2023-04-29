@@ -23,7 +23,11 @@ const Attendances: FC<{ attendancesRes: IAttendancesRes }> = ({
   return (
     <section>
       {attendancesRes.count === 0 ? (
-        <NoRecordFound message="Oops, No Attendance Found" />
+        <NoRecordFound
+          message="Oops, No Attendance Found"
+          cta="Take Attendance"
+          href={`/services/${churchServiceId}/attendances/mark`}
+        />
       ) : (
         <div className="shadow-md">
           <div className="flex justify-between items-center">
