@@ -19,6 +19,10 @@ import ChurchSeriveInputForm from './components/ChurchSeriveInputForm'
 import ChurchServices from './components/ChurchSerives'
 import ChurchServiceDetails from './components/ChurchServiceDetails'
 import ChurchServiceItem from './components/ChurchServiceItem'
+import ChurchServiceDetailsAttendances from './components/ChurchServiceDetailsAttendances'
+import ChurchServiceAttendances from './components/ChurchServiceAttendances'
+import ChurchServiceAttendanceMembersTable from './components/ChurchServiceAttendanceMembersTable'
+import ChurchServiceAttendanceMemberItem from './components/ChurchServiceAttendanceMemberItem'
 
 export { addChurchServiceAction }
 
@@ -27,6 +31,10 @@ export {
   ChurchServices,
   ChurchServiceDetails,
   ChurchServiceItem,
+  ChurchServiceDetailsAttendances,
+  ChurchServiceAttendances,
+  ChurchServiceAttendanceMembersTable,
+  ChurchServiceAttendanceMemberItem,
 }
 
 export type {

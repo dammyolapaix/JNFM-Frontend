@@ -27,5 +27,6 @@ export interface IAttendanceInitialState {
   isSuccess: boolean
   isError: boolean
   error?: IError['error']
+  attendancesRes: IAttendancesRes
   attendanceResCRUD: IAttendanceRes
 }
