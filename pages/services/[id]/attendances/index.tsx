@@ -1,9 +1,8 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-import { ParsedUrlQuery } from 'querystring'
 import { Layout } from '../../../../components'
 import {
   Attendances,
-  getAttendances,
+  getSingleChurchSeviceAttendances,
   IAttendancesRes,
 } from '../../../../features/attendance'
 import { IParams } from '../../../../interfaces'
@@ -36,7 +35,8 @@ export const getServerSideProps: GetServerSideProps<{
 
   const { id } = params as IParams
 
-  const attendancesRes: IAttendancesRes = await getAttendances(id, cookie)
+  const attendancesRes: IAttendancesRes =
+    await getSingleChurchSeviceAttendances(id, cookie)
 
   if (!attendancesRes) {
     return {

@@ -7,7 +7,7 @@ import {
   IBaseAttendance,
 } from '../attendance'
 
-export const getAttendances = async (
+export const getSingleChurchSeviceAttendances = async (
   churchServiceId: IChurchService['_id'],
   cookie?: string
 ) => {

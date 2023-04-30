@@ -2,12 +2,7 @@ import { FC, useEffect } from 'react'
 import { IMember } from '../../member'
 import { MarkAttendanceItem } from '../index'
 
-const MarkAttendance: FC<{ members: IMember[]; churchServiceId: string }> = ({
-  members,
-  churchServiceId,
-}) => {
-  useEffect(() => {}, [churchServiceId])
-
+const MarkAttendance: FC<{ members: IMember[] }> = ({ members }) => {
   return (
     <section>
       <div className="shadow-md">
@@ -29,11 +24,7 @@ const MarkAttendance: FC<{ members: IMember[]; churchServiceId: string }> = ({
             </thead>
             <tbody>
               {members.map((member) => (
-                <MarkAttendanceItem
-                  key={member._id}
-                  member={member}
-                  churchServiceId={churchServiceId}
-                />
+                <MarkAttendanceItem key={member._id} member={member} />
               ))}
             </tbody>
           </table>
