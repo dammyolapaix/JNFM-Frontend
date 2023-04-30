@@ -38,7 +38,7 @@ import {
   editCellAction,
   addMemberToCellAction,
   // removeMemberFromCellAction,
-  // getCellsAction,
+  getCellsAction,
 } from './cell.actions'
 
 // Importing Slice
@@ -87,7 +87,7 @@ export {
   editCellAction,
   addMemberToCellAction,
   // removeMemberFromCellAction,
-  // getCellsAction
+  getCellsAction,
 }
 
 // Exporting Slice
