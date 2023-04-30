@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { useEffect, useState, FC } from 'react'
 import { IMembersRes } from '../../member'
 import { NoRecordFound } from '../../../components'
 import {
@@ -6,10 +6,19 @@ import {
   CellMembersOverview,
   CellMembersTable,
 } from '../index'
+import { useRouter } from 'next/router'
 
 const CellMembers: FC<{ membersRes: IMembersRes }> = ({
   membersRes: { count, members },
 }) => {
+  const [cellId, setCellId] = useState<string>('')
+
+  const router = useRouter()
+
+  useEffect(() => {
+    setCellId(router.query.id as string)
+  }, [router])
+
   return (
     <section>
       {count > 0 ? (
@@ -19,7 +28,13 @@ const CellMembers: FC<{ membersRes: IMembersRes }> = ({
           <CellMembersTable members={members} />
         </>
       ) : (
-        <NoRecordFound cta="No Member Found" />
+        cellId !== '' && (
+          <NoRecordFound
+            message="No Member Found"
+            cta="Add A Member"
+            href={`/cells/${cellId}/members/new`}
+          />
+        )
       )}
     </section>
   )
