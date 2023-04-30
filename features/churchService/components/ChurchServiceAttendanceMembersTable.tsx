@@ -6,7 +6,6 @@ import ChurchServiceAttendanceMemberItem from './ChurchServiceAttendanceMemberIt
 const ChurchServiceAttendanceMembersTable: FC<{
   attendances: IAttendance[]
 }> = ({ attendances }) => {
-  console.log(attendances)
   return (
     <div className="my-10 shadow-md bg-white p-3">
       <h2 className="font-bold text-xl text-secondary mb-3">

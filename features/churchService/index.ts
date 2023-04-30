@@ -23,6 +23,7 @@ import ChurchServiceDetailsAttendances from './components/ChurchServiceDetailsAt
 import ChurchServiceAttendances from './components/ChurchServiceAttendances'
 import ChurchServiceAttendanceMembersTable from './components/ChurchServiceAttendanceMembersTable'
 import ChurchServiceAttendanceMemberItem from './components/ChurchServiceAttendanceMemberItem'
+import ChurchServiceGeneralOverview from './components/ChurchServiceGeneralOverview'
 
 export { addChurchServiceAction }
 
@@ -35,6 +36,7 @@ export {
   ChurchServiceAttendances,
   ChurchServiceAttendanceMembersTable,
   ChurchServiceAttendanceMemberItem,
+  ChurchServiceGeneralOverview,
 }
 
 export type {

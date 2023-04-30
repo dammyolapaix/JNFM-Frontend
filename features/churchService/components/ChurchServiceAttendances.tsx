@@ -6,7 +6,6 @@ import ChurchServiceAttendanceMembersTable from './ChurchServiceAttendanceMember
 const ChurchServiceAttendances: FC<{ attendancesRes: IAttendancesRes }> = ({
   attendancesRes: { count, attendances },
 }) => {
-  console.log(attendances)
   return (
     <section>
       {count > 0 ? (
