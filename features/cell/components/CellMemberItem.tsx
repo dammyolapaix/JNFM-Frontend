@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
 
 const CellMemberItem: FC<{ member: IMember }> = ({
-  member: { _id, fullName, gender, dateOfBirth, cell, attendances },
+  member: { _id, fullName, gender, dateOfBirth, cell },
 }) => {
   return (
     <>
