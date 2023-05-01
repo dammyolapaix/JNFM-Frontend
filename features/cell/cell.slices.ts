@@ -6,6 +6,8 @@ import {
   ICellRes,
   editCellAction,
   addMemberToCellAction,
+  getCellsAction,
+  ICellsRes,
 } from './index'
 
 const initialState = {
@@ -31,6 +33,27 @@ export const cellSlices = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Get cells
+    builder.addCase(getCellsAction.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(
+      getCellsAction.fulfilled,
+      (state, action: PayloadAction<ICellsRes>) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.cellsRes = action.payload
+      }
+    )
+    builder.addCase(
+      getCellsAction.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isLoading = false
+        state.isError = true
+        state.error = action.payload
+      }
+    )
+
     // Add Department
     builder.addCase(addCellAction.pending, (state) => {
       state.isLoading = true
