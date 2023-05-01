@@ -1,4 +1,7 @@
-import { addChurchServiceAction } from './churchService.actions'
+import {
+  addChurchServiceAction,
+  getChurchServicesAction,
+} from './churchService.actions'
 
 import churchServiceReducers, {
   resetChurchService,
@@ -31,7 +34,7 @@ import {
   resetOfferingReducer,
 } from './churchService.reducers'
 
-export { addChurchServiceAction }
+export { addChurchServiceAction, getChurchServicesAction }
 
 export {
   ChurchSeriveInputForm,

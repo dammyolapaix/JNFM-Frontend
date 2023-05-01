@@ -2,17 +2,45 @@ import { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit'
 import {
   IChurchServiceInitialState,
   IChurchServiceRes,
+  IChurchServicesRes,
   addChurchServiceAction,
+  getChurchServicesAction,
 } from './index'
 import {
   IChurchServiceTypeRes,
   addChurchServiceTypeAction,
 } from './churchServiceType'
 import { IOfferingRes, addChurchServiceOfferingAction } from './offering'
+import { IError } from '../../interfaces'
 
 const churchServiceExtraReducers = (
   builder: ActionReducerMapBuilder<IChurchServiceInitialState>
 ) => {
+  /**
+   * Get Church Services
+   */
+  builder.addCase(getChurchServicesAction.pending, (state) => {
+    state.isLoading = true
+  })
+  builder.addCase(
+    getChurchServicesAction.fulfilled,
+    (state, action: PayloadAction<IChurchServicesRes>) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.churchServicesRes = action.payload
+    }
+  )
+  builder.addCase(
+    getChurchServicesAction.rejected,
+    (state, action: PayloadAction<IError['error'] | undefined>) => {
+      state.isLoading = false
+      state.isError = true
+      if (action.payload) {
+        state.error = action.payload
+      }
+    }
+  )
+
   /**
    * Add Church Service
    */

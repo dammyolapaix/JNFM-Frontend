@@ -10,7 +10,12 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   isError: false,
-  churchServiceResCRUD: { success: false, churchService: null },
+  churchServicesRes: { success: false, count: 0, churchServices: [] },
+  churchServiceResCRUD: {
+    success: false,
+    churchService: null,
+    totalOfferings: 0,
+  },
   churchServiceTypeResCRUD: { success: false, churchServiceType: null },
   offeringResCRUD: { success: false, offering: null },
 } as IChurchServiceInitialState
