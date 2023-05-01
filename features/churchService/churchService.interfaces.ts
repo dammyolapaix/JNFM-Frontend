@@ -35,6 +35,7 @@ export interface IChurchServiceInitialState {
   isSuccess: boolean
   isError: boolean
   error?: IError['error']
+  churchServicesRes: IChurchServicesRes
   churchServiceResCRUD: IChurchServiceRes
   churchServiceTypeResCRUD: IChurchServiceTypeRes
   offeringResCRUD: IOfferingRes
