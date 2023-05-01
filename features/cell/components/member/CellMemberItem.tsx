@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { IMember } from '../../member'
-import { formatDateToddmYYY, getAge } from '../../../utils'
+import { IMember } from '../../../member'
+import { formatDateToddmYYY, getAge } from '../../../../utils'
 import Link from 'next/link'
 import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
 

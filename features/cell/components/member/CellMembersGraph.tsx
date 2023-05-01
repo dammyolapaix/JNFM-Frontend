@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { IMember } from '../../member'
+import { IMember } from '../../../member'
 import {
   Chart as ChartJS,
   ArcElement,
@@ -80,7 +80,6 @@ const CellMembersGraph: FC<{ members: IMember[] }> = ({ members }) => {
     members.forEach((member) => {
       if (member.cell?.dateJoined) {
         const joinedDate = new Date(member.cell?.dateJoined)
-        console.log(typeof joinedDate)
         const month = joinedDate.getMonth() // get the month index (0-11)
         memberCountByMonth[month]++ // increment the member count for the corresponding month
       }

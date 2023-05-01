@@ -1,11 +1,11 @@
 import { useEffect, useState, FC } from 'react'
-import { IMembersRes } from '../../member'
-import { NoRecordFound } from '../../../components'
+import { IMembersRes } from '../../../member'
+import { NoRecordFound } from '../../../../components'
 import {
   CellMembersGraph,
   CellMembersOverview,
   CellMembersTable,
-} from '../index'
+} from '../../index'
 import { useRouter } from 'next/router'
 
 const CellMembers: FC<{ membersRes: IMembersRes }> = ({
