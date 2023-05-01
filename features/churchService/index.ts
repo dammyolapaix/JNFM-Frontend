@@ -25,6 +25,11 @@ import ChurchServiceAttendanceMembersTable from './components/ChurchServiceAtten
 import ChurchServiceAttendanceMemberItem from './components/ChurchServiceAttendanceMemberItem'
 import ChurchServiceGeneralOverview from './components/ChurchServiceGeneralOverview'
 import ChurchServiceAttendanceMembersGraph from './components/ChurchServiceAttendanceMembersGraph'
+import churchServiceExtraReducers from './churchService.extraReducers'
+import {
+  resetChurchServiceReducer,
+  resetOfferingReducer,
+} from './churchService.reducers'
 
 export { addChurchServiceAction }
 
@@ -52,3 +57,6 @@ export type {
 export { getChurchServices, getSingleChurchServiceById, addChurchService }
 
 export { churchServiceReducers, resetChurchService, resetOffering }
+
+export { churchServiceExtraReducers }
+export { resetChurchServiceReducer, resetOfferingReducer }
