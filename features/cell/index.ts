@@ -26,6 +26,9 @@ import CellMembersGraph from './components/member/CellMembersGraph'
 
 // CellDetailsAttendances Components
 import CellDetailsAttendances from './components/attendance/CellDetailsAttendances'
+import CellAttendances from './components/attendance/CellAttendances'
+import CellAttendancesTable from './components/attendance/CellAttendancesTable'
+import CellAttendanceItem from './components/attendance/CellAttendanceItem'
 
 // Importing Services
 import {
@@ -75,6 +78,9 @@ export {
   CellMembersTable,
   CellMembersGraph,
   CellDetailsAttendances,
+  CellAttendances,
+  CellAttendancesTable,
+  CellAttendanceItem,
 }
 
 // Exporting Services
