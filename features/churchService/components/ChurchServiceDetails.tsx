@@ -68,7 +68,9 @@ const ChurchServiceDetails: FC<{ churchServiceRes: IChurchServiceRes }> = ({
         </Tab.List>
         <Tab.Panels>
           <Tab.Panel>
-            <ChurchServiceDetailsAttendances />
+            <ChurchServiceDetailsAttendances
+              churchService={churchService as IChurchService}
+            />
           </Tab.Panel>
           <Tab.Panel>Content 2</Tab.Panel>
           <Tab.Panel>Content 3</Tab.Panel>

@@ -4,8 +4,11 @@ import { useRouter } from 'next/router'
 import { getSingleChurchSeviceAttendancesAction } from '../../attendance'
 import { QueryResult } from '../../../components'
 import ChurchServiceAttendances from './ChurchServiceAttendances'
+import IChurchService from '../churchService.interfaces'
 
-const ChurchServiceDetailsAttendances: FC = () => {
+const ChurchServiceDetailsAttendances: FC<{
+  churchService: IChurchService
+}> = ({ churchService }) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -19,7 +22,12 @@ const ChurchServiceDetailsAttendances: FC = () => {
 
   return (
     <QueryResult
-      children={<ChurchServiceAttendances attendancesRes={attendancesRes} />}
+      children={
+        <ChurchServiceAttendances
+          churchService={churchService}
+          attendancesRes={attendancesRes}
+        />
+      }
       error={error}
       isError={isError}
       isLoading={isLoading}

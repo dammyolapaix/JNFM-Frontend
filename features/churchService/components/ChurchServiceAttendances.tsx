@@ -2,10 +2,13 @@ import React, { FC } from 'react'
 import { IAttendancesRes } from '../../attendance'
 import { NoRecordFound } from '../../../components'
 import ChurchServiceAttendanceMembersTable from './ChurchServiceAttendanceMembersTable'
+import ChurchServiceAttendanceMembersGraph from './ChurchServiceAttendanceMembersGraph'
+import IChurchService from '../churchService.interfaces'
 
-const ChurchServiceAttendances: FC<{ attendancesRes: IAttendancesRes }> = ({
-  attendancesRes: { count, attendances },
-}) => {
+const ChurchServiceAttendances: FC<{
+  attendancesRes: IAttendancesRes
+  churchService: IChurchService
+}> = ({ attendancesRes: { count, attendances }, churchService }) => {
   return (
     <section>
       {count > 0 ? (
@@ -21,6 +24,7 @@ const ChurchServiceAttendances: FC<{ attendancesRes: IAttendancesRes }> = ({
         */}
 
           {/* Graph */}
+          <ChurchServiceAttendanceMembersGraph churchService={churchService} />
 
           <ChurchServiceAttendanceMembersTable attendances={attendances} />
         </>
