@@ -42,26 +42,32 @@ const CellAttendanceItem: FC<{
           {date ? formatDateToddmYYY(date) : 'Not Given'}
         </td>
         <td className="px-4 py-2">
-          {attendanceCount
-            ? `${attendanceCount} of ${countCellMembers}`
-            : 'Not Given'}
+          {attendanceCount && cellId ? (
+            <Link
+              href={`/cells/${cellId}/services/${_id}/attendances`}
+              className="text-primary hover:text-tertiary"
+            >{`${attendanceCount} of ${countCellMembers}`}</Link>
+          ) : (
+            cellId && (
+              <Link
+                href={`/cells/${cellId}/services/${_id}/attendances`}
+                className="text-primary hover:text-tertiary"
+              >{`0 of ${countCellMembers}`}</Link>
+            )
+          )}
         </td>
-        <td className="flex items-center px-4 py-2">
-          <Link
-            href={`/services/${_id}/attendances/mark`}
-            className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 mr-3"
-          >
-            <div className="flex items-center">
-              <MdAdd /> Take Attendance
-            </div>
-          </Link>
-          {/* <Link
-            href={`/members/${_id}`}
-            // className="bg-secondary hover:bg-tertiary text-white rounded-md py-2 px-4 mr-3"
-          >
-            <MdAdd className="bg-secondary hover:bg-tertiary p-3 text-white rounded-md" />
-          </Link> */}
-        </td>
+        {cellId && (
+          <td className="flex items-center px-4 py-2">
+            <Link
+              href={`/cells/${cellId}/services/${_id}/attendances/take`}
+              className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 mr-3"
+            >
+              <div className="flex items-center">
+                <MdAdd /> Take Attendance
+              </div>
+            </Link>
+          </td>
+        )}
       </tr>
     </>
   )

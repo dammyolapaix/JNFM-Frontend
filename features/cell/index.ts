@@ -29,6 +29,7 @@ import CellDetailsAttendances from './components/attendance/CellDetailsAttendanc
 import CellAttendances from './components/attendance/CellAttendances'
 import CellAttendancesTable from './components/attendance/CellAttendancesTable'
 import CellAttendanceItem from './components/attendance/CellAttendanceItem'
+import CellSingleChurchServiveAttendances from './components/attendance/CellSingleChurchServiveAttendances'
 
 // Importing Services
 import {
@@ -81,6 +82,7 @@ export {
   CellAttendances,
   CellAttendancesTable,
   CellAttendanceItem,
+  CellSingleChurchServiveAttendances,
 }
 
 // Exporting Services

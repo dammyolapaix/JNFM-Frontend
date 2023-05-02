@@ -1,4 +1,5 @@
 import { makeRequest } from '../../lib'
+import { IAttendancesRes } from '../attendance'
 import {
   IChurchService,
   IChurchServiceRes,
@@ -26,6 +27,22 @@ export const getSingleChurchServiceById = async (
 ) => {
   const { data } = await makeRequest.get<IChurchServiceRes>(
     `/churchServices/${id}`,
+    {
+      withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
+    }
+  )
+  return data
+}
+
+export const getSingleChurchServiceAttendances = async (
+  id: IChurchService['_id'],
+  cookie?: string
+) => {
+  const { data } = await makeRequest.get<IAttendancesRes>(
+    `/churchServices/${id}/attendances`,
     {
       withCredentials: true,
       headers: {
