@@ -7,6 +7,16 @@ import {
   IBaseAttendance,
 } from '../attendance'
 
+export const getAttendances = async (cookie?: string) => {
+  const { data } = await makeRequest.get<IAttendancesRes>(`/attendances`, {
+    withCredentials: true,
+    headers: {
+      Cookie: cookie,
+    },
+  })
+  return data
+}
+
 export const getSingleChurchSeviceAttendances = async (
   churchServiceId: IChurchService['_id'],
   cookie?: string
