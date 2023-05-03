@@ -1,7 +1,7 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { Layout } from '../../components'
 import {
-  Expenditures,
+  ExpendituresPage as ExpendituresPageComponent,
   getExpenditures,
   IExpendituresRes,
 } from '../../features/expenditure'
@@ -17,7 +17,9 @@ const ExpendituresPage: NextPage<
       {errorMessage ? (
         <div className="text-center text-red-600">{errorMessage}</div>
       ) : (
-        expendituresRes && <Expenditures expendituresRes={expendituresRes} />
+        expendituresRes && (
+          <ExpendituresPageComponent expendituresRes={expendituresRes} />
+        )
       )}
     </Layout>
   )
