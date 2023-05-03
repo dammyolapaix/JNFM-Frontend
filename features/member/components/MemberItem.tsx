@@ -29,7 +29,7 @@ const MemberItem: FC<{ member: IMember }> = ({
             {cell && cell?.cell && typeof cell?.cell === 'object' ? (
               <Link
                 href={`/cells/${cell.cell._id}`}
-                className="hover:text-tertiary"
+                className="text-primary hover:text-tertiary"
               >
                 {cell?.cell?.name}
               </Link>
@@ -39,11 +39,13 @@ const MemberItem: FC<{ member: IMember }> = ({
           </td>
         )}
 
-        <td>
-          {cell && cell?.dateJoined
-            ? formatDateToddmYYY(cell?.dateJoined)
-            : 'Not Given'}
-        </td>
+        {route === '/cells/[id]/[serviceId]/attendance' && (
+          <td>
+            {cell && cell?.dateJoined
+              ? formatDateToddmYYY(cell?.dateJoined)
+              : 'Not Given'}
+          </td>
+        )}
 
         {route === '/cells/[id]/[serviceId]/attendance' ? (
           <td>

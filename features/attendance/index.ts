@@ -14,6 +14,7 @@ import MarkAttendanceItem from './components/MarkAttendanceItem'
 
 // Importing Services
 import {
+  getAttendances,
   getSingleChurchSeviceAttendances,
   takeAttendance,
   markAsAbsent,
@@ -42,7 +43,12 @@ export type {
 export { Attendances, AttendanceItem, MarkAttendance, MarkAttendanceItem }
 
 // Exporting Services
-export { getSingleChurchSeviceAttendances, takeAttendance, markAsAbsent }
+export {
+  getAttendances,
+  getSingleChurchSeviceAttendances,
+  takeAttendance,
+  markAsAbsent,
+}
 
 // Exporting Actions
 export {

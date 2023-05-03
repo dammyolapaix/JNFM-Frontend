@@ -1,18 +1,15 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { ImCross } from 'react-icons/im'
 import { TiTick } from 'react-icons/ti'
 import { IMember } from '../../member'
 import { useAppDispatch } from '../../../hooks'
 import { markAsAbsentAction, takeAttendanceAction } from '../attendance.actions'
-import { useRouter } from 'next/router'
 
-const MarkAttendanceItem: FC<{ member: IMember }> = ({
+const MarkAttendanceItem: FC<{ member: IMember; churchServiceId: string }> = ({
   member: { _id, fullName, gender, attendances },
+  churchServiceId,
 }) => {
   const dispatch = useAppDispatch()
-  const router = useRouter()
-
-  const [churchServiceId, setChurchServiceId] = useState('')
 
   const memberIsPresent =
     attendances &&
@@ -29,10 +26,6 @@ const MarkAttendanceItem: FC<{ member: IMember }> = ({
         typeof attendance.churchService === 'string' &&
         attendance.churchService === churchServiceId
     )
-
-  useEffect(() => {
-    setChurchServiceId(router.query.id as string)
-  }, [router])
 
   return (
     <>

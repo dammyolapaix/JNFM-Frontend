@@ -16,6 +16,7 @@ import IChurchService, {
 import {
   getChurchServices,
   getSingleChurchServiceById,
+  getSingleChurchServiceAttendances,
   addChurchService,
 } from './churchService.services'
 import ChurchSeriveInputForm from './components/ChurchSeriveInputForm'
@@ -57,7 +58,12 @@ export type {
   IChurchServiceInitialState,
 }
 
-export { getChurchServices, getSingleChurchServiceById, addChurchService }
+export {
+  getChurchServices,
+  getSingleChurchServiceById,
+  getSingleChurchServiceAttendances,
+  addChurchService,
+}
 
 export { churchServiceReducers, resetChurchService, resetOffering }
 

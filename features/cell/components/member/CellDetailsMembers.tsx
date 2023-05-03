@@ -1,9 +1,9 @@
 import { FC, useEffect } from 'react'
-import { getMembersAction } from '../../member'
-import { useAppDispatch, useAppSelector } from '../../../hooks'
+import { getMembersAction } from '../../../member'
+import { useAppDispatch, useAppSelector } from '../../../../hooks'
 import { useRouter } from 'next/router'
-import { QueryResult } from '../../../components'
-import { CellMembers } from '../index'
+import { QueryResult } from '../../../../components'
+import { CellMembers } from '../../index'
 
 const CellDetailsMembers: FC = () => {
   const dispatch = useAppDispatch()

@@ -1,7 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { MdAdd } from 'react-icons/md'
 import { MemberItem } from '../../member'
 import { IAttendancesRes } from '../index'
 import { ParsedUrlQuery } from 'querystring'
@@ -34,13 +32,6 @@ const Attendances: FC<{ attendancesRes: IAttendancesRes }> = ({
             <h1 className="font-extrabold text-2xl mb-5 text-secondary">
               Church Service Attendances ({attendancesRes.count})
             </h1>
-            <Link
-              href={`/services/${churchServiceId}/attendances/mark`}
-              className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
-            >
-              <MdAdd />
-              <div className="">Take Attendance</div>
-            </Link>
           </div>
 
           <div className="overflow-x-auto">
@@ -50,6 +41,7 @@ const Attendances: FC<{ attendancesRes: IAttendancesRes }> = ({
                   <th className="p-3">Name</th>
                   <th>Sex</th>
                   <th>Age</th>
+                  {!router.route.includes('/cells/[id]') && <th>Cell</th>}
                   <th>Action</th>
                 </tr>
               </thead>

@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { FaUserMinus, FaUserPlus } from 'react-icons/fa'
-import { useAppDispatch } from '../../../hooks'
-import { IMember } from '../../member'
-import { addMemberToCellAction, ICell } from '../index'
+import { useAppDispatch } from '../../../../hooks'
+import { IMember } from '../../../member'
+import { addMemberToCellAction, ICell } from '../../index'
 
 const CellAddMemberItem: FC<{
   member: IMember

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import Link from 'next/link'
-import { CellDetailsMembers, ICell } from '../index'
+import { CellDetailsAttendances, CellDetailsMembers, ICell } from '../index'
 import { MdEdit } from 'react-icons/md'
 import { Tab } from '@headlessui/react'
 
@@ -55,7 +55,9 @@ const CellDetails: FC<{ cell: ICell }> = ({ cell: { _id, name } }) => {
           <Tab.Panel>
             <CellDetailsMembers />
           </Tab.Panel>
-          <Tab.Panel>Content 2</Tab.Panel>
+          <Tab.Panel>
+            <CellDetailsAttendances />
+          </Tab.Panel>
           <Tab.Panel>Content 3</Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

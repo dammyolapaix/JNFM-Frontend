@@ -4,6 +4,7 @@ import {
   IAttendance,
   IAttendancesRes,
   IBaseAttendance,
+  getAttendances,
   getSingleChurchSeviceAttendances,
   markAsAbsent,
   takeAttendance,
@@ -11,6 +12,22 @@ import {
 import { IChurchService } from '../churchService'
 import { IError } from '../../interfaces'
 import { AxiosError } from 'axios'
+
+export const getAttendancesAction = createAsyncThunk<
+  IAttendancesRes,
+  {},
+  { rejectValue: IError['error'] }
+>('attendance/getSingleChurchSeviceAttendancesAction', async (_, thunkAPI) => {
+  try {
+    return await getAttendances()
+  } catch (error) {
+    const errorMessageRes = (error as AxiosError).response?.data as IError
+
+    const errorMessage = errorMessageRes.error
+
+    return thunkAPI.rejectWithValue(errorMessage)
+  }
+})
 
 export const getSingleChurchSeviceAttendancesAction = createAsyncThunk<
   IAttendancesRes,
