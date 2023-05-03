@@ -8,17 +8,25 @@ import {
 import { IError } from '../../interfaces'
 import { AxiosError } from 'axios'
 import cookie from 'cookie'
+import {
+  IExpenditureCategoriesRes,
+  getExpenditureCategories,
+} from '../../features/expenditure/ExpenditureCategory'
 
 const ExpendituresPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ expendituresRes, errorMessage }) => {
+> = ({ expendituresRes, expenditureCategoriesRes, errorMessage }) => {
   return (
     <Layout>
       {errorMessage ? (
         <div className="text-center text-red-600">{errorMessage}</div>
       ) : (
-        expendituresRes && (
-          <ExpendituresPageComponent expendituresRes={expendituresRes} />
+        expendituresRes &&
+        expenditureCategoriesRes && (
+          <ExpendituresPageComponent
+            expendituresRes={expendituresRes}
+            expenditureCategoriesRes={expenditureCategoriesRes}
+          />
         )
       )}
     </Layout>
@@ -27,6 +35,7 @@ const ExpendituresPage: NextPage<
 
 export const getServerSideProps: GetServerSideProps<{
   expendituresRes?: IExpendituresRes
+  expenditureCategoriesRes?: IExpenditureCategoriesRes
   errorMessage?: string
 }> = async ({ req, res }) => {
   const cookieHeaders = req.headers.cookie
@@ -37,6 +46,9 @@ export const getServerSideProps: GetServerSideProps<{
       cookieHeaders
     )
 
+    const expenditureCategoriesRes: IExpenditureCategoriesRes =
+      await getExpenditureCategories(cookieHeaders)
+
     if (!expendituresRes) {
       return {
         notFound: true,
@@ -46,6 +58,7 @@ export const getServerSideProps: GetServerSideProps<{
     return {
       props: {
         expendituresRes,
+        expenditureCategoriesRes,
       },
     }
   } catch (error) {

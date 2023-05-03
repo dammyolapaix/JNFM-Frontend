@@ -2,11 +2,16 @@ import { FC } from 'react'
 import { IChurchService } from '../../churchService'
 import { Expenditures, IExpendituresRes } from '../index'
 import { Tab } from '@headlessui/react'
+import {
+  ExpenditureCategories,
+  IExpenditureCategoriesRes,
+} from '../ExpenditureCategory'
 
 const ExpendituresPage: FC<{
   expendituresRes: IExpendituresRes
+  expenditureCategoriesRes: IExpenditureCategoriesRes
   churchServiceId?: IChurchService['_id']
-}> = ({ expendituresRes }) => {
+}> = ({ expendituresRes, expenditureCategoriesRes }) => {
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
   }
@@ -37,7 +42,11 @@ const ExpendituresPage: FC<{
         <Tab.Panel>
           <Expenditures expendituresRes={expendituresRes} />
         </Tab.Panel>
-        <Tab.Panel>{/* Expenditure Categories goes here */}</Tab.Panel>
+        <Tab.Panel>
+          <ExpenditureCategories
+            expenditureCategoriesRes={expenditureCategoriesRes}
+          />
+        </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
   )
