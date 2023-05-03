@@ -48,9 +48,77 @@ const CellAttendancesGraph: FC<{ attendancesRes: IAttendancesRes }> = ({
     return monthlyAttendances
   }
 
+  const getMonthlyAttendancesMale = (attendances: IAttendance[]): number[] => {
+    const currentDate = new Date()
+    const currentYear = currentDate.getFullYear()
+    const monthlyAttendances: number[] = Array(12).fill(0)
+    attendances.forEach((attendance) => {
+      if (
+        typeof attendance.member === 'object' &&
+        attendance.member.gender &&
+        attendance.member.gender === 'Male' &&
+        typeof attendance.churchService === 'object' &&
+        attendance.member.cell &&
+        attendance.churchService.date
+      ) {
+        const cell = attendance.member.cell.cell
+        const date = new Date(attendance.churchService.date)
+        const year = date.getFullYear()
+        const month = date.getMonth()
+        if (
+          typeof cell === 'object' &&
+          cell._id === cellId &&
+          year === currentYear
+        ) {
+          monthlyAttendances[month]++
+        }
+      }
+    })
+    return monthlyAttendances
+  }
+
+  const getMonthlyAttendancesFemale = (
+    attendances: IAttendance[]
+  ): number[] => {
+    const currentDate = new Date()
+    const currentYear = currentDate.getFullYear()
+    const monthlyAttendances: number[] = Array(12).fill(0)
+    attendances.forEach((attendance) => {
+      if (
+        typeof attendance.member === 'object' &&
+        attendance.member.gender &&
+        attendance.member.gender === 'Female' &&
+        typeof attendance.churchService === 'object' &&
+        attendance.member.cell &&
+        attendance.churchService.date
+      ) {
+        const cell = attendance.member.cell.cell
+        const date = new Date(attendance.churchService.date)
+        const year = date.getFullYear()
+        const month = date.getMonth()
+        if (
+          typeof cell === 'object' &&
+          cell._id === cellId &&
+          year === currentYear
+        ) {
+          monthlyAttendances[month]++
+        }
+      }
+    })
+    return monthlyAttendances
+  }
+
   const monthlyAttendances = getMonthlyAttendances(attendances)
+  const monthlyAttendancesMale = getMonthlyAttendancesMale(attendances)
+  const monthlyAttendancesFemale = getMonthlyAttendancesFemale(attendances)
 
   const totalAttendances = monthlyAttendances.map((attendance) => attendance)
+  const totalAttendancesMale = monthlyAttendancesMale.map(
+    (attendance) => attendance
+  )
+  const totalAttendancesFemale = monthlyAttendancesFemale.map(
+    (attendance) => attendance
+  )
 
   const options = {
     responsive: true,
@@ -84,9 +152,19 @@ const CellAttendancesGraph: FC<{ attendancesRes: IAttendancesRes }> = ({
     labels: months,
     datasets: [
       {
-        label: 'Attendance',
-        data: totalAttendances,
+        label: 'Male Attendances',
+        data: totalAttendancesMale,
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      {
+        label: 'Female Attendances',
+        data: totalAttendancesFemale,
+        backgroundColor: 'rgba(221, 160, 221, 0.5)',
+      },
+      {
+        label: 'Total Attendances',
+        data: totalAttendances,
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
     ],
   }
@@ -102,7 +180,7 @@ const CellAttendancesGraph: FC<{ attendancesRes: IAttendancesRes }> = ({
   return (
     <div className="my-10 shadow-md bg-white p-3">
       <h2 className="font-bold text-xl text-secondary mb-5">Graph</h2>
-      <div className="flex justify-center items-center h-96">
+      <div className="flex justify-center items-center md:h-96">
         <Bar options={options} data={data} />
       </div>
     </div>

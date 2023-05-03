@@ -21,7 +21,6 @@ const CellAttendances: FC<{ churchServicesRes: IChurchServicesRes }> = ({
     <>
       {count > 0 ? (
         <>
-          <CellAttendancesTable churchServices={churchServices} />
           <QueryResult
             children={<CellAttendancesGraph attendancesRes={attendancesRes} />}
             error={error}
@@ -29,6 +28,7 @@ const CellAttendances: FC<{ churchServicesRes: IChurchServicesRes }> = ({
             isLoading={isLoading}
             isSuccess={isSuccess}
           />
+          <CellAttendancesTable churchServices={churchServices} />
         </>
       ) : (
         <NoRecordFound message="No Church Service Found" />
