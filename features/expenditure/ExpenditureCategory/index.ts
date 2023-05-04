@@ -1,4 +1,4 @@
-import expenditureCategoryExtraReducers from './addExpenditureCategory.extraReducers'
+import expenditureCategoryExtraReducers from './expenditureCategory.extraReducers'
 
 /** Import Components */
 import ExpenditureCategories from './components/ExpenditureCategories'
@@ -6,7 +6,13 @@ import ExpenditureCategoriesTable from './components/ExpenditureCategoriesTable'
 import ExpenditureCategoryItem from './components/ExpenditureCategoryItem'
 import ExpenditureCategoryInputForm from './components/ExpenditureCategoryInputForm'
 
-import { addExpenditureCategoryAction } from './expenditureCategory.actions'
+/** Import Actions */
+import {
+  addExpenditureCategoryAction,
+  editExpenditureCategoryAction,
+} from './expenditureCategory.actions'
+
+/** Import Interfaces */
 import IExpenditureCategory, {
   IBaseExpenditureCategory,
   IExpenditureCategoriesRes,
@@ -16,6 +22,8 @@ import IExpenditureCategory, {
 import {
   addExpenditureCategory,
   getExpenditureCategories,
+  getExpenditureCategory,
+  editExpenditureCategory,
 } from './expenditureCategory.services'
 
 import expenditureCategoryReducers, {
@@ -38,11 +46,16 @@ export {
   ExpenditureCategoryInputForm,
 }
 
-export { addExpenditureCategory, getExpenditureCategories }
+export {
+  addExpenditureCategory,
+  getExpenditureCategories,
+  getExpenditureCategory,
+  editExpenditureCategory,
+}
 
 export { expenditureCategoryReducers, resetExpenditureCategory }
 
-export { addExpenditureCategoryAction }
+export { addExpenditureCategoryAction, editExpenditureCategoryAction }
 
 export { expenditureCategoryExtraReducers }
 

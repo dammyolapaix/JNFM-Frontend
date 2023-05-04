@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
   IExpenditureCategoryInitialState,
   expenditureCategoryExtraReducers,
-  resetExpenditureCategoryReducer,
 } from './index'
 
 const initialState = {

@@ -3,6 +3,7 @@ import {
   IBaseExpenditureCategory,
   IExpenditureCategory,
   addExpenditureCategoryAction,
+  editExpenditureCategoryAction,
   resetExpenditureCategory,
 } from '../index'
 import { useAppDispatch, useAppSelector } from '../../../../hooks'
@@ -45,7 +46,9 @@ const ExpenditureCategoryInputForm: FC<{
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (expenditureCategory) {
+    if (expenditureCategory && router.query.categoryId) {
+      const _id = router.query.categoryId as string
+      dispatch(editExpenditureCategoryAction({ _id, ...values }))
     } else {
       dispatch(addExpenditureCategoryAction(values))
     }
@@ -55,14 +58,12 @@ const ExpenditureCategoryInputForm: FC<{
     expenditureCategory && setValues(expenditureCategory)
 
     if (isSuccess && expenditureCategoryCRUD !== null) {
-      toast.success('Category Added Successfully')
+      toast.success('Category Added/Updated Successfully')
       dispatch(resetExpenditureCategory())
       router.push('/expenditures')
     }
 
-    return () => {
-      setValues(valuesProperties)
-    }
+    return () => setValues(valuesProperties)
   }, [dispatch, router, expenditureCategoryCRUD])
 
   const content = (
