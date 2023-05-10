@@ -13,9 +13,24 @@ import CellDetails from './components/CellDetails'
 import CellInputForm from './components/CellInputForm'
 import CellItem from './components/CellItem'
 import Cells from './components/Cells'
-import CellAddMemberItem from './components/CellAddMemberItem'
-import CellAddMember from './components/CellAddMember'
-import CellDetailsCards from './components/CellDetailsCards'
+
+// CellDetailsMembers Components
+import CellAddMemberItem from './components/member/CellAddMemberItem'
+import CellAddMember from './components/member/CellAddMember'
+import CellDetailsMembers from './components/member/CellDetailsMembers'
+import CellMembers from './components/member/CellMembers'
+import CellMemberItem from './components/member/CellMemberItem'
+import CellMembersOverview from './components/member/CellMembersOverview'
+import CellMembersTable from './components/member/CellMembersTable'
+import CellMembersGraph from './components/member/CellMembersGraph'
+
+// CellDetailsAttendances Components
+import CellDetailsAttendances from './components/attendance/CellDetailsAttendances'
+import CellAttendances from './components/attendance/CellAttendances'
+import CellAttendancesTable from './components/attendance/CellAttendancesTable'
+import CellAttendanceItem from './components/attendance/CellAttendanceItem'
+import CellSingleChurchServiveAttendances from './components/attendance/CellSingleChurchServiveAttendances'
+import CellAttendancesGraph from './components/attendance/CellAttendancesGraph'
 
 // Importing Services
 import {
@@ -33,7 +48,7 @@ import {
   editCellAction,
   addMemberToCellAction,
   // removeMemberFromCellAction,
-  // getCellsAction,
+  getCellsAction,
 } from './cell.actions'
 
 // Importing Slice
@@ -58,7 +73,18 @@ export {
   CellInputForm,
   CellAddMember,
   CellAddMemberItem,
-  CellDetailsCards,
+  CellDetailsMembers,
+  CellMembers,
+  CellMemberItem,
+  CellMembersOverview,
+  CellMembersTable,
+  CellMembersGraph,
+  CellDetailsAttendances,
+  CellAttendances,
+  CellAttendancesTable,
+  CellAttendanceItem,
+  CellSingleChurchServiveAttendances,
+  CellAttendancesGraph,
 }
 
 // Exporting Services
@@ -77,7 +103,7 @@ export {
   editCellAction,
   addMemberToCellAction,
   // removeMemberFromCellAction,
-  // getCellsAction
+  getCellsAction,
 }
 
 // Exporting Slice

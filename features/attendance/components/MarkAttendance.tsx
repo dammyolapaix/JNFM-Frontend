@@ -1,12 +1,20 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { IMember } from '../../member'
 import { MarkAttendanceItem } from '../index'
+import { useRouter } from 'next/router'
 
-const MarkAttendance: FC<{ members: IMember[]; churchServiceId: string }> = ({
-  members,
-  churchServiceId,
-}) => {
-  useEffect(() => {}, [churchServiceId])
+const MarkAttendance: FC<{ members: IMember[] }> = ({ members }) => {
+  const [churchServiceId, setChurchServiceId] = useState<string>('')
+  const router = useRouter()
+
+  useEffect(() => {
+    router.query.serviceId &&
+      setChurchServiceId(router.query.serviceId as string)
+
+    return () => {
+      setChurchServiceId('')
+    }
+  }, [router])
 
   return (
     <section>
@@ -28,13 +36,14 @@ const MarkAttendance: FC<{ members: IMember[]; churchServiceId: string }> = ({
               </tr>
             </thead>
             <tbody>
-              {members.map((member) => (
-                <MarkAttendanceItem
-                  key={member._id}
-                  member={member}
-                  churchServiceId={churchServiceId}
-                />
-              ))}
+              {churchServiceId !== '' &&
+                members.map((member) => (
+                  <MarkAttendanceItem
+                    key={member._id}
+                    member={member}
+                    churchServiceId={churchServiceId}
+                  />
+                ))}
             </tbody>
           </table>
         </div>

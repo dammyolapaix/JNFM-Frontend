@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
-import { IParams } from '../../../interfaces'
-import { IMember } from '../../member'
-import { CellAddMemberItem } from '../index'
+import { IParams } from '../../../../interfaces'
+import { IMember } from '../../../member'
+import { CellAddMemberItem } from '../../index'
 
 const CellAddMember: FC<{ members: IMember[] }> = ({ members }) => {
   const router = useRouter()

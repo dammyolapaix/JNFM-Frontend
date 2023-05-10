@@ -184,7 +184,11 @@ const MembersTableLayout: FC<{
       {typeof membersResQueryCountIsZero !== 'undefined' &&
       !membersResQueryCountIsZero &&
       membersRes?.count === 0 ? (
-        <NoRecordFound message="Oops, No Member Found, Add A New Member" />
+        <NoRecordFound
+          message="Oops, No Member Found"
+          cta="Add New Member"
+          href={route === '/cells/[id]' && href ? `${href}/members/new` : '#'}
+        />
       ) : (
         <div className="">
           {membersRes && <MembersStats members={membersRes.members} />}
@@ -209,7 +213,7 @@ const MembersTableLayout: FC<{
               {route === '/cells/[id]' && (
                 <div className="ml-1">
                   <Link
-                    href={href ? href : `/members/new`}
+                    href={href ? `${href}/members/new` : `/members/new`}
                     className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4 flex items-center"
                   >
                     <MdAdd />

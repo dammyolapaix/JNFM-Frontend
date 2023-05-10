@@ -14,7 +14,7 @@ const Expenditures: FC<{
   churchServiceId,
 }) => {
   return (
-    <section>
+    <section className="mt-10">
       {count === 0 ? (
         <NoRecordFound
           cta="Add New Expenditure"
@@ -26,7 +26,7 @@ const Expenditures: FC<{
         />
       ) : (
         <>
-          <div className="shadow-md">
+          <div className="shadow-md p-3">
             <div className="flex justify-between items-center">
               <h1 className="font-extrabold text-2xl mb-5 text-secondary">
                 Expenditures (

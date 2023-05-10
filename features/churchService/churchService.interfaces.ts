@@ -1,3 +1,4 @@
+import { IError } from '../../interfaces'
 import { IAttendance } from '../attendance'
 import { IExpenditure } from '../expenditure'
 import { IChurchServiceType, IChurchServiceTypeRes } from './churchServiceType'
@@ -33,7 +34,8 @@ export interface IChurchServiceInitialState {
   isLoading: boolean
   isSuccess: boolean
   isError: boolean
-  error: null
+  error?: IError['error']
+  churchServicesRes: IChurchServicesRes
   churchServiceResCRUD: IChurchServiceRes
   churchServiceTypeResCRUD: IChurchServiceTypeRes
   offeringResCRUD: IOfferingRes

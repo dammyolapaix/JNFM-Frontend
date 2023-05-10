@@ -26,17 +26,26 @@ const MemberItem: FC<{ member: IMember }> = ({
         <td>{dateOfBirth ? getAge(dateOfBirth) : 'Not Given'}</td>
         {!route.includes('/cells/[id]') && (
           <td>
-            {cell && cell?.cell && typeof cell?.cell === 'object'
-              ? cell?.cell?.name
-              : 'Not Given'}
+            {cell && cell?.cell && typeof cell?.cell === 'object' ? (
+              <Link
+                href={`/cells/${cell.cell._id}`}
+                className="text-primary hover:text-tertiary"
+              >
+                {cell?.cell?.name}
+              </Link>
+            ) : (
+              'Not Given'
+            )}
           </td>
         )}
 
-        <td>
-          {cell && cell?.dateJoined
-            ? formatDateToddmYYY(cell?.dateJoined)
-            : 'Not Given'}
-        </td>
+        {route === '/cells/[id]/[serviceId]/attendance' && (
+          <td>
+            {cell && cell?.dateJoined
+              ? formatDateToddmYYY(cell?.dateJoined)
+              : 'Not Given'}
+          </td>
+        )}
 
         {route === '/cells/[id]/[serviceId]/attendance' ? (
           <td>

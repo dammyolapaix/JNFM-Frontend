@@ -28,7 +28,7 @@ export const getMembers = async (
     }
     const queryStr = getQueryStr(memberQuery)
 
-    const { data, status } = await makeRequest.get<IMembersRes>(
+    const { data } = await makeRequest.get<IMembersRes>(
       `/members/${queryStr}`,
       {
         withCredentials: true,
@@ -38,18 +38,14 @@ export const getMembers = async (
       }
     )
 
-    data.status = status
-
     return data
   } else {
-    const { data, status } = await makeRequest.get<IMembersRes>('/members', {
+    const { data } = await makeRequest.get<IMembersRes>('/members', {
       withCredentials: true,
       headers: {
         Cookie: cookie,
       },
     })
-
-    data.status = status
 
     return data
   }

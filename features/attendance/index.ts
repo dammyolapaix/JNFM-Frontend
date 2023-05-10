@@ -15,12 +15,17 @@ import MarkAttendanceItem from './components/MarkAttendanceItem'
 // Importing Services
 import {
   getAttendances,
+  getSingleChurchSeviceAttendances,
   takeAttendance,
   markAsAbsent,
 } from './attendance.services'
 
 // Importing Actions
-import { takeAttendanceAction, markAsAbsentAction } from './attendance.actions'
+import {
+  takeAttendanceAction,
+  markAsAbsentAction,
+  getSingleChurchSeviceAttendancesAction,
+} from './attendance.actions'
 
 // Importing Slice
 import attendanceReducers, { resetAttendance } from './attendance.slices'
@@ -38,10 +43,19 @@ export type {
 export { Attendances, AttendanceItem, MarkAttendance, MarkAttendanceItem }
 
 // Exporting Services
-export { getAttendances, takeAttendance, markAsAbsent }
+export {
+  getAttendances,
+  getSingleChurchSeviceAttendances,
+  takeAttendance,
+  markAsAbsent,
+}
 
 // Exporting Actions
-export { takeAttendanceAction, markAsAbsentAction }
+export {
+  takeAttendanceAction,
+  markAsAbsentAction,
+  getSingleChurchSeviceAttendancesAction,
+}
 
 // Exporting Slice
 export { attendanceReducers, resetAttendance }

@@ -5,19 +5,23 @@ import { Layout, QueryResult } from '../../../components'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { IParams } from '../../../interfaces'
 import {
   CellInputForm,
   getSingleCellById,
   ICellRes,
   resetCell,
 } from '../../../features/cell'
+import { IError, IParams } from '../../../interfaces'
+import { AxiosError } from 'axios'
+import cookie from 'cookie'
 
 const EditCellPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ cellRes: { cell } }) => {
+> = ({ cellRes, errorMessage }) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
+
+  const { cell } = cellRes as ICellRes
 
   const {
     isLoading,
@@ -37,35 +41,67 @@ const EditCellPage: NextPage<
 
   return (
     <Layout>
-      <ToastContainer />
-
-      <QueryResult
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        isError={isError}
-        error={error}
-      ></QueryResult>
-
-      {cell && cell !== null && <CellInputForm cell={cell} />}
+      {errorMessage ? (
+        <div className="text-center text-red-600">{errorMessage}</div>
+      ) : (
+        <>
+          <ToastContainer />
+          <QueryResult
+            isLoading={isLoading}
+            isSuccess={isSuccess}
+            isError={isError}
+            error={error}
+          ></QueryResult>
+          {cell && cell !== null && <CellInputForm cell={cell} />}
+        </>
+      )}
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  cellRes: ICellRes
-}> = async ({ params }) => {
+  cellRes?: ICellRes
+  errorMessage?: string
+}> = async ({ req, res, params }) => {
+  const cookieHeaders = req.headers.cookie
   const { id } = params as IParams
 
-  const cellRes: ICellRes = await getSingleCellById(id)
+  try {
+    const cellRes: ICellRes = await getSingleCellById(id, cookieHeaders)
 
-  if (!cellRes) {
-    return {
-      notFound: true,
+    if (!cellRes) {
+      return {
+        notFound: true,
+      }
     }
-  }
 
-  return {
-    props: { cellRes },
+    return {
+      props: { cellRes },
+    }
+  } catch (error) {
+    // Handle the error and return a custom error page or message
+    if (!cookieHeaders) {
+      res.writeHead(302, { Location: '/login' })
+      res.end()
+      return {
+        props: {},
+      }
+    } else {
+      const { token } = cookie.parse(cookieHeaders)
+
+      if (!token) {
+        res.writeHead(302, { Location: '/login' })
+        res.end()
+        return {
+          props: {},
+        }
+      }
+    }
+
+    const errorMessageRes = (error as AxiosError).response?.data as IError
+
+    const errorMessage = `An error occurred: ${errorMessageRes.error}`
+    return { props: { errorMessage } }
   }
 }
 

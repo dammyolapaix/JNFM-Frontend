@@ -3,10 +3,22 @@ import {
   addCell,
   addMemberToCell,
   editCell,
+  getCells,
   IBaseCell,
   ICellEditReq,
   ICellMemberReq,
 } from './index'
+
+export const getCellsAction = createAsyncThunk(
+  'cell/getCellsAction',
+  async (_, thunkAPI) => {
+    try {
+      return await getCells()
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data.error)
+    }
+  }
+)
 
 export const addCellAction = createAsyncThunk(
   'cell/addCellAction',

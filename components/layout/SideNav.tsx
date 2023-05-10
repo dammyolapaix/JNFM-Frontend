@@ -28,11 +28,11 @@ const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
           <div className="font-semibold">Members</div>
         </Link>
         <Link
-          href={'/services'}
+          href={'/cells'}
           className="flex items-center border-b py-5 hover:text-secondary"
         >
-          <FaChurch className="mr-3" />
-          <div className="font-semibold">Church Services</div>
+          <MdGroups className="mr-3" />
+          <div className="font-semibold">Cells</div>
         </Link>
         <Link
           href={'/departments'}
@@ -42,11 +42,11 @@ const SideNav: FC<{ showSideNav: boolean }> = ({ showSideNav }) => {
           <div className="font-semibold">Departments</div>
         </Link>
         <Link
-          href={'/cells'}
+          href={'/services'}
           className="flex items-center border-b py-5 hover:text-secondary"
         >
-          <MdGroups className="mr-3" />
-          <div className="font-semibold">Cells</div>
+          <FaChurch className="mr-3" />
+          <div className="font-semibold">Church Services</div>
         </Link>
         <Link
           href={'/expenditures'}

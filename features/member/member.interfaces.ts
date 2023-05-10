@@ -41,7 +41,6 @@ export interface IMembersRes {
   success: boolean
   count: number | 0
   members: IMember[]
-  status: null | number
 }
 
 export interface IMemberRes {
@@ -83,7 +82,7 @@ export interface IMemberInitialState {
   isLoading: boolean
   isSuccess: boolean
   isError: boolean
-  error: null | IError
+  error?: IError['error']
   advancedSearchFormData: null | IMemberQuery
   membersRes: IMembersRes
   memberResCRUD: IMemberRes

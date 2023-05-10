@@ -1,16 +1,14 @@
 import { FC } from 'react'
-import Link from 'next/link'
 import { ImCross } from 'react-icons/im'
 import { TiTick } from 'react-icons/ti'
-import { IChurchService } from '../../churchService'
 import { IMember } from '../../member'
 import { useAppDispatch } from '../../../hooks'
 import { markAsAbsentAction, takeAttendanceAction } from '../attendance.actions'
 
-const MarkAttendanceItem: FC<{
-  member: IMember
-  churchServiceId: IChurchService['_id']
-}> = ({ member: { _id, fullName, gender, attendances }, churchServiceId }) => {
+const MarkAttendanceItem: FC<{ member: IMember; churchServiceId: string }> = ({
+  member: { _id, fullName, gender, attendances },
+  churchServiceId,
+}) => {
   const dispatch = useAppDispatch()
 
   const memberIsPresent =

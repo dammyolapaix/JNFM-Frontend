@@ -8,12 +8,12 @@ import {
   IMemberRes,
   IMembersRes,
 } from './index'
+import { IError } from '../../interfaces'
 
 const initialState = {
   isLoading: false,
   isSuccess: false,
   isError: false,
-  error: null,
   advancedSearchFormData: null,
   membersRes: { success: false, count: 0, members: [], status: null },
   memberResCRUD: { success: false, member: null },
@@ -30,9 +30,8 @@ export const memberSlices = createSlice({
       state.isLoading = false
       state.isSuccess = false
       state.isError = false
-      state.error = null
       state.advancedSearchFormData = null
-      state.membersRes = { success: false, count: 0, members: [], status: null }
+      state.membersRes = { success: false, count: 0, members: [] }
       state.memberResCRUD = { success: false, member: null }
     },
   },
@@ -49,13 +48,16 @@ export const memberSlices = createSlice({
         state.membersRes = action.payload
       }
     )
-    builder.addCase(getMembersAction.rejected, (state, action) => {
-      state.isLoading = false
-      state.isError = true
-      if (action.payload) {
-        state.error = action.payload
+    builder.addCase(
+      getMembersAction.rejected,
+      (state, action: PayloadAction<IError['error'] | undefined>) => {
+        state.isLoading = false
+        state.isError = true
+        if (action.payload) {
+          state.error = action.payload
+        }
       }
-    })
+    )
 
     // Add Member
     builder.addCase(addMemberAction.pending, (state) => {
@@ -92,10 +94,12 @@ export const memberSlices = createSlice({
     )
     builder.addCase(
       editMemberAction.rejected,
-      (state, action: PayloadAction<any>) => {
+      (state, action: PayloadAction<IError['error'] | undefined>) => {
         state.isLoading = false
         state.isError = true
-        state.error = action.payload
+        if (action.payload) {
+          state.error = action.payload
+        }
       }
     )
   },

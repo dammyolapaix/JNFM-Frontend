@@ -1,3 +1,4 @@
+import { IError } from '../../interfaces'
 import { IChurchService } from '../churchService'
 import { IMember } from '../member'
 
@@ -25,6 +26,7 @@ export interface IAttendanceInitialState {
   isLoading: boolean
   isSuccess: boolean
   isError: boolean
-  error: null
+  error?: IError['error']
+  attendancesRes: IAttendancesRes
   attendanceResCRUD: IAttendanceRes
 }
