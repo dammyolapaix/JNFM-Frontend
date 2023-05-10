@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { IMembersRes } from '../member.interfaces'
-import { MembersOverview, MembersTableLayout } from '../index'
+import { MembersGraph, MembersOverview, MembersTableLayout } from '../index'
 
 const Members: FC<{ membersRes: IMembersRes }> = ({
   membersRes: { count, members },
@@ -13,6 +13,7 @@ const Members: FC<{ membersRes: IMembersRes }> = ({
         </h1>
       </div>
       <MembersOverview members={members} />
+      <MembersGraph members={members} />
     </>
   )
 }
