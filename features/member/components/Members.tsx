@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { IMembersRes } from '../member.interfaces'
-import { MembersGraph, MembersOverview, MembersTableLayout } from '../index'
+import { MembersGraph, MembersOverview, MembersTable } from '../index'
+import { NoRecordFound } from '../../../components'
 
 const Members: FC<{ membersRes: IMembersRes }> = ({
   membersRes: { count, members },
@@ -12,22 +13,18 @@ const Members: FC<{ membersRes: IMembersRes }> = ({
           Members ({count})
         </h1>
       </div>
-      <MembersOverview members={members} />
-      <MembersGraph members={members} />
+
+      {count > 0 ? (
+        <>
+          <MembersOverview members={members} />
+          <MembersGraph members={members} />
+          <MembersTable members={members} />
+        </>
+      ) : (
+        <NoRecordFound message="No Member Found" />
+      )}
     </>
   )
 }
-
-// const Members: FC<{
-//   membersRes: IMembersRes
-//   membersResQueryCountIsZero: boolean
-// }> = ({ membersRes, membersResQueryCountIsZero }) => {
-//   return (
-//     <MembersTableLayout
-//       membersRes={membersRes}
-//       membersResQueryCountIsZero={membersResQueryCountIsZero}
-//     />
-//   )
-// }
 
 export default Members

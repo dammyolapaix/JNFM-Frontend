@@ -6,22 +6,25 @@ import { MdEdit, MdRemoveRedEye } from 'react-icons/md'
 import { formatDateToddmYYY, getAge } from '../../../utils'
 
 const MemberItem: FC<{ member: IMember }> = ({
-  member: { _id, fullName, gender, dateOfBirth, cell, attendances },
+  member: { _id, fullName, gender, dateOfBirth, cell },
 }) => {
-  const { route, query } = useRouter()
-
-  const memberIsPresent =
-    attendances &&
-    attendances.some(
-      (attendance) =>
-        typeof attendance.churchService === 'string' &&
-        attendance.churchService === query.serviceId
-    )
+  const { route } = useRouter()
 
   return (
     <>
       <tr className="border">
-        <td className="p-3">{fullName ? fullName : ''}</td>
+        <td className="p-3">
+          {fullName ? (
+            <Link
+              href={`/members/${_id}`}
+              className="text-primary hover:text-tertiary"
+            >
+              {fullName}
+            </Link>
+          ) : (
+            ''
+          )}
+        </td>
         <td>{gender ? gender?.at(0) : 'Not Given'}</td>
         <td>{dateOfBirth ? getAge(dateOfBirth) : 'Not Given'}</td>
         {!route.includes('/cells/[id]') && (
@@ -39,40 +42,22 @@ const MemberItem: FC<{ member: IMember }> = ({
           </td>
         )}
 
-        {route === '/cells/[id]/[serviceId]/attendance' && (
-          <td>
-            {cell && cell?.dateJoined
-              ? formatDateToddmYYY(cell?.dateJoined)
-              : 'Not Given'}
-          </td>
-        )}
+        <td>
+          {cell && cell?.dateJoined
+            ? formatDateToddmYYY(cell?.dateJoined)
+            : 'Not Given'}
+        </td>
 
-        {route === '/cells/[id]/[serviceId]/attendance' ? (
-          <td>
-            {typeof memberIsPresent !== 'undefined' && memberIsPresent ? (
-              <span className="text-green-500">Present</span>
-            ) : (
-              <span className="text-red-500">Absent</span>
-            )}
-          </td>
-        ) : (
-          <td className="flex items-center mt-2">
+        <td className="flex items-center mt-2">
+          {cell && cell?.cell && typeof cell?.cell === 'object' && (
             <Link
-              href={`/members/${_id}`}
-              className="bg-secondary hover:bg-tertiary text-white rounded-md py-2 px-4 mr-3"
+              href={`/cells/${cell.cell._id}/members/${_id}/edit`}
+              className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4"
             >
-              <MdRemoveRedEye />
+              <MdEdit />
             </Link>
-            {cell && cell?.cell && typeof cell?.cell === 'object' && (
-              <Link
-                href={`/cells/${cell.cell._id}/members/${_id}/edit`}
-                className="bg-primary hover:bg-tertiary text-white rounded-md py-2 px-4"
-              >
-                <MdEdit />
-              </Link>
-            )}
-          </td>
-        )}
+          )}
+        </td>
       </tr>
     </>
   )
