@@ -29,14 +29,7 @@ const MembersPage: NextPage<
             isError={isError}
             error={error && error}
           ></QueryResult>
-          {membersRes && (
-            <Members
-              membersRes={isSuccess ? membersResQuery : membersRes}
-              membersResQueryCountIsZero={
-                isSuccess && membersResQuery.count === 0
-              }
-            />
-          )}
+          {membersRes && <Members membersRes={membersRes} />}
         </>
       ) : (
         <div>Loading...</div>
