@@ -1,28 +1,6 @@
 import React, { FC } from 'react'
 import { IMember, useMembersTotal } from '../'
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-} from 'chart.js'
-import { Pie } from 'react-chartjs-2'
-
-ChartJS.register(
-  ArcElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title
-)
+import { AppPieChart } from '../../../utils'
 
 const MaleFemalePieChart: FC<{ members: IMember[] }> = ({ members }) => {
   const { totalFemales, totalMales } = useMembersTotal(members)
@@ -39,7 +17,7 @@ const MaleFemalePieChart: FC<{ members: IMember[] }> = ({ members }) => {
       },
     ],
   }
-  return <Pie data={data} />
+  return <AppPieChart data={data} />
 }
 
 export default MaleFemalePieChart
