@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { IMember, MaleFemalePieChart } from '../'
+import { IMember, MaleFemalePieChart, NewMembersLineChart } from '../'
 
 const MembersGraph: FC<{ members: IMember[] }> = ({ members }) => {
   return (
@@ -8,6 +8,9 @@ const MembersGraph: FC<{ members: IMember[] }> = ({ members }) => {
       <div className="grid md:grid-cols-2">
         <div className="h-96">
           <MaleFemalePieChart members={members} />
+        </div>
+        <div className="h-96">
+          <NewMembersLineChart members={members} />
         </div>
       </div>
     </div>
