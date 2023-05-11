@@ -1,12 +1,18 @@
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
-import { MemberItem, IMember, MemberAdvancedSearchInputForm } from '../index'
+import {
+  MemberItem,
+  IMember,
+  MemberAdvancedSearchInputForm,
+  generateMembersReport,
+} from '../index'
 import {
   AdvancedSearchDrawer,
   NoRecordFound,
   QueryResult,
 } from '../../../components'
 import { useAppSelector } from '../../../hooks'
+import { MdFileDownload } from 'react-icons/md'
 
 const MembersTable: FC<{
   members: IMember[]
@@ -56,9 +62,15 @@ const MembersTable: FC<{
             <h2 className="font-bold text-xl text-secondary mb-5">
               Members ({isClient ? membersResClient.count : members.length})
             </h2>
-            <AdvancedSearchDrawer
-              children={<MemberAdvancedSearchInputForm />}
-            />
+            <div className="flex justify-between items-center">
+              <MdFileDownload
+                onClick={() => generateMembersReport(members)}
+                className="text-primary text-4xl cursor-pointer hover:text-primary/60"
+              />
+              <AdvancedSearchDrawer
+                children={<MemberAdvancedSearchInputForm />}
+              />
+            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">

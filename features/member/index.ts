@@ -60,8 +60,12 @@ import {
   nearestRelativeRelationships,
 } from './member.inputOptions'
 
+// Importing Hooks
 import useMembersTotal from './hooks/useMembersTotal'
 import useGetMembersByMonthJoined from './hooks/useGetMembersByMonthJoined'
+
+// Importing Utils
+import { generateMembersReport } from './utils/generateReport.utils'
 
 // Exporting Interfaces
 export type {
@@ -111,5 +115,8 @@ export { memberReducers, resetMember, setAdvancedSearchFormData }
 // Exporting Input Options
 export { genders, maritalStatuses, ages, nearestRelativeRelationships }
 
-// Exporting Input Options
+// Exporting Hooks
 export { useMembersTotal, useGetMembersByMonthJoined }
+
+// Exporting Utils
+export { generateMembersReport }
