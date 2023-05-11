@@ -26,6 +26,10 @@ import MemberTithes from './components/MemberTithes'
 import MemberTitheItem from './components/MemberTitheItem'
 import MemberAdvancedSearchInputForm from './components/MemberAdvancedSearchInputForm'
 import MembersStats from './components/MembersStats'
+import MembersOverview from './components/MembersOverview'
+import MaleFemalePieChart from './components/MaleFemalePieChart'
+import MembersGraph from './components/MembersGraph'
+import NewMembersLineChart from './components/NewMembersLineChart'
 
 // Importing Services
 import {
@@ -55,6 +59,9 @@ import {
   ages,
   nearestRelativeRelationships,
 } from './member.inputOptions'
+
+import useMembersTotal from './hooks/useMembersTotal'
+import useGetMembersByMonthJoined from './hooks/useGetMembersByMonthJoined'
 
 // Exporting Interfaces
 export type {
@@ -86,6 +93,10 @@ export {
   MemberTitheItem,
   MemberAdvancedSearchInputForm,
   MembersStats,
+  MembersOverview,
+  MaleFemalePieChart,
+  MembersGraph,
+  NewMembersLineChart,
 }
 
 // Exporting Services
@@ -99,3 +110,6 @@ export { memberReducers, resetMember, setAdvancedSearchFormData }
 
 // Exporting Input Options
 export { genders, maritalStatuses, ages, nearestRelativeRelationships }
+
+// Exporting Input Options
+export { useMembersTotal, useGetMembersByMonthJoined }

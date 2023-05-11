@@ -1,16 +1,29 @@
 import React, { FC } from 'react'
 import { IMembersRes } from '../member.interfaces'
-import { MembersTableLayout } from '../index'
+import { MembersGraph, MembersOverview, MembersTable } from '../index'
+import { NoRecordFound } from '../../../components'
 
-const Members: FC<{
-  membersRes: IMembersRes
-  membersResQueryCountIsZero: boolean
-}> = ({ membersRes, membersResQueryCountIsZero }) => {
+const Members: FC<{ membersRes: IMembersRes }> = ({
+  membersRes: { count, members },
+}) => {
   return (
-    <MembersTableLayout
-      membersRes={membersRes}
-      membersResQueryCountIsZero={membersResQueryCountIsZero}
-    />
+    <>
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="font-extrabold text-2xl mb-5 text-secondary">
+          Members ({count})
+        </h1>
+      </div>
+
+      {count > 0 ? (
+        <>
+          <MembersOverview members={members} />
+          <MembersGraph members={members} />
+          <MembersTable members={members} />
+        </>
+      ) : (
+        <NoRecordFound message="No Member Found" />
+      )}
+    </>
   )
 }
 
