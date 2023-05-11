@@ -9,30 +9,12 @@ import { IError } from '../../interfaces'
 const MembersPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ membersRes, errorMessage }) => {
-  const {
-    isLoading,
-    isError,
-    error,
-    isSuccess,
-    membersRes: membersResQuery,
-  } = useAppSelector((state) => state.member)
-
   return (
     <Layout>
       {errorMessage ? (
         <ErrorMessage errorMessage={errorMessage} />
-      ) : membersRes ? (
-        <>
-          <QueryResult
-            isLoading={isLoading}
-            isSuccess={isSuccess}
-            isError={isError}
-            error={error && error}
-          ></QueryResult>
-          {membersRes && <Members membersRes={membersRes} />}
-        </>
       ) : (
-        <div>Loading...</div>
+        membersRes && membersRes && <Members membersRes={membersRes} />
       )}
     </Layout>
   )

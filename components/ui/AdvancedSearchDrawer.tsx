@@ -1,7 +1,7 @@
 import { FC, ReactNode, useState } from 'react'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
-import { FaSearchPlus } from 'react-icons/fa'
+import { BiFilterAlt } from 'react-icons/bi'
 
 type Anchor = 'right'
 
@@ -39,10 +39,12 @@ const AdvancedSearchDrawer: FC<{ children: ReactNode }> = ({ children }) => {
     <>
       <div
         onClick={toggleDrawer('right', true)}
-        className="cursor-pointer bg-tertiary hover:bg-primary text-white rounded-md py-2 px-4 flex items-center"
+        // className="cursor-pointer bg-tertiary hover:bg-primary text-white rounded-md py-2 px-4 flex items-center"
+        className="flex items-center"
       >
-        <FaSearchPlus />
-        <div className="pl-1">Advance Search</div>
+        <BiFilterAlt className="cursor-pointer text-tertiary hover:text-primary text-3xl font-bold" />
+        {/* <FaSearchPlus /> */}
+        {/* <div className="pl-1">Filter</div> */}
       </div>
 
       <Drawer
