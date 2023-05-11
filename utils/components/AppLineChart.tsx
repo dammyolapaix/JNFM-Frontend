@@ -27,8 +27,8 @@ interface IAppLineChart {
   datasets: {
     label: string
     data: number[]
-    backgroundColor: string[]
-    borderColor: string[]
+    backgroundColor: string
+    borderColor: string
   }[]
 }
 
