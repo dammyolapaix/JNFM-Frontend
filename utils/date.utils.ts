@@ -45,3 +45,17 @@ export const getAge = (dateOfBirth: string): string => {
 
   return getAge
 }
+
+export const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'August',
+  'September',
+  'October',
+  'Novermber',
+  'December',
+]
